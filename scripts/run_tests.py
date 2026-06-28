@@ -411,6 +411,21 @@ def main(argv: Optional[List[str]] = None) -> int:
         result.save_json(report_path)
         print(f"Report saved: {report_path}")
 
+    # Auto-generate the combined matrix after all test runs
+    try:
+        from .generate_matrix import load_all_results, build_feature_index, generate_matrix_markdown, generate_matrix_json
+    except ImportError:
+        from generate_matrix import load_all_results, build_feature_index, generate_matrix_markdown, generate_matrix_json
+    import json as _json
+    all_reports = load_all_results(results_dir)
+    if all_reports:
+        features = build_feature_index(all_reports)
+        md = generate_matrix_markdown(all_reports, features)
+        (results_dir / "matrix.md").write_text(md, encoding="utf-8")
+        json_data = generate_matrix_json(all_reports, features)
+        (results_dir / "matrix.json").write_text(_json.dumps(json_data, indent=2), encoding="utf-8")
+        print(f"Matrix saved: {results_dir / 'matrix.md'}")
+
     return 0
 
 
