@@ -16,7 +16,7 @@ Build a structured VHDL compatibility test suite covering **all standards after 
 ## Phase 1: Project Scaffolding & Test File Design ✅
 
 ### 1.1 Create project structure ✅
-- Git repo at `c:\proj\rune\fpga\vhdl-compatibility`
+- Git repo initialized at project root
 - Full directory tree created
 - `.gitignore`, `pyproject.toml`, `README.md`, `LICENSE` created
 - `scripts/` Python package created
