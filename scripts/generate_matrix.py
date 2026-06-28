@@ -334,16 +334,11 @@ def main(argv: Optional[List[str]] = None) -> int:
     features = build_feature_index(all_reports)
     print(f"Found {len(features)} unique feature(s) across all reports")
 
-    # Generate Markdown
+    # Generate Markdown — save directly to project root
     md = generate_matrix_markdown(all_reports, features)
-    md_path = results_dir / "matrix.md"
-    md_path.write_text(md, encoding="utf-8")
-    print(f"Matrix (Markdown) saved: {md_path}")
-
-    # Copy to project root for prominent visibility
     root_path = results_dir.parent / "matrix.md"
     root_path.write_text(md, encoding="utf-8")
-    print(f"Matrix (Markdown) copied: {root_path}")
+    print(f"Matrix (Markdown) saved: {root_path}")
 
     # Generate JSON
     json_data = generate_matrix_json(all_reports, features)
