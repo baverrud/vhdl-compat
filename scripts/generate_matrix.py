@@ -163,15 +163,15 @@ def _get_status_priority(
 
 
 def build_status_cell(status: str) -> str:
-    """Convert a status string to a compact table cell."""
+    """Convert a status string to a compact table cell — only PASS vs FAIL."""
     mapping = {
         "pass": "✅",
-        "partial": "⚠️",
+        "partial": "❌",
         "fail": "❌",
-        "untested": "⬜",
-        "n/a": "➖",
+        "untested": "❌",
+        "n/a": "❌",
     }
-    return mapping.get(status, "?")
+    return mapping.get(status, "❌")
 
 
 def generate_matrix_markdown(
@@ -186,7 +186,7 @@ def generate_matrix_markdown(
     lines.append(f"**Generated from {len(all_reports)} test runs across "
                  f"{len(set(k.split('/')[0] for k in all_reports))} tools.**")
     lines.append("")
-    lines.append("> Legend: ✅ PASS  ⚠️ PARTIAL  ❌ FAIL  ⬜ UNTESTED  ➖ N/A")
+    lines.append("> Legend: ✅ PASS  ❌ FAIL")
     lines.append("")
 
     # Column headers: group by unique tool-version, deduplicate across standards
@@ -208,7 +208,7 @@ def generate_matrix_markdown(
         # Standard section header
         if std != current_std:
             current_std = std
-            lines.append(f"| **VHDL-{std}** | | | |" + " | " * len(col_headers))
+            lines.append(f"| **VHDL-{std}** | | |" + "|".join([""] * len(col_headers)) + "|")
 
         # Build display name: prepend LCS xref for VHDL-2019
         display_feature = feature
@@ -220,7 +220,7 @@ def generate_matrix_markdown(
 
         for tool_ver in col_headers:
             # Find the report for this tool-version that matches the feature's standard
-            cell = " ➖ |"
+            cell = " ❌ |"
             for col_key in columns:
                 if col_key.startswith(tool_ver + "/"):
                     data = all_reports.get(col_key)
