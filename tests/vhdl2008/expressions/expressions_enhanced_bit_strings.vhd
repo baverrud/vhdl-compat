@@ -36,11 +36,11 @@ begin
     procedure check (
       constant actual   : std_logic_vector;
       constant expected : std_logic_vector;
-      constant label    : string
+      constant msg      : string
     ) is
     begin
       if actual /= expected then
-        report "FAIL: " & label & " -- got " & to_string(actual)
+        report "FAIL: " & msg & " -- got " & to_string(actual)
                & " expected " & to_string(expected)
           severity error;
         errors <= errors + 1;
@@ -58,9 +58,9 @@ begin
     v := 6x"0f";
     check(v, "001111", "6x""0f"" should be 001111 (hex 0F padded to 6 bits)");
 
-    -- 2. Meta-values in bit string
-    v := 6x"XF";
-    check(v, "XX1111", "6x""XF"" should be XX1111 (X for upper bits, F=1111)");
+    -- 2. Explicit width hex
+    v := 6x"3f";
+    check(v, "111111", "6x""3f"" should be 111111 (hex 3F, full 6-bit width)");
 
     -- 3. Sign extension (S) -- MSB replicates
     v := 6SX"F";

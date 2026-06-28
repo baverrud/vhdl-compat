@@ -40,7 +40,7 @@ begin
     procedure check_condition (
       constant value    : std_logic;
       constant expected : boolean;
-      constant label    : string
+      constant msg      : string
     ) is
     begin
       -- Test explicit ?? operator
@@ -59,7 +59,7 @@ begin
     procedure check_implicit (
       constant value    : std_logic;
       constant expected : boolean;
-      constant label    : string
+      constant msg      : string
     ) is
       variable if_taken : boolean := false;
     begin

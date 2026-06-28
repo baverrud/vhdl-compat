@@ -34,8 +34,8 @@ end entity;
 
 /*
  * Architecture with block comments used throughout.
- * Notice that /* nested block comments */ may or may not be supported
- * depending on the tool -- this test only checks non-nested /* */.
+ * Note: nested block comments are not tested here --
+ * this test only verifies basic non-nested block comment syntax.
  */
 architecture test of tb_block_comments is
 begin

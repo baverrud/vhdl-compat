@@ -61,6 +61,10 @@ end architecture;
 -- ============================================================================
 -- Top-level wrapper: instantiates the counter
 -- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
 entity top is
   port (
     clk : in  std_logic;
@@ -84,6 +88,11 @@ end architecture;
 -- ============================================================================
 -- Testbench: accesses counter's internal "count" via external name
 -- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use std.env.all;
+
 entity tb_external_names is
 end entity;
 
