@@ -87,6 +87,7 @@ class RunResult:
                     "category": r.category,
                     "test_type": r.test_type,
                     "xref": r.xref,
+                    "test_file": r.test_file,
                     "comment": r.comment,
                     "compile_time_ms": r.compile_time_ms,
                     "sim_time_ms": r.sim_time_ms,

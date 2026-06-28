@@ -210,10 +210,16 @@ def generate_matrix_markdown(
             current_std = std
             lines.append(f"| **VHDL-{std}** | | |" + "|".join([""] * len(col_headers)) + "|")
 
-        # Build display name: prepend LCS xref for VHDL-2019
+        # Build display name: prepend LCS xref for VHDL-2019, link to test file
         display_feature = feature
         if xref:
             display_feature = f"{xref}: {feature}"
+
+        # Try to find the test file path for this feature to create a link
+        test_file = _find_test_file(all_reports, std, feature, category)
+        if test_file:
+            url = GITHUB_BASE + test_file
+            display_feature = f"[{display_feature}]({url})"
 
         # Build row
         row = f"| {display_feature} | {std} | {category} |"
@@ -244,6 +250,27 @@ def _find_result(report_data: dict, feature: str, category: str) -> Optional[dic
                 and result.get("category") == category):
             return result
     return None
+
+
+# Base URL for linking to test files on GitHub
+GITHUB_BASE = "https://github.com/baverrud/vhdl-compat/blob/main/tests/"
+
+
+def _find_test_file(all_reports: Dict[str, dict], std: str,
+                    feature: str, category: str) -> Optional[str]:
+    """Find the test file path for a given feature by scanning reports."""
+    candidate = ""
+    for data in all_reports.values():
+        if data.get("standard") != std:
+            continue
+        for result in data.get("results", {}).values():
+            if (result.get("feature") == feature
+                    and result.get("category") == category):
+                test_file = result.get("test_file", "")
+                if test_file:
+                    return test_file  # Found one with test_file — use it
+                candidate = test_file
+    return candidate or None
 
 
 def generate_matrix_json(
