@@ -89,15 +89,12 @@ def build_feature_index(all_reports: Dict[str, dict]) -> List[Tuple[str, str, st
         (std, cat, feat, xref) for (std, cat, feat), xref in feature_map.items()
     ]
 
-    # Sort: chronological by standard, then VHDL-2019 by pass/fail priority
+    # Sort: chronological by standard, then by pass/fail priority for primary tool
     def sort_key(item: Tuple[str, str, str, str]) -> tuple:
         std, cat, feat, xref = item
         std_order = _std_sort_key(std)
-        if std == "2019":
-            status_priority = _get_status_priority(all_reports, primary_col_prefix, std, feat, cat)
-            return (std_order, status_priority, cat, feat)
-        else:
-            return (std_order, 0, cat, feat)
+        status_priority = _get_status_priority(all_reports, primary_col_prefix, std, feat, cat)
+        return (std_order, status_priority, cat, feat)
 
     return sorted(features, key=sort_key)
 
