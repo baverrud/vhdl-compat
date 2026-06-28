@@ -2,10 +2,9 @@
 
 A comprehensive test suite for evaluating EDA tool support of VHDL standards: **VHDL-2000**, **VHDL-2002**, **VHDL-2008**, and **VHDL-2019** — everything after VHDL-1993.
 
-Tests cover **simulation** (compile + run), **synthesis** (compile to netlist), and **backwards-compatibility** (standards enforcement across versions), with per-tool reports and a combined comparison matrix.
+Tests cover **simulation** (compile + run) and **synthesis** (compile to netlist), with per-tool reports and a combined comparison matrix.
 
-> ## 📊 [VHDL Compatibility Matrix →](matrix.md)
-> Live comparison of **68 features** across **Questa 2025.3** and **ModelSim 2020.1** — PASS/FAIL per standard and tool. Updated automatically after each test run.
+> **[📊 VHDL Compatibility Matrix →](matrix.md)** — Live comparison of **68 features** across **Questa 2025.3** and **ModelSim 2020.1**. PASS/FAIL per standard and tool. Updated after each run.
 
 <br>
 
@@ -44,8 +43,7 @@ python -m scripts.run_tests --list
 
 - **One feature, one file.** Each `.vhd` file tests exactly one VHDL language feature in isolation.
 - **Educational by design.** Every test file includes a plain-language explanation of the feature. Ends with a **TAKEAWAY** one-liner. A junior engineer should learn VHDL by browsing `tests/`.
-- **Three-state results.** PASS (works correctly), PARTIAL (compiles but behaves incorrectly), FAIL (rejected by tool). Never a simple pass/fail.
-- **Backwards-compatibility testing.** Verify that a tool's `-93` mode rejects VHDL-2008 keywords, and its `-2008` mode accepts VHDL-93 identifiers.
+- **Self-checking.** Every test file has its own PASS/FAIL assertions. No golden reference files needed.
 - **Tool-agnostic runner.** Add a new tool with a single TOML config file + a lightweight Python adapter.
 
 ## Standards Covered
@@ -56,7 +54,6 @@ python -m scripts.run_tests --list
 | VHDL-2002 | 1076-2002 | ~3 | Forward |
 | VHDL-2008 | 1076-2008 | ~40 | Forward |
 | VHDL-2019 | 1076-2019 | ~43 | Forward |
-| Backwards-compat | Cross-standard | Breaking changes across versions | Backcompat |
 
 ### Forward-Compatibility Categories
 
@@ -64,10 +61,6 @@ python -m scripts.run_tests --list
 **VHDL-2002:** `buffer_ports`  
 **VHDL-2008:** `generics`, `processes`, `expressions`, `aggregates`, `generate`, `types`, `packages`, `verification`, `ports`, `misc`  
 **VHDL-2019:** `vectors`, `protected_types`, `file_io`, `env`, `conditional_analysis`, `sequential`, `attributes`, `types_2019`, `interfaces`, `generics_2019`, `assert_api`, `psl`, `syntax`
-
-### Backwards-Compatibility Categories
-
-`backcompat/keywords/` — new reserved keywords | `backcompat/types/` — type system changes | `backcompat/functions/` — predefined name collisions | `backcompat/syntax/` — syntax changes | `backcompat/semantic/` — semantic rule changes
 
 ### Complete VHDL-2019 Feature Catalog
 
@@ -77,7 +70,18 @@ All 43 features identified by LCS number. See [`docs/plan.md`](docs/plan.md) for
 
 ```
 results/
-├── vivado-2024.1/
+├── questa-2025.3/
+│   ├── vhdl2000-analyze/report.json
+│   ├── vhdl2002-analyze/report.json
+│   ├── vhdl2008-analyze/report.json
+│   └── vhdl2019-analyze/report.json
+├── modelsim-2020.1/
+│   └── ... (same structure)
+├── matrix.json
+└── matrix.md
+```
+
+[**matrix.md**](matrix.md) at the project root is a combined comparison view across all tools and standards. Generated automatically by `vhdl-compat-matrix` or at the end of any `run_tests.py` run.
 │   ├── vhdl2008-sim/
 │   │   ├── report.json    # Machine-readable per-feature results
 │   │   └── report.md      # Human-readable summary with details
