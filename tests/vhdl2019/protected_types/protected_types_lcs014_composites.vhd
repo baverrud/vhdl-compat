@@ -50,7 +50,7 @@ architecture test of tb_pt_composites is
 
   -- VHDL-2019: Record containing a protected type field
   type pt_record is record
-    label  : string(1 to 8);
+    tag   : string(1 to 8);
     counter : counter_t;
   end record;
 
@@ -66,7 +66,7 @@ begin
     report "==============================================" severity note;
 
     -- Use the protected counter inside the record
-    sv_rec.label := "counter1";
+    sv_rec.tag := "counter1";
     sv_rec.counter.increment;
     sv_rec.counter.increment;
     sv_rec.counter.increment;

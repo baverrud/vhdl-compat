@@ -39,6 +39,7 @@
 | [Reading output ports — out-mode ports can be read in the same entity](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_read_output.vhd) | 2008 | ports | ✅ | ✅ |
 | [Conditional sequential assignment — when/else inside processes](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/processes/processes_seq_assignments.vhd) | 2008 | processes | ✅ | ✅ |
 | [FT19: process(all) -- automatic sensitivity list inference](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/processes/processes_process_all.vhd) | 2008 | processes | ✅ | ✅ |
+| ['driving and 'driving_value — query signal driver status](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_driving_attributes.vhd) | 2008 | types | ✅ | ✅ |
 | [Matching case statement (case?) — don't-care aware pattern matching](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_matching_case.vhd) | 2008 | types | ✅ | ✅ |
 | [Predefined array types — boolean_vector, integer_vector, real_vector, time_vector](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_predefined_vectors.vhd) | 2008 | types | ✅ | ✅ |
 | [Unconstrained element types — records with unconstrained array fields](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_unconstrained_elements.vhd) | 2008 | types | ✅ | ✅ |
@@ -48,7 +49,6 @@
 | [open in aggregates — leave aggregate elements unconnected](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_open_in_aggregates.vhd) | 2008 | aggregates | ❌ | ❌ |
 | [Default values for generic types — generic type with optional default](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generics/generics_default_types.vhd) | 2008 | generics | ❌ | ❌ |
 | [numeric_std_signed — signed arithmetic on std_logic_vector without casting](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_signed.vhd) | 2008 | packages | ❌ | ❌ |
-| ['driving and 'driving_value — query signal driver status](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_driving_attributes.vhd) | 2008 | types | ❌ | ❌ |
 | **VHDL-2019** | | |||
 | [LCS2016-050: Full assert API — IsVhdlAssertFailed, GetVhdlAssertCount, SetVhdlAssertFormat](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/assert_api/assert_api_lcs050_full_api.vhd) | 2019 | assert_api | ✅ | ❌ |
 | [LCS2016-081: Optional report clause in assert — assert without message string](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/assert_api/assert_api_lcs081_no_message.vhd) | 2019 | assert_api | ✅ | ❌ |
@@ -78,6 +78,7 @@
 | [LCS2016-071a: Optional trailing semicolon in interface lists](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs071a_optional_trailing_semicolon.vhd) | 2019 | syntax | ✅ | ❌ |
 | [LCS2016-I03: Signatures in association lists — explicit subprogram signatures](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcsI03_signatures.vhd) | 2019 | syntax | ✅ | ❌ |
 | [LCS2016-055a: Syntax regularization -- component declarations made optional](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs055a_components.vhd) | 2019 | syntax | ✅ | ❌ |
+| [LCS2016-028: Access external types through library path — cross-library type visibility](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs028_external_types.vhd) | 2019 | types_2019 | ✅ | ❌ |
 | [LCS2016-082: Empty records -- record types with no elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs082_empty_records.vhd) | 2019 | types_2019 | ✅ | ❌ |
 | [LCS2016-019: Inferred constraints — constrain unconstrained record elements at signal declaration](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs019_inferred_constraints.vhd) | 2019 | types_2019 | ✅ | ❌ |
 | [LCS2016-059a: Scalar array ordering — relational operators on any scalar array type](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs059a_scalar_ordering.vhd) | 2019 | types_2019 | ✅ | ❌ |
@@ -97,7 +98,6 @@
 | [LCS2016-007: Sequential declaration regions — declare variables anywhere in sequential code](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs007_declaration_regions.vhd) | 2019 | sequential | ❌ | ❌ |
 | [LCS2016-I13: Precedence of unary operators — standardized unary operator binding](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcsI13_unary_precedence.vhd) | 2019 | syntax | ❌ | ❌ |
 | [LCS2016-023: Relaxed library requirement on configurations](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs023_relaxed_library.vhd) | 2019 | syntax | ❌ | ❌ |
-| [LCS2016-028: Access external types through library path — cross-library type visibility](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs028_external_types.vhd) | 2019 | types_2019 | ❌ | ❌ |
 | [LCS2016-016: Anonymous types in interface lists — types declared inline in ports/generics](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs016_anonymous_types.vhd) | 2019 | types_2019 | ❌ | ❌ |
 | [LCS2016-075: Closely related record types — implicit conversion between similar records](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs075_related_records.vhd) | 2019 | types_2019 | ❌ | ❌ |
 | [LCS2016-026c: Long integers — 64-bit integer support](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs026c_long_integers.vhd) | 2019 | types_2019 | ❌ | ❌ |

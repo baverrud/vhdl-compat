@@ -30,8 +30,10 @@ package cross_lib_pkg is
   constant DEFAULT_BYTE : byte := X"AB";
 end package;
 
+-- Re-import needed by entity/architecture below
 library ieee;
 use ieee.std_logic_1164.all;
+use std.env.all;
 use work.cross_lib_pkg.all;
 
 entity tb_external_types is

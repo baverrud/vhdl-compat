@@ -31,6 +31,9 @@ use std.env.all;
 -- ============================================================================
 -- Package A: defines a bus record
 -- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+
 package pkg_a is
   type bus_t is record
     addr : std_logic_vector(7 downto 0);
@@ -42,6 +45,9 @@ end package;
 -- ============================================================================
 -- Package B: defines a structurally identical record (different type name)
 -- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+
 package pkg_b is
   type bus_t is record
     addr : std_logic_vector(7 downto 0);
@@ -50,6 +56,9 @@ package pkg_b is
   end record;
 end package;
 
+library ieee;
+use ieee.std_logic_1164.all;
+use std.env.all;
 use work.pkg_a.all;
 use work.pkg_b.all;
 

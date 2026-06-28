@@ -32,7 +32,6 @@ end entity;
 
 architecture test of tb_driving is
   signal my_sig : std_logic := 'Z';
-  signal check_val : std_logic;
 begin
 
   -- Driver 1: drives '1'
@@ -42,15 +41,6 @@ begin
     wait;
   end process;
 
-  -- Monitoring process that checks driving attributes
-  monitor : process(my_sig)
-  begin
-    -- VHDL-2008: 'driving and 'driving_value attributes
-    if my_sig'driving then
-      check_val <= my_sig'driving_value;
-    end if;
-  end process;
-
   stim_proc : process
   begin
     report "==============================================" severity note;
@@ -58,21 +48,16 @@ begin
     report "STD:  VHDL-2008" severity note;
     report "==============================================" severity note;
 
-    -- VHDL-2008: Check if we are driving in this process
+    -- VHDL-2008: Check 'driving in a process that actually drives this signal
     my_sig <= '0';
     wait for 5 ns;
 
+    -- This process drives my_sig (via the assignment above), so 'driving is valid
     if my_sig'driving then
-      report "  This process is driving my_sig with " &
-             std_logic'image(my_sig'driving_value) severity note;
-    end if;
-
-    -- Verify driving value matches what we set
-    my_sig <= '1';
-    wait for 1 ns;
-    if my_sig'driving then
-      assert my_sig'driving_value = '1'
-        report "FAIL: 'driving_value should be '1'"
+      report "  This process is driving my_sig" severity note;
+      assert my_sig'driving_value = '0'
+        report "FAIL: 'driving_value should be '0', got "
+               & std_logic'image(my_sig'driving_value)
         severity error;
     end if;
 
