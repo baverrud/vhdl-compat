@@ -107,7 +107,8 @@ class QuestaRunner(ToolRunner):
             result.errors_raw = clean[:2000]
 
             # Questa exit code is unreliable — grep for actual errors
-            if "** Error:" in output:
+            # Match both "** Error:" and "** Error (suppressible):" formats
+            if "** Error" in output:
                 result.status = TestStatus.FAIL
                 for line in output.split("\n"):
                     if "** Error:" in line:
@@ -140,12 +141,12 @@ class QuestaRunner(ToolRunner):
             from tool_discovery import detect_installed_versions
 
         detected = detect_installed_versions(Path("tools"), verbose=False)
-        # Check both questa and modelsim (same CLI, same adapter)
-        for tool_key in ("questa", "modelsim"):
-            for dt in detected.get(tool_key, []):
-                vcom = dt.exe_dir / ("vcom.exe" if os.name == "nt" else "vcom")
-                if vcom.exists():
-                    return vcom
+        # Only search for the tool this runner was configured for
+        tool_key = self.config.name.lower()
+        for dt in detected.get(tool_key, []):
+            vcom = dt.exe_dir / ("vcom.exe" if os.name == "nt" else "vcom")
+            if vcom.exists():
+                return vcom
         return None
 
     def _get_std_flags(self, standard: str) -> list:
