@@ -93,25 +93,14 @@ def generate_matrix_markdown(
     lines.append("> Legend: ✅ PASS  ⚠️ PARTIAL  ❌ FAIL  ⬜ UNTESTED  ➖ N/A")
     lines.append("")
 
-    # Column headers: include standard for uniqueness when same tool runs multiple standards
+    # Column headers: group by unique tool-version, deduplicate across standards
     columns = sorted(all_reports.keys())
-    # key format: "Tool-Ver/Std-Mode" → display as "Tool-Ver (Std)"
-    col_headers = []
-    for c in columns:
-        parts = c.split("/")
-        tool_ver = parts[0]
-        std_mode = parts[1] if len(parts) > 1 else ""
-        std = std_mode.split("-")[0] if std_mode else ""
-        # Only add standard suffix if there are multiple runs of the same tool
-        same_tool_runs = sum(1 for cc in columns if cc.split("/")[0] == tool_ver)
-        if same_tool_runs > 1:
-            col_headers.append(f"{tool_ver} ({std})")
-        else:
-            col_headers.append(tool_ver)
+    # Extract unique tool-version identifiers (first part of key before /)
+    col_headers = list(dict.fromkeys(c.split("/")[0] for c in columns))
 
     # Build the table
     header = "| Feature | Standard | Category | " + " | ".join(col_headers) + " |"
-    separator = "|---------|----------|----------|" + "|".join(["---"] * len(columns)) + "|"
+    separator = "|---------|----------|----------|" + "|".join(["---"] * len(col_headers)) + "|"
 
     lines.append(header)
     lines.append(separator)
@@ -121,22 +110,23 @@ def generate_matrix_markdown(
         # Standard section header
         if std != current_std:
             current_std = std
-            lines.append(f"| **VHDL-{std}** | | | |" + " | " * len(columns))
+            lines.append(f"| **VHDL-{std}** | | | |" + " | " * len(col_headers))
 
         # Build row
         row = f"| {feature} | {std} | {category} |"
 
-        for col_key in columns:
-            data = all_reports.get(col_key)
-            if data:
-                # Find matching result
-                result = _find_result(data, feature, category)
-                if result:
-                    row += f" {build_status_cell(result.get('status', 'untested'))} |"
-                else:
-                    row += " ➖ |"
-            else:
-                row += " ➖ |"
+        for tool_ver in col_headers:
+            # Find the report for this tool-version that matches the feature's standard
+            cell = " ➖ |"
+            for col_key in columns:
+                if col_key.startswith(tool_ver + "/"):
+                    data = all_reports.get(col_key)
+                    if data and data.get("standard") == std:
+                        result = _find_result(data, feature, category)
+                        if result:
+                            cell = f" {build_status_cell(result.get('status', 'untested'))} |"
+                        break
+            row += cell
 
         lines.append(row)
 
