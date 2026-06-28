@@ -93,9 +93,21 @@ def generate_matrix_markdown(
     lines.append("> Legend: ✅ PASS  ⚠️ PARTIAL  ❌ FAIL  ⬜ UNTESTED  ➖ N/A")
     lines.append("")
 
-    # Column headers: tool keys (shortened)
+    # Column headers: include standard for uniqueness when same tool runs multiple standards
     columns = sorted(all_reports.keys())
-    col_headers = [c.split("/")[0] for c in columns]  # tool-ver only
+    # key format: "Tool-Ver/Std-Mode" → display as "Tool-Ver (Std)"
+    col_headers = []
+    for c in columns:
+        parts = c.split("/")
+        tool_ver = parts[0]
+        std_mode = parts[1] if len(parts) > 1 else ""
+        std = std_mode.split("-")[0] if std_mode else ""
+        # Only add standard suffix if there are multiple runs of the same tool
+        same_tool_runs = sum(1 for cc in columns if cc.split("/")[0] == tool_ver)
+        if same_tool_runs > 1:
+            col_headers.append(f"{tool_ver} ({std})")
+        else:
+            col_headers.append(tool_ver)
 
     # Build the table
     header = "| Feature | Standard | Category | " + " | ".join(col_headers) + " |"

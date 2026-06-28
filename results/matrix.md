@@ -4,7 +4,7 @@
 
 > Legend: ✅ PASS  ⚠️ PARTIAL  ❌ FAIL  ⬜ UNTESTED  ➖ N/A
 
-| Feature | Standard | Category | ModelSim-2020.1 | ModelSim-2020.1 | Questa-2025.3 | Questa-2025.3 |
+| Feature | Standard | Category | ModelSim-2020.1 (2008) | ModelSim-2020.1 (2019) | Questa-2025.3 (2008) | Questa-2025.3 (2019) |
 |---------|----------|----------|---|---|---|---|
 | **VHDL-2008** | | | | |  |  |  | 
 | ?? (condition operator) — convert std_logic to boolean | 2008 | expressions | ❌ | ➖ | ❌ | ➖ |
