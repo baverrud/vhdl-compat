@@ -36,19 +36,13 @@ package bus_pkg is
     wr   : std_logic;
   end record;
 
-  -- VHDL-2019: Master view — all fields are outputs from the master's perspective
+  -- VHDL-2019: Master view — all fields driven out by the master
   view master_view of simple_bus is
-    addr : out;
-    data : out;
-    wr   : out;
+    addr, data, wr : out;
   end view;
 
-  -- VHDL-2019: Slave view — all fields are inputs from the slave's perspective
-  view slave_view of simple_bus is
-    addr : in;
-    data : in;
-    wr   : in;
-  end view;
+  -- VHDL-2019: Slave view — use 'converse to auto-invert the master view
+  alias slave_view is master_view'converse;
 end package;
 
 library ieee;
@@ -59,16 +53,18 @@ use std.env.all;
 use work.bus_pkg.all;
 
 -- ============================================================================
--- Master entity: drives the bus via master_view
+-- Master entity: drives the bus. Uses `view` mode to specify per-field output directions.
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use work.bus_pkg.all;
 
 entity bus_master is
   port (
-    clk   : in  std_logic;
-    bus_if : view master_view  -- VHDL-2019: use view mode on port
+    clk    : in  std_logic;
+    -- VHDL-2019: view mode — specifies direction per record field
+    bus_if : view master_view of simple_bus
   );
 end entity;
 
@@ -87,15 +83,17 @@ begin
 end architecture;
 
 -- ============================================================================
--- Slave entity: reads the bus via slave_view
+-- Slave entity: reads the bus. Uses `view` with input directions.
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
+use work.bus_pkg.all;
 
 entity bus_slave is
   port (
-    clk   : in  std_logic;
-    bus_if : view slave_view;  -- VHDL-2019: same record type, different view
+    clk      : in  std_logic;
+    -- VHDL-2019: same record type, converse view — fields are inputs here
+    bus_if   : view slave_view of simple_bus;
     addr_out : out std_logic_vector(7 downto 0);
     data_out : out std_logic_vector(7 downto 0);
     wr_out   : out std_logic
@@ -120,6 +118,7 @@ end architecture;
 library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
+use work.bus_pkg.all;
 
 entity tb_interface_views is
 end entity;
@@ -167,13 +166,13 @@ begin
     -- After a few clocks, the slave should have received data from the master
     -- The value is deterministic: counter starts at 0, increments each clock
     if addr_out = x"00" and data_out = x"00" then
-      report "FAIL: slave received all zeros — bus not connected?"
+      report "FAIL: slave received all zeros -- bus not connected?"
         severity error;
       errors <= errors + 1;
     end if;
 
     if errors = 0 then
-      report "PASS: Interface mode views work — master drives bus, slave receives"
+      report "PASS: Interface mode views work -- master drives bus, slave receives"
         severity note;
       stop(0);
     else
