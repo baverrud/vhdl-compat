@@ -4,6 +4,8 @@ A comprehensive test suite for evaluating EDA tool support of VHDL standards: **
 
 Tests cover **simulation** (compile + run), **synthesis** (compile to netlist), and **backwards-compatibility** (standards enforcement across versions), with per-tool reports and a combined comparison matrix.
 
+> **New to this project?** Read the **[User Guide](docs/user-guide.md)** — it walks through every step, no prior knowledge assumed.
+
 ## Quick Start
 
 ```bash
