@@ -51,7 +51,7 @@ def load_all_results(results_dir: Path) -> Dict[str, dict]:
 
 
 def _std_sort_key(std: str) -> int:
-    """Sort standards chronologically: 87, 93, 2000, 2002, 2008, 2019."""
+    """Sort standards chronologically: 2000, 2002, 2008, 2019."""
     try:
         return int(std)
     except ValueError:
