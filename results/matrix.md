@@ -11,8 +11,11 @@
 | **VHDL-2002** | | | | |  | 
 | Relaxed buffer port rules -- buffer ports can connect to out ports | 2002 | buffer_ports | ✅ | ✅ |
 | **VHDL-2008** | | | | |  | 
+| Aggregates as assignment targets — using aggregates on the left-hand side of <= | 2008 | aggregates | ➖ | ✅ |
 | Array slices in aggregates — assign ranges of array elements | 2008 | aggregates | ✅ | ✅ |
 | Named association in aggregates — mix positional and named elements | 2008 | aggregates | ✅ | ✅ |
+| open in aggregates — leave aggregate elements unconnected | 2008 | aggregates | ➖ | ❌ |
+| others => in record aggregates — shorthand for unmentioned record fields | 2008 | aggregates | ➖ | ✅ |
 | ?? (condition operator) -- convert std_logic to boolean | 2008 | expressions | ✅ | ✅ |
 | Enhanced bit string literals -- width, signed/unsigned, don't-care | 2008 | expressions | ✅ | ✅ |
 | Matching equality/inequality (?=, ?/=) — don't-care aware comparison | 2008 | expressions | ✅ | ✅ |
@@ -20,10 +23,13 @@
 | Unary reduction operators — and, or, xor, nand, nor, xnor on vectors | 2008 | expressions | ✅ | ✅ |
 | Case-generate — conditional elaboration based on a discrete expression | 2008 | generate | ✅ | ✅ |
 | If-generate with elsif/else — multi-way conditional elaboration | 2008 | generate | ✅ | ✅ |
+| Default values for generic types — generic type with optional default | 2008 | generics | ➖ | ❌ |
 | Generic subprograms on entities — entities with generic functions/procedures | 2008 | generics | ✅ | ✅ |
 | Generic types -- entities/functions parameterizable by type | 2008 | generics | ✅ | ✅ |
 | Block comments /* ... */ | 2008 | misc | ✅ | ✅ |
+| IP encryption — protect tool directives for IP protection | 2008 | misc | ➖ | ✅ |
 | minimum / maximum — standard min/max functions for all scalar types | 2008 | misc | ✅ | ✅ |
+| rising_edge / falling_edge for boolean signals | 2008 | misc | ➖ | ✅ |
 | to_string / to_bstring / to_hstring / to_ostring — formatted string conversion | 2008 | misc | ✅ | ✅ |
 | Context declarations — reusable sets of library/use clauses | 2008 | packages | ✅ | ✅ |
 | Fixed-point package (fixed_pkg) — IEEE 1076.3 fixed-point arithmetic | 2008 | packages | ✅ | ✅ |
@@ -32,9 +38,11 @@
 | numeric_std_signed — signed arithmetic on std_logic_vector without casting | 2008 | packages | ➖ | ❌ |
 | numeric_std_unsigned — arithmetic on std_logic_vector without casting | 2008 | packages | ✅ | ✅ |
 | Enhanced port maps — open keyword anywhere in port map | 2008 | ports | ✅ | ✅ |
+| Expressions in port maps — use arbitrary expressions (not just signals) in associations | 2008 | ports | ➖ | ✅ |
 | Reading output ports — out-mode ports can be read in the same entity | 2008 | ports | ✅ | ✅ |
 | Conditional sequential assignment — when/else inside processes | 2008 | processes | ✅ | ✅ |
 | process(all) -- automatic sensitivity list inference | 2008 | processes | ✅ | ✅ |
+| 'driving and 'driving_value — query signal driver status | 2008 | types | ➖ | ❌ |
 | Matching case statement (case?) — don't-care aware pattern matching | 2008 | types | ✅ | ✅ |
 | Predefined array types — boolean_vector, integer_vector, real_vector, time_vector | 2008 | types | ✅ | ✅ |
 | Unconstrained element types — records with unconstrained array fields | 2008 | types | ✅ | ✅ |
@@ -80,7 +88,7 @@
 | Sequential declaration regions — declare variables anywhere in sequential code | 2019 | sequential | ➖ | ❌ |
 | All interface lists can be ordered — named association everywhere | 2019 | syntax | ➖ | ✅ |
 | Extended ranges / range expressions — dynamic range computation | 2019 | syntax | ➖ | ✅ |
-| Optional trailing semicolon in interface lists | 2019 | syntax | ❌ | ❌ |
+| Optional trailing semicolon in interface lists | 2019 | syntax | ❌ | ✅ |
 | Precedence of unary operators — standardized unary operator binding | 2019 | syntax | ➖ | ❌ |
 | Relaxed library requirement on configurations | 2019 | syntax | ➖ | ❌ |
 | Signatures in association lists — explicit subprogram signatures | 2019 | syntax | ➖ | ✅ |
