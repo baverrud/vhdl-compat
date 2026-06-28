@@ -177,6 +177,7 @@ class VivadoRunner(ToolRunner):
     def synthesize(self, test: TestInfo, standard: str) -> TestResult:
         """Run Vivado synthesis on the test file using a batch Tcl script.
         PASS if synthesis completes without errors.
+        Returns N/A for simulation-only tests (not expected to synthesize).
         """
         result = TestResult(
             test_file=test.relative_path,
@@ -188,6 +189,12 @@ class VivadoRunner(ToolRunner):
             mode="synth",
         )
 
+        # Simulation-only features are not expected to synthesize
+        if test.test_type == "sim" or not test.synth_entity:
+            result.status = TestStatus.NOT_APPLICABLE
+            result.comment = "Not synthesizable (simulation-only feature)"
+            return result
+
         vivado = self._find_tool("vivado")
         if not vivado:
             result.status = TestStatus.UNTESTED
@@ -195,9 +202,9 @@ class VivadoRunner(ToolRunner):
             return result
 
         work_dir = self._setup_work_dir()
-        flags = self._get_std_flags(standard)
 
-        # Create a synthesis Tcl script
+        # Create a synthesis Tcl script targeting the synthesizable entity
+        synth_top = test.synth_entity
         tcl_script = f"""
 set vhdl_file [file normalize "{test.file_path.resolve()}"]
 puts "INFO: Reading VHDL file: $vhdl_file"
@@ -208,9 +215,9 @@ if {{[catch {{
     exit 1
 }}
 set part xc7k70tfbg676-1
-puts "INFO: Running synth_design for part $part"
+puts "INFO: Running synth_design -top {synth_top} for part $part"
 if {{[catch {{
-    synth_design -top {test.entity_name or "test"} -part $part -flatten_hierarchy rebuilt
+    synth_design -top {synth_top} -part $part -flatten_hierarchy rebuilt
 }} err]}} {{
     puts "ERROR: $err"
     exit 1

@@ -176,7 +176,7 @@ def build_status_cell(status: str) -> str:
         "partial": "❌",
         "fail": "❌",
         "untested": "❌",
-        "n/a": "❌",
+        "n/a": "➖",
     }
     return mapping.get(status, "❌")
 
@@ -193,7 +193,9 @@ def generate_matrix_markdown(
     lines.append(f"**Generated from {len(all_reports)} test runs across "
                  f"{len(set(k.split('/')[0] for k in all_reports))} tools.**")
     lines.append("")
-    lines.append("> Legend: ✅ PASS  ❌ FAIL — sim = simulation, synth = synthesis")
+    lines.append("> Legend: ✅ PASS  ❌ FAIL  ➖ N/A (not applicable to this mode)")
+    lines.append("")
+    lines.append("> sim = simulation  |  synth = synthesis (only features expected to synthesize)")
     lines.append("")
 
     # Build column entries: (tool_part, mode, display_name)
@@ -255,7 +257,7 @@ def generate_matrix_markdown(
         row = f"| {display_feature} | {std} | {category} |"
 
         for tool_part, mode, _display in col_entries:
-            cell = " ❌ |"
+            cell = " ➖ |"
             # Find the report matching this tool_part, standard, and mode
             for col_key in columns:
                 if col_key.startswith(tool_part + "/"):

@@ -9,8 +9,12 @@
 -- FEATURE: short name — one line description
 -- CATEGORY: category_name
 -- XREF: LCS2016-XXX        <-- IEEE reference (LCS number for VHDL-2019, FT number for VHDL-2008, omit if none)
--- TEST_TYPE: sim           <-- "sim", "synth", "both", or "backcompat"
+-- TEST_TYPE: both          <-- "sim", "synth", or "both"
+--                               sim   = simulation-only (verification, env, file_io)
+--                               both  = RTL feature: sim + synth both tested
+-- SYNTH_ENTITY: template   <-- synthesizable entity name (omit if TEST_TYPE: sim)
 -- DESCRIPTION:
+--   ...
 --   Explain the feature here in plain language. What is it? Why was it added
 --   to VHDL? What problem does it solve? What would the code look like before
 --   this feature existed?
@@ -23,11 +27,43 @@
 -- ============================================================================
 
 -- ============================================================================
--- Libraries
+-- Libraries (available to all design units in this file)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 use std.env.all;
+
+-- ============================================================================
+-- Synthesizable DUT — standalone demonstration of the feature
+-- Naming: no prefix (e.g. "template", not "synth_template")
+-- Used by: synth mode. Must be fully self-contained RTL.
+-- ============================================================================
+entity template is
+  port (
+    clk   : in  std_logic;
+    rst   : in  std_logic;
+    din   : in  std_logic_vector(7 downto 0);
+    dout  : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture rtl of template is
+  -- Demonstrate the feature using synthesizable RTL
+  signal reg : std_logic_vector(7 downto 0) := (others => '0');
+begin
+  process(clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        reg <= (others => '0');
+      else
+        reg <= din;  -- simple pass-through (replace with feature demo)
+      end if;
+    end if;
+  end process;
+  dout <= reg;
+end architecture;
 
 -- ============================================================================
 -- Entity (testbench — no ports for simulation tests)

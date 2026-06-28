@@ -32,6 +32,7 @@ class TestInfo:
     test_type: str = ""           # sim, synth, both, or backcompat
     description: str = ""         # educational explanation
     entity_name: str = ""         # extracted from file (for simulator invocation)
+    synth_entity: str = ""        # entity name for synthesis (from SYNTH_ENTITY: tag)
     xref: str = ""                # IEEE cross-reference: LCS2016-XXX or FTXX
     # Backwards-compatibility fields (only for test_type = backcompat)
     valid_in: List[str] = field(default_factory=list)    # Standards where code IS valid
@@ -150,6 +151,12 @@ def _parse_vhd_file(tests_root: Path, file_path: Path) -> TestInfo:
         m = re.match(r"--\s+XREF:\s+(.+)", stripped, re.IGNORECASE)
         if m:
             info.xref = m.group(1).strip()
+            continue
+
+        # Synthesizable entity name (which entity to run synth_design on)
+        m = re.match(r"--\s+SYNTH_ENTITY:\s+(.+)", stripped, re.IGNORECASE)
+        if m:
+            info.synth_entity = m.group(1).strip()
             continue
 
         # After parsing at least one metadata field, a separator line
