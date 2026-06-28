@@ -69,10 +69,10 @@ def build_feature_index(all_reports: Dict[str, dict]) -> List[Tuple[str, str, st
     # Use dict to deduplicate by (std, cat, feature), keeping best xref
     feature_map: Dict[Tuple[str, str, str], str] = {}
 
-    # Determine primary tool column: prefer one with most PASS results
-    # (alphabetically first may be a tool with no VHDL-2019 support)
+    # Determine primary tool column: Questa first, then most informative
     all_columns = sorted(all_reports.keys())
     col_headers = list(dict.fromkeys(c.split("/")[0] for c in all_columns))
+    col_headers = _reorder_columns(col_headers)
     primary_col_prefix = _pick_primary_column(all_reports, col_headers)
 
     for data in all_reports.values():
@@ -100,6 +100,28 @@ def build_feature_index(all_reports: Dict[str, dict]) -> List[Tuple[str, str, st
             return (std_order, 0, cat, feat)
 
     return sorted(features, key=sort_key)
+
+
+def _reorder_columns(col_headers: List[str]) -> List[str]:
+    """Reorder columns: Questa first, ModelSim second, rest alphabetically."""
+    ordered = []
+    # Pull Questa to front
+    for prefix in ("questa", "Questa"):
+        matches = [c for c in col_headers if c.lower().startswith(prefix)]
+        for m in sorted(matches):
+            if m not in ordered:
+                ordered.append(m)
+    # Pull ModelSim second
+    for prefix in ("modelsim", "ModelSim"):
+        matches = [c for c in col_headers if c.lower().startswith(prefix)]
+        for m in sorted(matches):
+            if m not in ordered:
+                ordered.append(m)
+    # Rest alphabetically
+    for c in sorted(col_headers):
+        if c not in ordered:
+            ordered.append(c)
+    return ordered
 
 
 def _pick_primary_column(
@@ -174,6 +196,8 @@ def generate_matrix_markdown(
     columns = sorted(all_reports.keys())
     # Extract unique tool-version identifiers (first part of key before /)
     col_headers = list(dict.fromkeys(c.split("/")[0] for c in columns))
+    # Reorder: Questa first, ModelSim second, rest alphabetically
+    col_headers = _reorder_columns(col_headers)
 
     # Build the table
     header = "| Feature | Standard | Category | " + " | ".join(col_headers) + " |"
