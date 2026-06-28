@@ -300,13 +300,19 @@ def _load_manual_installations(
     except Exception as e:
         error_msg = str(e)
         if "unescaped" in error_msg.lower() or "backslash" in error_msg.lower():
-            print(f"Error in {manual_path.name}: {error_msg}")
-            print(f"  TOML requires forward slashes in paths, even on Windows.")
-            print(f"  Correct: path = \"C:/Xilinx/Vivado/2024.1/bin\"")
-            print(f"  Wrong:   path = \"C:\\Xilinx\\Vivado\\2024.1\\bin\"")
+            # Windows users often use backslashes in paths — auto-convert them
+            text = manual_path.read_text(encoding="utf-8")
+            text = text.replace("\\", "/")
+            try:
+                raw = tomllib.loads(text)
+            except Exception as e2:
+                print(f"Error in {manual_path.name}: {e2}")
+                print(f"  TOML requires forward slashes in paths — even on Windows.")
+                print(f'  Correct: path = "C:/Xilinx/Vivado/2024.1/bin"')
+                return {}
         else:
             print(f"Warning: Failed to parse {manual_path}: {e}")
-        return {}
+            return {}
 
     detected: Dict[str, List[DetectedTool]] = {}
 
