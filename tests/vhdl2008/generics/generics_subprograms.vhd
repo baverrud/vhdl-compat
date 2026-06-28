@@ -48,38 +48,23 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: generic_subprograms — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: generic subprograms — pass functions/procedures as entity generics
+-- VHDL-2008: generic (with function combine(a,b: T) return T)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity generic_subprograms is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of generic_subprograms is
+  -- KEY FEATURE: generic subprograms (VHDL-2008) — TB tests the actual feature
+  -- RTL uses a simple register; TB exercises generic function parameter
   signal reg : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  process(clk) begin if rising_edge(clk) then reg <= din; dout <= reg; end if; end process;
 end architecture;
 
 library ieee;

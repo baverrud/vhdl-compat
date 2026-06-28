@@ -60,38 +60,37 @@ use work.counter_pkg.all;
 
 
 -- ============================================================================
--- RTL: protected_types — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: protected types — class-like constructs with mutual exclusion
+-- VHDL-2000: shared variables + protected types for thread-safe state
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity protected_types is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of protected_types is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: shared variable of protected type (VHDL-2000)
+  type counter_t is protected
+    procedure inc;
+    impure function val return integer;
+  end protected;
+  type counter_t is protected body
+    variable count : integer := 0;
+    procedure inc is begin count := count + 1; end procedure;
+    impure function val return integer is begin return count; end function;
+  end protected body;
+  shared variable ctr : counter_t;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      ctr.inc;
+      dout <= std_logic_vector(to_unsigned(ctr.val mod 256, 8));
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

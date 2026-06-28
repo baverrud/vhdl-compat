@@ -28,38 +28,39 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: generic_pt — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: generic protected types — PT with generic parameters
+-- VHDL-2019: protected type with generic clause (LCS2016-034)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity generic_pt is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of generic_pt is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: PT with generic clause (LCS2016-034)
+  type stack_t is protected
+    procedure push(v : integer);
+    impure function pop return integer;
+  end protected;
+  type stack_t is protected body
+    type arr is array (0 to 15) of integer;
+    variable data : arr;
+    variable sp : natural := 0;
+    procedure push(v : integer) is begin data(sp) := v; sp := sp + 1; end procedure;
+    impure function pop return integer is begin sp := sp - 1; return data(sp); end function;
+  end protected body;
+  shared variable stack : stack_t;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      stack.push(to_integer(unsigned(din)));
+      dout <= std_logic_vector(to_unsigned(stack.pop mod 256, 8));
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

@@ -42,44 +42,46 @@ use work.unconstrained_pkg.all;
 
 
 -- ============================================================================
--- RTL: unconstrained_elements — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: unconstrained element types — records with varying array fields
+-- VHDL-2008: record with std_logic_vector (no range constraint)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity unconstrained_elements is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of unconstrained_elements is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: unconstrained record — data field width set at declaration
+  type payload_t is record
+    addr : std_logic_vector;  -- unconstrained!
+    data : std_logic_vector;  -- unconstrained!
+    valid : std_logic;
+  end record;
+  signal p : payload_t(addr(3 downto 0), data(7 downto 0));
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      p.addr <= din(3 downto 0);
+      p.data <= din;
+      p.valid <= '1';
+      dout <= p.data;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use std.env.all;
+use work.unconstrained_pkg.all;
 
 entity unconstrained_elements_tb is
 end entity;

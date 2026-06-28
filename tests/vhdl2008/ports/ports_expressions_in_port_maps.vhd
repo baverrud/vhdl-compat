@@ -47,38 +47,34 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: port_expressions — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: expressions in port maps — use expressions, not just signal names
+-- VHDL-2008: port map (y => a and b) — compute at the port interface
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+
+entity sub_or is
+  port (a, b : in std_logic; y : out std_logic);
+end entity;
+architecture rtl of sub_or is
+begin
+  y <= a or b;
+end architecture;
+
+library ieee;
+use ieee.std_logic_1164.all;
 
 entity port_expressions is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of port_expressions is
-  signal reg : std_logic_vector(7 downto 0);
+  signal result : std_logic;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  -- KEY FEATURE: expressions in port maps — not just signal names
+  -- Before 2008 you needed a temporary signal for each expression
+  u1 : entity work.sub_or port map (a => din(0) and din(1), b => din(2) or din(3), y => result);
+  dout <= (0 => result, others => '0');
 end architecture;
 
 library ieee;

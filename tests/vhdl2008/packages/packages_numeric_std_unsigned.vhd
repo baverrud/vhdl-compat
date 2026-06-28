@@ -47,7 +47,7 @@ end architecture;
 
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+use ieee.numeric_std_unsigned.all;
 use std.env.all;
 
 entity numeric_std_unsigned_tb is

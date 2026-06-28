@@ -61,38 +61,27 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: inferred_constraints — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: inferred constraints — array bounds from initialization
+-- VHDL-2019: variable v : std_logic_vector := "1010"; infers (1 to 4)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity inferred_constraints is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of inferred_constraints is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: inferred array constraints (LCS2016-019) — bounds from init value
+  constant DEFAULT : std_logic_vector := X"A5";  -- infers (7 downto 0)
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      if din = X"00" then dout <= DEFAULT;
+      else dout <= din; end if;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

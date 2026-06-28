@@ -26,38 +26,27 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: open_aggregates — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: open in aggregates — leave subelements unassigned
+-- VHDL-2008: (1, 2, open, 4) leaves the third position floating
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity open_aggregates is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(3 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of open_aggregates is
   signal reg : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      -- KEY FEATURE: open leaves the upper nibble unassigned in aggregate
+      reg <= (3 downto 0 => din, others => open);
+      dout <= reg;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

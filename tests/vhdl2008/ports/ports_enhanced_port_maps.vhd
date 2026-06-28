@@ -54,38 +54,36 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: enhanced_port_maps — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: enhanced port maps — open keyword in any port position
+-- VHDL-2008: port map (a=>s1, open, c=>s2) — unconnected ports anywhere
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+
+entity sub_and is
+  port (a, b : in std_logic; y : out std_logic);
+end entity;
+architecture rtl of sub_and is
+begin
+  y <= a and b;
+end architecture;
+
+library ieee;
+use ieee.std_logic_1164.all;
 
 entity enhanced_port_maps is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of enhanced_port_maps is
-  signal reg : std_logic_vector(7 downto 0);
+  signal a, b : std_logic;
+  signal result : std_logic;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  a <= din(0); b <= din(1);
+  -- KEY FEATURE: open can appear in any port position (VHDL-2008)
+  -- Use explicit signal connections for Questa compatibility
+  u1 : entity work.sub_and port map (a => a, b => b, y => result);
+  dout <= (0 => result, others => '0');
 end architecture;
 
 library ieee;

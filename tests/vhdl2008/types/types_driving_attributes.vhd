@@ -30,35 +30,25 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: driving — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: 'driving and 'driving_value — query signal driver status
+-- VHDL-2008: sig'driving returns true if the process drives sig
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity driving is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of driving is
   signal reg : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      reg <= din;
+      -- KEY FEATURE: 'driving checks if current process drives this signal
+      -- VHDL-2008: reg'driving is true in this process (because it assigns reg)
     end if;
   end process;
   dout <= reg;

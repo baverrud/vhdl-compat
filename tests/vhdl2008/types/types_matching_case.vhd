@@ -24,38 +24,28 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: matching_case — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: matching case statement (case?) — don't-care aware pattern matching
+-- VHDL-2008: case? uses ?= matching with '-' as wildcard
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity matching_case is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (din : in std_logic_vector(3 downto 0); dout : out std_logic_vector(1 downto 0));
 end entity;
-
 architecture rtl of matching_case is
-  signal reg : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
-  process(clk)
+  -- KEY FEATURE: case? uses ?= matching — '-' matches anything
+  process(all)
   begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
+    case? din is
+      when "1---" => dout <= "00";  -- first bit = 1
+      when "01--" => dout <= "01";  -- first two bits = 01
+      when "001-" => dout <= "10";
+      when others => dout <= "11";
+    end case?;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

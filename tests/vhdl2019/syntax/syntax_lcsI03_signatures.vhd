@@ -25,38 +25,28 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: signatures — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: subprogram signatures — disambiguate overloaded subprograms
+-- VHDL-2019: function [integer return integer] for overload resolution
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity signatures is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of signatures is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: subprogram signatures for overload disambiguation (LCS2016-I03)
+  function scale(v : integer) return integer is begin return v * 2; end function;
+  function scale(v : std_logic_vector) return std_logic_vector is
+  begin return v(6 downto 0) & '0'; end function;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      dout <= scale(din);  -- selects slv overload via signature
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

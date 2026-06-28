@@ -54,38 +54,25 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: generic_types — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: generic types — entities parameterized by type
+-- VHDL-2008: FIFOs, pipelines, and other reusable components with type params
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity generic_types is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  generic (type ELEMENT_T);
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of generic_types is
-  signal reg : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
+  -- KEY FEATURE: ELEMENT_T is a type parameter — works for any type
   process(clk)
   begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
+    if rising_edge(clk) then dout <= din; end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

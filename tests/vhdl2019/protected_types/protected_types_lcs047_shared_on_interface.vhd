@@ -26,38 +26,37 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: shared_interface — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: shared variables on entity interfaces — shared PT ports
+-- VHDL-2019: shared variables on entity interfaces (LCS2016-047)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity shared_interface is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of shared_interface is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: shared on interface (LCS2016-047)
+  type mailbox_t is protected
+    procedure put(v : integer);
+    impure function get return integer;
+  end protected;
+  type mailbox_t is protected body
+    variable msg : integer;
+    procedure put(v : integer) is begin msg := v; end procedure;
+    impure function get return integer is begin return msg; end function;
+  end protected body;
+  shared variable mb : mailbox_t;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      mb.put(to_integer(unsigned(din)));
+      dout <= std_logic_vector(to_unsigned(mb.get, 8));
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

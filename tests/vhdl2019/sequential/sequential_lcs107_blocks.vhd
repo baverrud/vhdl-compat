@@ -25,38 +25,30 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: sequential_block — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: sequential block statements — unnamed scopes in processes
+-- VHDL-2019: block ... end block; inside a process
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity sequential_block is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of sequential_block is
-  signal reg : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      -- KEY FEATURE: sequential block (LCS2016-107) — scope within a process
+      my_block : block
+        signal tmp : std_logic_vector(7 downto 0);
+      begin
+        tmp <= din;
+        dout <= tmp;
+      end block;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

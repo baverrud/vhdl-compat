@@ -26,38 +26,21 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: numeric_std_signed — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: numeric_std_signed — signed arithmetic on std_logic_vector
+-- VHDL-2008: use ieee.numeric_std_signed.all; treats slv as signed
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+use ieee.numeric_std_signed.all;
 
 entity numeric_std_signed is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (a, b : in std_logic_vector(7 downto 0); diff : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of numeric_std_signed is
-  signal reg : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  -- KEY FEATURE: direct - on std_logic_vector interpreted as signed
+  -- Before 2008: diff <= std_logic_vector(signed(a) - signed(b));
+  diff <= a - b;
 end architecture;
 
 library ieee;

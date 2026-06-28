@@ -26,38 +26,28 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: aggregate_targets — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: aggregates as assignment targets — LHS aggregate deconstruction
+-- VHDL-2008: (a, b) <= reg; splits a vector into named parts
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity aggregate_targets is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        hi, lo : out std_logic_vector(3 downto 0));
 end entity;
-
 architecture rtl of aggregate_targets is
   signal reg : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      reg <= din;
+      -- KEY FEATURE: aggregate on left-hand side of <=
+      -- Splits reg into two 4-bit halves in one assignment
+      (hi, lo) <= reg;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

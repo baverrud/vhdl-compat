@@ -27,38 +27,27 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: case_generate — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: case-generate — conditional elaboration via discrete expression
+-- VHDL-2008: case N generate ... when 1 => ... when 2 => ... end generate;
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity case_generate is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  generic (WIDTH : integer := 8);
+  port (din : in std_logic_vector(7 downto 0); dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of case_generate is
-  signal reg : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  -- KEY FEATURE: case-generate selects architecture based on generic value
+  g_wide : case WIDTH generate
+    when 8 =>
+      dout <= din;
+    when 16 =>
+      dout <= din(7 downto 0);
+    when others =>
+      dout <= (others => '0');
+  end generate;
 end architecture;
 
 library ieee;

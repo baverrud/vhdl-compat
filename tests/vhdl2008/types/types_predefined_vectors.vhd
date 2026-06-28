@@ -29,38 +29,33 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: predefined_vectors — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: predefined vector types — boolean_vector, integer_vector
+-- VHDL-2008: new standard array types beyond std_logic_vector
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity predefined_vectors is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of predefined_vectors is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: boolean_vector — array of boolean, new in VHDL-2008
+  signal bv : boolean_vector(0 to 7);
+  -- KEY FEATURE: integer_vector — array of integer, new in VHDL-2008
+  signal iv : integer_vector(0 to 7);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      for i in 0 to 7 loop
+        bv(i) <= (din(i) = '1');
+        iv(i) <= to_integer(unsigned(din(i downto i)));
+      end loop;
+      dout <= din;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

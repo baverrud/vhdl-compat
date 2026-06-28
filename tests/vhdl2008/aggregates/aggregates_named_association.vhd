@@ -44,44 +44,43 @@ use work.agg_pkg.all;
 
 
 -- ============================================================================
--- RTL: named_aggregates — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: named association in aggregates — mix positional+named elements
+-- VHDL-2008: (pos1, pos2, named=>val) in a single aggregate
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity named_aggregates is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        ctrl : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of named_aggregates is
-  signal reg : std_logic_vector(7 downto 0);
+  type cfg_t is record
+    en : std_logic; mode : std_logic_vector(1 downto 0);
+    flags : std_logic_vector(4 downto 0);
+  end record;
+  signal cfg : cfg_t;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      -- KEY FEATURE: positional (en, mode) + named (flags)
+      cfg <= ('1', "01", flags => din(4 downto 0));
+      ctrl <= cfg.en & cfg.mode & cfg.flags;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use std.env.all;
+use work.agg_pkg.all;
 
 entity named_aggregates_tb is
 end entity;

@@ -65,38 +65,34 @@ use work.pkg_b.all;
 
 
 -- ============================================================================
--- RTL: closely_related — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: closely related record types — record extension/inheritance
+-- VHDL-2019: type B is new A with record ... end record;
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity closely_related is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of closely_related is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: closely related records (LCS2016-075) — record inheritance
+  type base_t is record
+    id : std_logic_vector(3 downto 0);
+  end record;
+  type extended_t is new base_t with record
+    payload : std_logic_vector(3 downto 0);
+  end record;
+  signal ext : extended_t;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      ext.id <= din(7 downto 4);
+      ext.payload <= din(3 downto 0);
+      dout <= ext.id & ext.payload;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

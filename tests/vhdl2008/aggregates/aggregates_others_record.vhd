@@ -25,38 +25,30 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: others_record — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: others => in record aggregates — assign all remaining fields
+-- VHDL-2008: (a=>'1', b=>'0', others=>'0') fills unmentioned fields
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity others_record is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of others_record is
-  signal reg : std_logic_vector(7 downto 0);
+  type rec_t is record
+    f0, f1, f2, f3, f4, f5, f6, f7 : std_logic;
+  end record;
+  signal r : rec_t;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      -- KEY FEATURE: others=>'0' fills all unmentioned record fields
+      r <= (f0=>din(0), f1=>din(1), others=>'0');
+      dout <= r.f0 & r.f1 & r.f2 & r.f3 & r.f4 & r.f5 & r.f6 & r.f7;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

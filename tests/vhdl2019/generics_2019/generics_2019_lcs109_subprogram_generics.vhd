@@ -25,38 +25,27 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: subprogram_generics — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: generic types on subprograms — functions parameterized by type
+-- VHDL-2019: function first generic (type T) (v : T_arr) return T
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity subprogram_generics is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of subprogram_generics is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: subprogram generics (LCS2016-109)
+  function pass generic (type T) (x : T) return T is
+  begin return x; end function;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      dout <= pass(din);
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

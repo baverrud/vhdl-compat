@@ -29,38 +29,32 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: function_size — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: function knows vector size — unconstrained return from inputs
+-- VHDL-2019: function result width determined by argument size (LCS2016-072b)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity function_size is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of function_size is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: function knows vector size (LCS2016-072b)
+  -- Return type matches input argument size
+  function reverse_bits(v : std_logic_vector) return std_logic_vector is
+    variable result : std_logic_vector(v'range);
+  begin
+    for i in v'range loop result(i) := v(v'left - i + v'right); end loop;
+    return result;
+  end function;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      dout <= reverse_bits(din);
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

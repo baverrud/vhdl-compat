@@ -394,7 +394,6 @@ def main(argv: Optional[List[str]] = None) -> int:
         runner = GenericRunner(config, version)
 
     # Look up display name from installed.toml if available
-    from scripts.tool_discovery import detect_installed_versions
     detected = detect_installed_versions(tools_dir, verbose=False)
     for dt in detected.get(tool_lower, []):
         if dt.version == version and dt.display_name:

@@ -32,38 +32,31 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: enum_attributes — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: enhanced enum attributes — 'VAL, 'POS, 'SUCC, 'PRED, 'LEFTOF, 'RIGHTOF
+-- VHDL-2019: readable attributes for user-defined enumerated types (LCS2016-018)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity enum_attributes is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of enum_attributes is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: enum attributes (LCS2016-018) — 'VAL, 'POS for user enums
+  type state_t is (IDLE, RUN, DONE, ERROR);
+  signal state : state_t := IDLE;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      -- 'POS returns integer position of enum value
+      -- 'VAL returns enum value at given position
+      state <= state_t'VAL((state_t'POS(state) + 1) mod 4);
+      dout <= std_logic_vector(to_unsigned(state_t'POS(state), 8));
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

@@ -26,38 +26,30 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: unary_precedence — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: unary operator precedence — standardized unary binding
+-- VHDL-2019: -a**2 = -(a**2), NOT (-a)**2 (LCS2016-I13)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity unary_precedence is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of unary_precedence is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: unary precedence fix (LCS2016-I13) — -x**2 = -(x**2)
+  function neg_square(x : integer) return integer is
+  begin return -x**2; end function;  -- VHDL-2019: means -(x**2)
+  signal val : integer range -255 to 255;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      val <= neg_square(to_integer(unsigned(din(3 downto 0))));
+      dout <= std_logic_vector(to_unsigned(abs(val), 8));
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

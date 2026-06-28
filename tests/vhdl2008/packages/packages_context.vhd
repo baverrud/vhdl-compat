@@ -2,7 +2,7 @@
 -- STD: VHDL-2008
 -- FEATURE: Context declarations — reusable sets of library/use clauses
 -- CATEGORY: packages
--- SYNTH_ENTITY: context
+-- SYNTH_ENTITY: ctx_decl
 -- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, every design unit had to repeat the same library and
@@ -34,37 +34,21 @@ context work.common_context;
 
 
 -- ============================================================================
--- RTL: context — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: context declarations — reusable library/use bundles
+-- VHDL-2008: context my_ctx is library ieee; use ...; end context;
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity context is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+entity ctx_decl is
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
-architecture rtl of context is
+architecture rtl of ctx_decl is
   signal reg : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
+  process(clk) begin if rising_edge(clk) then reg <= din; end if; end process;
   dout <= reg;
 end architecture;
 

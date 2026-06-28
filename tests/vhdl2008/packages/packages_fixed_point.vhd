@@ -28,43 +28,38 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: fixed_point — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: fixed-point arithmetic — ufixed/sfixed from ieee.fixed_pkg
+-- VHDL-2008: ufixed(3 downto -4) = 4 integer + 4 fractional bits
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+use ieee.fixed_pkg.all;
 
 entity fixed_point is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of fixed_point is
-  signal reg : std_logic_vector(7 downto 0);
+  signal a : ufixed(3 downto -4);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
+  -- KEY FEATURE: ufixed type — fixed-point with 4 integer + 4 fractional bits
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      a <= to_ufixed(din, 3, -4);  -- convert slv to ufixed
+      dout <= to_slv(resize(a * to_ufixed(1.5, 3, -4), 7, 0));
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use std.env.all;
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.fixed_pkg.all;
 use std.env.all;
 
 entity fixed_point_tb is

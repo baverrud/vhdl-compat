@@ -25,38 +25,29 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: scalar_ordering — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: scalar array ordering — relational ops on scalar arrays
+-- VHDL-2019: "1010" < "1100" lexicographic comparison (LCS2016-059a)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity scalar_ordering is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of scalar_ordering is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: scalar array ordering (LCS2016-059a) — lexical compare
+  function max_slv(a, b : std_logic_vector) return std_logic_vector is
+  begin if a > b then return a; else return b; end if; end function;
+  signal peak : std_logic_vector(7 downto 0) := X"00";
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      peak <= max_slv(peak, din);
+      dout <= peak;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

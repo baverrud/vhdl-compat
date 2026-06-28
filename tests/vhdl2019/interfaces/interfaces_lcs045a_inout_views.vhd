@@ -130,38 +130,28 @@ use work.i2c_like_pkg.all;
 
 
 -- ============================================================================
--- RTL: inout_views — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: inout mode views — bidirectional interface fields
+-- VHDL-2019: view has both in and out fields on the same record
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity inout_views is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of inout_views is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: inout view — bidirectional fields in interface records (LCS2016-045a)
+  signal internal : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      internal <= din;
+      dout <= internal;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

@@ -29,43 +29,35 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: float_point — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: floating-point arithmetic — float32 from ieee.float_pkg
+-- VHDL-2008: IEEE 754 single-precision in synthesizable VHDL
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
+use ieee.float_pkg.all;
 
 entity float_point is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(31 downto 0);
+        dout : out std_logic_vector(31 downto 0));
 end entity;
-
 architecture rtl of float_point is
-  signal reg : std_logic_vector(7 downto 0);
+  signal a, b, sum : float32;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  -- KEY FEATURE: float32 type — IEEE 754 single-precision arithmetic
+  a <= to_float(din, 8, 23);
+  b <= to_float(2.0);
+  sum <= a + b;
+  dout <= to_slv(sum);
 end architecture;
 
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
+use std.env.all;
+
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.float_pkg.all;
 use std.env.all;
 
 entity float_point_tb is

@@ -42,38 +42,29 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: conditional_return — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: conditional return — return with when/else conditions
+-- VHDL-2019: return x when cond else y;
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity conditional_return is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of conditional_return is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: conditional return (LCS2016-094a)
+  function clamp(v : std_logic_vector(7 downto 0)) return std_logic_vector is
+  begin
+    return X"FF" when v > X"F0" else v;
+  end function;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      dout <= clamp(din);
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

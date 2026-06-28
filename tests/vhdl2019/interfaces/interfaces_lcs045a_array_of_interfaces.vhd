@@ -116,38 +116,29 @@ use work.chan_pkg.all;
 
 
 -- ============================================================================
--- RTL: array_of_interfaces — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: array of interface objects — multiple channels via interface arrays
+-- VHDL-2019: port (ch : view slave of bus_t(0 to 3))
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity array_of_interfaces is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of array_of_interfaces is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: arrays of interface types — LCS2016-045a
+  type ch_data_t is array (natural range <>) of std_logic_vector(7 downto 0);
+  signal channels : ch_data_t(0 to 3);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      channels <= (others => din);
+      dout <= channels(0) or channels(1) or channels(2) or channels(3);
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

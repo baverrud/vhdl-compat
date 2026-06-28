@@ -31,38 +31,21 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: default_generic_types — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: default generic types — generic type parameter with a default value
+-- VHDL-2008: generic(type T default integer) allows use without binding
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity default_generic_types is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  generic (type T default unsigned; WIDTH : integer := 8);
+  port (a, b : in T(7 downto 0); sum : out T(7 downto 0));
 end entity;
-
 architecture rtl of default_generic_types is
-  signal reg : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  -- KEY FEATURE: generic type T defaults to unsigned — no explicit binding needed
+  sum <= a + b;
 end architecture;
 
 library ieee;

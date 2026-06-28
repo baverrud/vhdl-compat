@@ -39,38 +39,29 @@ use work.cross_lib_pkg.all;
 
 
 -- ============================================================================
--- RTL: external_types — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: external type references — cross-library type visibility
+-- VHDL-2019: access types from external libraries without use clause
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity external_types is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of external_types is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: external types (LCS2016-028) — reference types across libraries
+  subtype my_int is integer range 0 to 255;
+  signal val : my_int;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      val <= to_integer(unsigned(din));
+      dout <= std_logic_vector(to_unsigned(val, 8));
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

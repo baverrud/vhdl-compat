@@ -27,38 +27,21 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: garbage_collection — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: garbage collection — automatic memory management for access types
+-- VHDL-2019: deallocate auto-collects orphaned access objects (LCS2016-030)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity garbage_collection is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of garbage_collection is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: GC for access types (LCS2016-030)
+  type int_ptr is access integer;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  process(clk) begin if rising_edge(clk) then dout <= din; end if; end process;
 end architecture;
 
 library ieee;

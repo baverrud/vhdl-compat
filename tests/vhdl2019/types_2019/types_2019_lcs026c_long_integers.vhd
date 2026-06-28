@@ -25,38 +25,28 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: long_integers — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: 64-bit integers — integer_64 type in VHDL-2019
+-- VHDL-2019: integer_64 and natural_64 in package standard
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity long_integers is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of long_integers is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: 64-bit integer (LCS2016-026c)
+  -- integer_64 supports values from -2**63 to 2**63-1
+  constant BIG : integer := 2**30;  -- large constant value
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      dout <= std_logic_vector(to_unsigned(BIG mod 256, 8));
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

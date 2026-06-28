@@ -26,38 +26,31 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: declaration_regions — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: sequential declaration regions — declare variables anywhere
+-- VHDL-2019: variables in if/case branches, loop bodies without blocks
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity declaration_regions is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of declaration_regions is
-  signal reg : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
+      -- KEY FEATURE: declare variables in if-branch (LCS2016-007)
+      if din(0) = '1' then
+        variable tmp : std_logic_vector(7 downto 0);
+        tmp := din;
+        dout <= tmp;
       else
-        reg <= din;
+        dout <= not din;
       end if;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

@@ -27,38 +27,28 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: conditional_expr — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: conditional expressions in sequential code — when/else in processes
+-- VHDL-2019: variable x := a when cond else b; (inside process)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity conditional_expr is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of conditional_expr is
-  signal reg : std_logic_vector(7 downto 0);
+  signal threshold : std_logic_vector(7 downto 0) := X"80";
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
+    -- KEY FEATURE: conditional expression in sequential context (LCS2016-036a)
+    variable tmp : std_logic_vector(7 downto 0);
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      tmp := din when din > threshold else threshold;
+      dout <= tmp;
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;

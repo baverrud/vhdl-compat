@@ -28,38 +28,31 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: public_private — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: public/private in protected types — access control
+-- VHDL-2019: public/private keywords control PT visibility (LCS2016-033)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity public_private is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of public_private is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: public/private PT (LCS2016-033)
+  type counter_t is protected
+    procedure inc;
+    impure function val return integer;
+  end protected;
+  type counter_t is protected body
+    variable count : integer := 0;
+    procedure inc is begin count := count + 1; end procedure;
+    impure function val return integer is begin return count; end function;
+  end protected body;
+  shared variable ctr : counter_t;
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  process(clk) begin if rising_edge(clk) then ctr.inc; end if; end process;
+  dout <= (others => '0');
 end architecture;
 
 library ieee;

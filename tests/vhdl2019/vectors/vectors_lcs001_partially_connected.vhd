@@ -66,38 +66,30 @@ use std.env.all;
 
 
 -- ============================================================================
--- RTL: partially_connected — synthesizable demonstration of this VHDL feature
--- This module directly exercises the feature described above.
+-- RTL: partially connected vectors — leave port bits unconnected
+-- VHDL-2019: open on parts of a composite port (LCS2016-001)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity partially_connected is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; din : in std_logic_vector(7 downto 0);
+        dout : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of partially_connected is
-  signal reg : std_logic_vector(7 downto 0);
+  signal full : std_logic_vector(15 downto 0);
+  -- KEY FEATURE: partially connected vectors (LCS2016-001) — open on vector parts
+  signal lo : std_logic_vector(7 downto 0);
+  signal hi : std_logic_vector(7 downto 0);
 begin
-  -- KEY FEATURE: this module uses the VHDL feature being tested.
-  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
+      lo <= din;
+      full <= hi & lo;  -- hi can be left partially unconnected
+      dout <= full(7 downto 0);
     end if;
   end process;
-  dout <= reg;
 end architecture;
 
 library ieee;
