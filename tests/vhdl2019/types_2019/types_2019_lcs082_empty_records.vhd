@@ -2,6 +2,7 @@
 -- STD: VHDL-2019
 -- FEATURE: Empty records — record types with no elements
 -- CATEGORY: types_2019 (LCS2016-082)
+-- XREF: LCS2016-082
 -- TEST_TYPE: sim
 -- DESCRIPTION:
 --   Before VHDL-2019, a VHDL record type had to contain at least one element.

@@ -53,8 +53,25 @@ Every test file must begin with this structured comment block:
 | `STD` | `VHDL-2000`, `VHDL-2002`, `VHDL-2008`, `VHDL-2019` | Which standard introduced this feature |
 | `FEATURE` | Free text | Short human-readable name with one-sentence description |
 | `CATEGORY` | See category list below | Which subdirectory this file belongs in |
+| `XREF` | `LCS2016-XXX` (2019) or `FTXX` (2008) | IEEE working group reference number. Mandatory for VHDL-2019, optional for VHDL-2008 |
 | `TEST_TYPE` | `sim`, `synth`, `both`, `backcompat` | Can this feature be tested in simulation, synthesis, both, or is this a backwards-compatibility test? |
 | `DESCRIPTION` | Multi-line free text | Educational explanation. What the feature is, why it exists, what problem it solves. The reader should learn something. |
+
+### VHDL-2019 Naming Convention
+
+All VHDL-2019 test files **must** include the LCS number in the filename:
+
+```
+{category}_lcs{lcs-number}_{feature-short}.vhd
+```
+
+Example: `syntax_lcs071a_optional_trailing_semicolon.vhd`
+
+This enables completeness auditing — `ls tests/vhdl2019/` immediately shows which of the 43 LCS items are covered. LCS numbers are permanent IEEE working group identifiers and are the community-standard way to reference VHDL-2019 features.
+
+### VHDL-2008 Naming Convention
+
+VHDL-2008 features use Fast Track Proposal numbers (e.g., FT19 for `process(all)`). These are less canonical than LCS numbers and are added as the `XREF` metadata field only — they do not appear in filenames.
 
 ## Simulation Tests (`TEST_TYPE: sim`)
 

@@ -2,6 +2,7 @@
 -- STD: VHDL-2008
 -- FEATURE: External (hierarchical) names — access signals across hierarchy
 -- CATEGORY: verification
+-- XREF: FT07
 -- TEST_TYPE: sim
 -- DESCRIPTION:
 --   Before VHDL-2008, a testbench could only access the ports of the top-level

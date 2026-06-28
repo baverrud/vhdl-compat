@@ -2,6 +2,7 @@
 -- STD: VHDL-2019
 -- FEATURE: Optional trailing semicolon in interface lists
 -- CATEGORY: syntax (LCS2016-071a)
+-- XREF: LCS2016-071a
 -- TEST_TYPE: sim
 -- DESCRIPTION:
 --   Before VHDL-2019, every element in a port list or generic list EXCEPT the

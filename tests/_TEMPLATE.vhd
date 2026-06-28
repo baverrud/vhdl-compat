@@ -8,7 +8,8 @@
 -- STD: VHDL-XXXX          <-- Which standard introduced this feature?
 -- FEATURE: short name — one line description
 -- CATEGORY: category_name
--- TEST_TYPE: sim          <-- "sim", "synth", or "both"
+-- XREF: LCS2016-XXX        <-- IEEE reference (LCS number for VHDL-2019, FT number for VHDL-2008, omit if none)
+-- TEST_TYPE: sim           <-- "sim", "synth", "both", or "backcompat"
 -- DESCRIPTION:
 --   Explain the feature here in plain language. What is it? Why was it added
 --   to VHDL? What problem does it solve? What would the code look like before

@@ -2,6 +2,7 @@
 -- STD: VHDL-2008
 -- FEATURE: Enhanced bit string literals — width, signed/unsigned, don't-care
 -- CATEGORY: expressions
+-- XREF: FT09
 -- TEST_TYPE: sim
 -- DESCRIPTION:
 --   VHDL-1993 introduced bit string literals: B"1010", X"FF", O"37".

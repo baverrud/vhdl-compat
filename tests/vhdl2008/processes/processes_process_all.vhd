@@ -2,6 +2,7 @@
 -- STD: VHDL-2008
 -- FEATURE: process(all) — automatic sensitivity list inference
 -- CATEGORY: processes
+-- XREF: FT19
 -- TEST_TYPE: sim
 -- DESCRIPTION:
 --   Before VHDL-2008, a combinational process required the designer to manually
