@@ -286,6 +286,9 @@ def _normalize_standard(std: str) -> str:
 def _standard_matches(test_std: str, target_std: str) -> bool:
     """Check if a test's standard matches the target standard."""
     return _normalize_standard(test_std) == _normalize_standard(target_std)
+
+
+def _parse_version(version_str: str) -> tuple:
     """Parse a version string into a comparable tuple, e.g. '2024.1' → (2024, 1)."""
     parts = []
     for p in version_str.replace("-", ".").split("."):
