@@ -14,7 +14,6 @@ from __future__ import annotations
 
 import argparse
 import sys
-import tempfile
 from datetime import datetime, timezone
 from pathlib import Path
 from typing import Dict, List, Optional, Tuple
@@ -365,8 +364,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     else:
         modes = [args.mode]
 
-    # Setup work directory
-    work_dir = Path(args.work_dir) if args.work_dir else Path(tempfile.mkdtemp(prefix="vhdl_compat_"))
+    # Setup work directory — uses tmp/{tool}/{version}/ to avoid cluttering system temp
+    work_dir = Path(args.work_dir) if args.work_dir else (
+        Path("tmp") / f"{config.name.lower()}-{version}"
+    )
     work_dir.mkdir(parents=True, exist_ok=True)
 
     # Create runner (placeholder — tool-specific adapters to be added)

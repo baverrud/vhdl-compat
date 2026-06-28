@@ -1,6 +1,6 @@
 # Results directory
 
 This directory contains generated test results and reports.
-Contents (except `.gitkeep` and `matrix.md`) are gitignored.
+Contents (except `.gitkeep`) are gitignored.
 
 See `results/matrix.md` for the combined comparison matrix.

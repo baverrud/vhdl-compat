@@ -18,6 +18,7 @@ modelsim.ini
 vsim.wlf
 transcript
 *.backup.*
+tmp/
 
 # Vivado artifacts
 *.jou
