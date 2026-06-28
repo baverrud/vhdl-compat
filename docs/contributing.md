@@ -2,7 +2,7 @@
 
 ## Ways to Contribute
 
-- **Add a test file.** The project needs ~100 VHDL test files covering every feature. See [`test-format.md`](test-format.md). Forward-compatibility and backwards-compatibility tests needed.
+- **Add a test file.** The project needs ~100 VHDL test files covering every feature. See [`test-format.md`](test-format.md).
 - **Add a tool adapter.** Support a new EDA tool or version. See [`tool-config.md`](tool-config.md).
 - **Fix a test.** If a test incorrectly flags a feature, fix it.
 - **Improve the runner.** Better error parsing, faster execution, richer reports.
@@ -32,8 +32,7 @@ vhdl-compatibility/
 │   ├── vhdl2000/           # VHDL-2000 feature tests
 │   ├── vhdl2002/           # VHDL-2002 feature tests
 │   ├── vhdl2008/           # VHDL-2008 feature tests (10 categories)
-│   ├── vhdl2019/           # VHDL-2019 feature tests (13 categories)
-│   └── backcompat/         # Backwards-compatibility tests (5 categories)
+│   └── vhdl2019/           # VHDL-2019 feature tests (13 categories)
 ├── tools/                  # Per-tool TOML configuration files
 ├── scripts/                # Python test runner and adapters
 ├── docs/                   # Documentation
@@ -49,8 +48,7 @@ Every design decision is documented inline or in the plan. Key principles:
 2. **Three-state results.** PASS / PARTIAL / FAIL — never binary. PARTIAL means a feature compiles but behaves incorrectly in simulation.
 3. **Educational test files.** Each `.vhd` teaches the feature it tests. Header comments explain the "why", not just the "what". Ends with a TAKEAWAY.
 4. **Synthesis + simulation.** Some features are simulation-only (e.g., `std.env.stop`), some are synthesizable. The runner handles both.
-5. **Backwards-compatibility.** Separate `tests/backcompat/` tree tests that tools correctly enforce standard boundaries.
-6. **VUnit for simulation orchestration.** We leverage VUnit's proven runner patterns rather than reinventing subprocess management.
+5. **VUnit for simulation orchestration.** We leverage VUnit's proven runner patterns rather than reinventing subprocess management.
 
 ## Running Tests
 

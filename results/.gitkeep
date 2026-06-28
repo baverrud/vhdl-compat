@@ -1,0 +1,4 @@
+# Results directory
+
+This directory contains generated test results and reports.
+Contents (except `.gitkeep`) are gitignored.

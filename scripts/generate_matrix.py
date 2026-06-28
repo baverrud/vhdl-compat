@@ -50,20 +50,27 @@ def load_all_results(results_dir: Path) -> Dict[str, dict]:
     return all_reports
 
 
+def _std_sort_key(std: str) -> int:
+    """Sort standards chronologically: 87, 93, 2000, 2002, 2008, 2019."""
+    try:
+        return int(std)
+    except ValueError:
+        return 0
+
+
 def build_feature_index(all_reports: Dict[str, dict]) -> List[Tuple[str, str, str]]:
     """Build a sorted list of unique features across all reports.
 
-    Returns list of (standard, category, feature) tuples.
+    Returns list of (standard, category, feature) tuples, sorted chronologically.
     """
-    features: Dict[Tuple[str, str, str], None] = {}  # ordered set via dict
-
+    features: Dict[Tuple[str, str, str], None] = {}
     for data in all_reports.values():
         std = data.get("standard", "?")
         for result in data.get("results", {}).values():
             key = (std, result.get("category", "?"), result.get("feature", "?"))
             features[key] = None
 
-    return sorted(features.keys(), key=lambda x: (x[0], x[1], x[2]))
+    return sorted(features.keys(), key=lambda x: (_std_sort_key(x[0]), x[1], x[2]))
 
 
 def build_status_cell(status: str) -> str:

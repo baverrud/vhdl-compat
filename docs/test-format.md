@@ -54,7 +54,7 @@ Every test file must begin with this structured comment block:
 | `FEATURE` | Free text | Short human-readable name with one-sentence description |
 | `CATEGORY` | See category list below | Which subdirectory this file belongs in |
 | `XREF` | `LCS2016-XXX` (2019) or `FTXX` (2008) | IEEE working group reference number. Mandatory for VHDL-2019, optional for VHDL-2008 |
-| `TEST_TYPE` | `sim`, `synth`, `both`, `backcompat` | Can this feature be tested in simulation, synthesis, both, or is this a backwards-compatibility test? |
+| `TEST_TYPE` | `sim`, `synth`, `both` | Can this feature be tested in simulation, synthesis, or both? |
 | `DESCRIPTION` | Multi-line free text | Educational explanation. What the feature is, why it exists, what problem it solves. The reader should learn something. |
 
 ### VHDL-2019 Naming Convention
@@ -156,58 +156,6 @@ end architecture;
 
 For features that are both synthesizable and behaviorally interesting:
 Create the simulation variant. The synthesis adapter will auto-extract the entity for synthesis checking, or you can provide a separate `_synth` file.
-
-## Backwards-Compatibility Tests (`TEST_TYPE: backcompat`)
-
-Backwards-compatibility tests verify that a tool correctly rejects legacy code that was valid in an older standard but is illegal in a newer standard (e.g., VHDL-93 identifiers that became VHDL-2008 reserved keywords).
-
-### Concept
-
-Each backcompat test is a VHDL file that was perfectly legal in **Standard X** but became illegal in **Standard Y** due to a breaking change (new keyword, type redefinition, syntax change, etc.). The test verifies that:
-
-1. **In the OLDER standard mode**, the tool accepts the code (it was legal then)
-2. **In the NEWER standard mode**, the tool rejects the code (it's illegal now)
-
-### Additional Metadata Fields
-
-| Field | Values | Description |
-|---|---|---|
-| `VALID_IN` | Comma-separated standards | Standards where this code SHOULD compile |
-| `INVALID_IN` | Comma-separated standards | Standards where this code SHOULD be rejected |
-| `BREAK_REASON` | Short text | What changed: "New reserved keyword", "Type redefinition", etc. |
-
-### Example
-
-```vhdl
--- STD: VHDL-2008
--- FEATURE: Reserved keyword "context" — breaks VHDL-93 identifiers named "context"
--- CATEGORY: keywords
--- TEST_TYPE: backcompat
--- VALID_IN: VHDL-93, VHDL-2000, VHDL-2002
--- INVALID_IN: VHDL-2008, VHDL-2019
--- BREAK_REASON: New reserved keyword
--- DESCRIPTION:
---   VHDL-2008 added "context" as a reserved word for context declarations.
---   Legacy code using "context" as an identifier breaks under VHDL-2008.
---   EXPECTED RESULT:
---     VHDL-93 mode:  PASS (compiles)
---     VHDL-2008 mode: FAIL (correctly rejected)
-```
-
-### Directory Structure
-
-```
-tests/backcompat/
-├── keywords/       # New reserved keywords
-├── types/          # Type system redefinitions
-├── functions/      # Predefined name collisions
-├── syntax/         # Syntax changes
-└── semantic/       # Semantic rule changes
-```
-
-### Runner Behavior
-
-The runner detects `TEST_TYPE: backcompat` and automatically runs the test against each standard listed in `VALID_IN` (expecting PASS) and `INVALID_IN` (expecting FAIL). The combined matrix has separate columns for each standard mode.
 
 ## Category List
 
