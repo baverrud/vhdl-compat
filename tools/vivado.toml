@@ -21,6 +21,24 @@ windows_default = "C:/Xilinx/Vivado/2024.1/bin"
 linux_default = "/opt/Xilinx/Vivado/2024.1/bin"
 
 # ---------------------------------------------------------------------------
+# Version detection — how to discover installed versions
+# ---------------------------------------------------------------------------
+[detection]
+version_cmd = "vivado"
+version_args = ["-version"]
+# Regex to extract version from output, e.g. "Vivado v2024.1 (64-bit)" → "2024.1"
+version_pattern = 'Vivado v?([\d.]+)'
+
+# Directories to scan for installations (wildcards supported)
+[detection.search]
+paths = [
+    "C:/Xilinx/Vivado/*",
+    "/opt/Xilinx/Vivado/*",
+]
+# Subdirectory within each found installation that contains the executable
+exe_subdir = "bin"
+
+# ---------------------------------------------------------------------------
 # VHDL standard flags
 # ---------------------------------------------------------------------------
 [standards.vhdl2008]

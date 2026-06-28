@@ -23,6 +23,22 @@ windows_default = "C:/questasim64_2024.1/win64"
 linux_default = "/opt/questasim/questasim/linux_x86_64"
 
 # ---------------------------------------------------------------------------
+# Version detection
+# ---------------------------------------------------------------------------
+[detection]
+version_cmd = "vcom"
+version_args = ["-version"]
+version_pattern = 'QUESTA [\w]*v?([\d.]+)'
+
+[detection.search]
+paths = [
+    "C:/questasim*",
+    "C:/modeltech/questasim*",
+    "/opt/questasim*",
+]
+exe_subdir = "win64"
+
+# ---------------------------------------------------------------------------
 # VHDL standard flags
 # ---------------------------------------------------------------------------
 [standards.vhdl2008]

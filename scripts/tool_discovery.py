@@ -73,6 +73,16 @@ class PathConfig:
 
 
 @dataclass
+class DetectionConfig:
+    """Version detection configuration."""
+    version_cmd: str = ""
+    version_args: List[str] = field(default_factory=list)
+    version_pattern: str = ""
+    search_paths: List[str] = field(default_factory=list)
+    exe_subdir: str = ""
+
+
+@dataclass
 class ToolConfig:
     """Complete configuration for one EDA tool."""
     name: str = ""
@@ -80,6 +90,7 @@ class ToolConfig:
     tool_type: str = ""          # "sim", "synth", or "both"
     description: str = ""
     paths: PathConfig = field(default_factory=PathConfig)
+    detection: DetectionConfig = field(default_factory=DetectionConfig)
     standards: Dict[str, StandardConfig] = field(default_factory=dict)
     sim: SimConfig = field(default_factory=SimConfig)
     synth: SynthConfig = field(default_factory=SynthConfig)
@@ -158,6 +169,17 @@ def load_tool_config(config_path: Path) -> ToolConfig:
         linux_default=paths_section.get("linux_default", ""),
     )
 
+    # [detection]
+    det_section = raw.get("detection", {})
+    det_search = det_section.get("search", {})
+    cfg.detection = DetectionConfig(
+        version_cmd=det_section.get("version_cmd", ""),
+        version_args=det_section.get("version_args", []),
+        version_pattern=det_section.get("version_pattern", ""),
+        search_paths=det_search.get("paths", []),
+        exe_subdir=det_search.get("exe_subdir", ""),
+    )
+
     # [standards.*]
     standards_section = raw.get("standards", {})
     for std_key, std_val in standards_section.items():
@@ -209,3 +231,130 @@ def discover_tool_configs(tools_dir: Path) -> Dict[str, ToolConfig]:
         except Exception as e:
             print(f"Warning: Failed to load {toml_file}: {e}")
     return configs
+
+
+# ---------------------------------------------------------------------------
+# Tool version detection
+# ---------------------------------------------------------------------------
+
+@dataclass
+class DetectedTool:
+    """A detected installation of an EDA tool."""
+    tool_name: str
+    version: str
+    exe_dir: Path
+    exe_path: Path
+
+
+def detect_installed_versions(
+    tools_dir: Path,
+    verbose: bool = False,
+) -> Dict[str, List[DetectedTool]]:
+    """Scan the system for installed EDA tool versions.
+
+    Returns dict mapping tool_name → list of detected versions.
+    Each entry has the tool name, version string, and path to executable dir.
+    """
+    import glob as glob_mod
+    import platform
+    import re
+    import subprocess
+
+    configs = discover_tool_configs(tools_dir)
+    detected: Dict[str, List[DetectedTool]] = {}
+
+    for tool_key, cfg in configs.items():
+        if not cfg.detection.search_paths:
+            if verbose:
+                print(f"  {cfg.name}: no search paths configured, skipping scan")
+            continue
+
+        found_versions: Dict[str, Path] = {}  # version → exe_dir (deduplicate)
+
+        for search_pattern in cfg.detection.search_paths:
+            for found_path_str in glob_mod.glob(search_pattern):
+                found_path = Path(found_path_str)
+                if not found_path.is_dir():
+                    continue
+
+                exe_dir = found_path
+                if cfg.detection.exe_subdir:
+                    candidate = found_path / cfg.detection.exe_subdir
+                    if candidate.is_dir():
+                        exe_dir = candidate
+
+                exe_name = cfg.detection.version_cmd
+                if platform.system() == "Windows":
+                    exe_name += ".exe"
+                exe_path = exe_dir / exe_name
+
+                if not exe_path.exists():
+                    # Try without .exe on Windows
+                    if platform.system() == "Windows":
+                        exe_path = exe_dir / cfg.detection.version_cmd
+                    if not exe_path.exists():
+                        if verbose:
+                            print(f"  {cfg.name}: exe not found at {exe_path}")
+                        continue
+
+                # Try to get version
+                version_str = _query_tool_version(
+                    exe_path,
+                    cfg.detection.version_args,
+                    cfg.detection.version_pattern,
+                    verbose,
+                )
+
+                if version_str and version_str not in found_versions:
+                    detected.setdefault(tool_key, []).append(
+                        DetectedTool(
+                            tool_name=cfg.name,
+                            version=version_str,
+                            exe_dir=exe_dir,
+                            exe_path=exe_path,
+                        )
+                    )
+                    found_versions[version_str] = exe_dir
+                    if verbose:
+                        print(f"  {cfg.name} {version_str} at {exe_dir}")
+
+        if cfg.name.lower() not in detected and verbose:
+            print(f"  {cfg.name}: not found")
+
+    return detected
+
+
+def _query_tool_version(
+    exe_path: Path,
+    version_args: List[str],
+    version_pattern: str,
+    verbose: bool = False,
+) -> str:
+    """Run the version command and extract the version string."""
+    import re
+    import subprocess
+
+    try:
+        result = subprocess.run(
+            [str(exe_path)] + version_args,
+            capture_output=True,
+            text=True,
+            timeout=10,
+        )
+        output = result.stdout + result.stderr
+        m = re.search(version_pattern, output, re.IGNORECASE)
+        if m:
+            return m.group(1)
+        if verbose:
+            print(f"    version pattern not matched in output: {output[:120]}")
+    except FileNotFoundError:
+        if verbose:
+            print(f"    executable not found: {exe_path}")
+    except subprocess.TimeoutExpired:
+        if verbose:
+            print(f"    timeout querying version: {exe_path}")
+    except Exception as e:
+        if verbose:
+            print(f"    error querying version: {e}")
+
+    return ""

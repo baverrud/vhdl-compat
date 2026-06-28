@@ -22,13 +22,13 @@ from typing import Dict, List, Optional, Tuple
 try:
     from .result_store import RunResult, TestResult, TestStatus
     from .test_discovery import TestInfo, discover_tests
-    from .tool_discovery import ToolConfig, discover_tool_configs, load_tool_config
-    from .tool_runner import ToolRunner
+    from .tool_discovery import ToolConfig, DetectionConfig, DetectedTool, discover_tool_configs, load_tool_config, detect_installed_versions
+    from .tool_runner import ToolRunner, GenericRunner
 except ImportError:
     from result_store import RunResult, TestResult, TestStatus
     from test_discovery import TestInfo, discover_tests
-    from tool_discovery import ToolConfig, discover_tool_configs, load_tool_config
-    from tool_runner import ToolRunner
+    from tool_discovery import ToolConfig, DetectionConfig, DetectedTool, discover_tool_configs, load_tool_config, detect_installed_versions
+    from tool_runner import ToolRunner, GenericRunner
 
 
 # ============================================================================
@@ -73,6 +73,10 @@ def build_parser() -> argparse.ArgumentParser:
     parser.add_argument(
         "--list-tools", action="store_true",
         help="List all configured tools and exit"
+    )
+    parser.add_argument(
+        "--detect", action="store_true",
+        help="Scan system for installed EDA tool versions and exit"
     )
 
     # Paths
@@ -168,6 +172,32 @@ def cli_list_tools(tools_dir: Path) -> None:
     print()
 
 
+def cli_detect_tools(tools_dir: Path, verbose: bool = False) -> None:
+    """Scan the system for installed EDA tool versions."""
+    print("\nScanning for installed EDA tools...\n")
+
+    detected = detect_installed_versions(tools_dir, verbose=verbose)
+
+    if not detected:
+        print("No EDA tools detected.")
+        print("Configure search paths in tools/*.toml [detection.search] section.")
+        return
+
+    print(f"{'Tool':<15} {'Version':<14} {'Path'}")
+    print("-" * 70)
+
+    for tool_key, versions in sorted(detected.items()):
+        for dt in sorted(versions, key=lambda d: d.version, reverse=True):
+            print(f"{dt.tool_name:<15} {dt.version:<14} {dt.exe_dir}")
+
+    print(f"\nFound {sum(len(v) for v in detected.values())} installation(s).")
+    print(f"\nUsage examples:")
+    for tool_key, versions in sorted(detected.items()):
+        if versions:
+            latest = max(versions, key=lambda d: d.version)
+            print(f"  vhdl-compat --tool {tool_key} --version {latest.version} --std 2008 --mode sim")
+
+
 def run_tests(
     runner: ToolRunner,
     tests: Dict[str, TestInfo],
@@ -190,7 +220,7 @@ def run_tests(
     total = len(test_list)
 
     for idx, (key, info) in enumerate(test_list, 1):
-        if info.standard.lower() != standard.lower().replace("-", ""):
+        if not _standard_matches(info.standard, standard):
             continue
 
         for mode in modes:
@@ -236,6 +266,24 @@ def run_tests(
     return result
 
 
+def _normalize_standard(std: str) -> str:
+    """Normalize standard strings for comparison: 'VHDL-2008', '2008', 'vhdl2008' → '2008'."""
+    return std.lower().replace("vhdl", "").replace("-", "").strip()
+
+
+def _standard_matches(test_std: str, target_std: str) -> bool:
+    """Check if a test's standard matches the target standard."""
+    return _normalize_standard(test_std) == _normalize_standard(target_std)
+    """Parse a version string into a comparable tuple, e.g. '2024.1' → (2024, 1)."""
+    parts = []
+    for p in version_str.replace("-", ".").split("."):
+        try:
+            parts.append(int(p))
+        except ValueError:
+            parts.append(0)
+    return tuple(parts) if parts else (0,)
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     """Main entry point for the test runner CLI."""
     parser = build_parser()
@@ -252,6 +300,10 @@ def main(argv: Optional[List[str]] = None) -> int:
         cli_list_tools(tools_dir)
         return 0
 
+    if args.detect:
+        cli_detect_tools(tools_dir, verbose=args.verbose)
+        return 0
+
     # Validate required args
     if not args.tool:
         parser.error("--tool is required (use --list-tools to see available tools)")
@@ -265,6 +317,22 @@ def main(argv: Optional[List[str]] = None) -> int:
         )
 
     config = load_tool_config(tool_config_path)
+
+    # Auto-detect tool version if not specified
+    version = args.version
+    if version == "latest":
+        detected_all = detect_installed_versions(tools_dir, verbose=False)
+        tool_detected = detected_all.get(args.tool.lower(), [])
+        if tool_detected:
+            # Pick the highest version found
+            best = max(tool_detected, key=lambda d: _parse_version(d.version))
+            version = best.version
+            if args.verbose:
+                print(f"Auto-detected: {config.name} {version} at {best.exe_dir}")
+        else:
+            print(f"Warning: {config.name} not detected on this system. "
+                  f"Run 'vhdl-compat --detect' to scan.")
+            print(f"Continuing with version='{version}' (runner will simulate results)")
 
     # Discover tests
     all_tests = discover_tests(tests_dir)
@@ -287,15 +355,13 @@ def main(argv: Optional[List[str]] = None) -> int:
     work_dir.mkdir(parents=True, exist_ok=True)
 
     # Create runner (placeholder — tool-specific adapters to be added)
-    # For now, we use a generic runner that reports UNTESTED
-    from .tool_runner import GenericRunner
-    runner = GenericRunner(config, args.version)
+    runner = GenericRunner(config, version)
 
     # Run tests for each standard
     for standard in standards:
-        std_key = standard.lower().replace("-", "")
+        std_display = _normalize_standard(standard)
         print(f"\n{'='*60}")
-        print(f"Running: {config.name} {args.version} | VHDL-{standard} | modes={modes}")
+        print(f"Running: {config.name} {version} | VHDL-{std_display} | modes={modes}")
         print(f"{'='*60}")
 
         result = run_tests(
@@ -311,7 +377,7 @@ def main(argv: Optional[List[str]] = None) -> int:
               f"({result.total_count} total)")
 
         # Save report
-        report_subdir = f"{config.name.lower()}-{args.version}/vhdl{standard}-{'-'.join(modes)}"
+        report_subdir = f"{config.name.lower()}-{version}/vhdl{std_display}-{'-'.join(modes)}"
         report_path = results_dir / report_subdir / "report.json"
         result.save_json(report_path)
         print(f"Report saved: {report_path}")

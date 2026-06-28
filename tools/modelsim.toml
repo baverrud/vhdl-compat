@@ -23,6 +23,22 @@ windows_default = "C:/modeltech64_2024.1/win64"
 linux_default = "/opt/modelsim/modelsim/linux_x86_64"
 
 # ---------------------------------------------------------------------------
+# Version detection
+# ---------------------------------------------------------------------------
+[detection]
+version_cmd = "vcom"
+version_args = ["-version"]
+version_pattern = 'Model[sS]im [\w]*v?([\d.]+)'
+
+[detection.search]
+paths = [
+    "C:/modeltech*",
+    "C:/ModelSim*",
+    "/opt/modelsim*",
+]
+exe_subdir = "win64"
+
+# ---------------------------------------------------------------------------
 # VHDL standard flags
 # ---------------------------------------------------------------------------
 [standards.vhdl2008]
