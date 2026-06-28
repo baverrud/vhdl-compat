@@ -225,6 +225,9 @@ def discover_tool_configs(tools_dir: Path) -> Dict[str, ToolConfig]:
     """Load all tool configurations from a directory."""
     configs: Dict[str, ToolConfig] = {}
     for toml_file in sorted(tools_dir.glob("*.toml")):
+        # Skip manual installation config — it's not a tool definition
+        if toml_file.name in ("installed.toml", "installed.example.toml"):
+            continue
         try:
             cfg = load_tool_config(toml_file)
             configs[cfg.name.lower()] = cfg
@@ -295,7 +298,14 @@ def _load_manual_installations(
     try:
         raw = tomllib.loads(manual_path.read_text(encoding="utf-8"))
     except Exception as e:
-        print(f"Warning: Failed to parse {manual_path}: {e}")
+        error_msg = str(e)
+        if "unescaped" in error_msg.lower() or "backslash" in error_msg.lower():
+            print(f"Error in {manual_path.name}: {error_msg}")
+            print(f"  TOML requires forward slashes in paths, even on Windows.")
+            print(f"  Correct: path = \"C:/Xilinx/Vivado/2024.1/bin\"")
+            print(f"  Wrong:   path = \"C:\\Xilinx\\Vivado\\2024.1\\bin\"")
+        else:
+            print(f"Warning: Failed to parse {manual_path}: {e}")
         return {}
 
     detected: Dict[str, List[DetectedTool]] = {}
