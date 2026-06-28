@@ -1,6 +1,6 @@
 -- ============================================================================
 -- STD: VHDL-2019
--- FEATURE: Reserved keyword "view" — breaks VHDL-2008 identifiers named "view"
+-- FEATURE: Reserved keyword "view" -- breaks VHDL-2008 identifiers named "view"
 -- CATEGORY: keywords
 -- TEST_TYPE: backcompat
 -- VALID_IN: VHDL-93, VHDL-2000, VHDL-2002, VHDL-2008
@@ -12,13 +12,13 @@
 --   VHDL-2019 introduced the concept of mode views for composite interface
 --   types (LCS2016-045a). This required the new reserved keyword "view".
 --
---   This test declares a signal named "view" — a legal identifier in all
+--   This test declares a signal named "view" -- a legal identifier in all
 --   standards up through VHDL-2008. Under VHDL-2019, "view" is a reserved
 --   keyword and this file must be rejected.
 --
 --   EXPECTED RESULT:
---     VHDL-2008 mode: PASS (compiles — "view" is a legal identifier)
---     VHDL-2019 mode: FAIL (correctly rejected — "view" is a reserved word)
+--     VHDL-2008 mode: PASS (compiles -- "view" is a legal identifier)
+--     VHDL-2019 mode: FAIL (correctly rejected -- "view" is a reserved word)
 -- ============================================================================
 
 entity tb_keyword_view is
@@ -31,4 +31,4 @@ architecture test of tb_keyword_view is
 begin
   view <= 7;
 end architecture;
--- TAKEAWAY: Backwards compatibility — Reserved keyword "view" — breaks VHDL-2008 identifiers named "view".
+-- TAKEAWAY: Backwards compatibility -- Reserved keyword "view" -- breaks VHDL-2008 identifiers named "view".

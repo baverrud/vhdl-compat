@@ -1,6 +1,6 @@
 -- ============================================================================
 -- STD: VHDL-2008
--- FEATURE: ?? (condition operator) — convert std_logic to boolean
+-- FEATURE: ?? (condition operator) -- convert std_logic to boolean
 -- CATEGORY: expressions
 -- TEST_TYPE: sim
 -- DESCRIPTION:
@@ -112,4 +112,4 @@ begin
   end process;
 
 end architecture;
--- TAKEAWAY: ?? converts std_logic to boolean — write `if my_signal then` instead of `if my_signal = '1' then`.
+-- TAKEAWAY: ?? converts std_logic to boolean -- write `if my_signal then` instead of `if my_signal = '1' then`.

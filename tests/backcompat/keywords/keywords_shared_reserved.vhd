@@ -14,14 +14,14 @@
 --   code. It introduced over 15 new reserved keywords. A VHDL-87 design that
 --   used "shared" or "xnor" as a signal name would suddenly fail.
 --
---   This test declares a signal named "shared" — legal in VHDL-87, but a
+--   This test declares a signal named "shared" -- legal in VHDL-87, but a
 --   reserved keyword from VHDL-93 onward. Note: most modern tools default to
 --   VHDL-93 or later, so testing VHDL-87 compatibility requires explicit
 --   `--std=87` flag support (not all tools have this).
 --
 --   EXPECTED RESULT:
 --     VHDL-87 mode:  PASS (if supported by tool)
---     VHDL-93+ mode: FAIL (correctly rejected — "shared" is reserved)
+--     VHDL-93+ mode: FAIL (correctly rejected -- "shared" is reserved)
 -- ============================================================================
 
 entity tb_keyword_shared is
@@ -34,4 +34,4 @@ architecture test of tb_keyword_shared is
 begin
   shared <= 1;
 end architecture;
--- TAKEAWAY: Backwards compatibility — New VHDL-93 reserved keywords (shared, xnor, etc.).
+-- TAKEAWAY: Backwards compatibility -- New VHDL-93 reserved keywords (shared, xnor, etc.).

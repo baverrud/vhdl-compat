@@ -1,6 +1,6 @@
 -- ============================================================================
 -- STD: VHDL-2008
--- FEATURE: Generic types — entities/functions parameterizable by type
+-- FEATURE: Generic types -- entities/functions parameterizable by type
 -- CATEGORY: generics
 -- TEST_TYPE: sim
 -- DESCRIPTION:
@@ -24,7 +24,7 @@ use ieee.numeric_std.all;
 use std.env.all;
 
 -- ============================================================================
--- A generic incrementer — works with any type that has a "+" operator
+-- A generic incrementer -- works with any type that has a "+" operator
 -- The type and the increment function are provided as generics.
 -- ============================================================================
 entity generic_incrementer is
@@ -107,7 +107,7 @@ begin
     int_in <= 0;
     wait for 1 ns;
     if int_out /= 1 then
-      report "FAIL: int incrementer — got " & integer'image(int_out)
+      report "FAIL: int incrementer -- got " & integer'image(int_out)
              & " expected 1" severity error;
       errors <= errors + 1;
     end if;
@@ -115,7 +115,7 @@ begin
     int_in <= 41;
     wait for 1 ns;
     if int_out /= 42 then
-      report "FAIL: int incrementer — got " & integer'image(int_out)
+      report "FAIL: int incrementer -- got " & integer'image(int_out)
              & " expected 42" severity error;
       errors <= errors + 1;
     end if;
@@ -124,7 +124,7 @@ begin
     slv_in <= "00000000";
     wait for 1 ns;
     if slv_out /= "00000001" then
-      report "FAIL: slv incrementer — got " & to_string(slv_out)
+      report "FAIL: slv incrementer -- got " & to_string(slv_out)
              & " expected 00000001" severity error;
       errors <= errors + 1;
     end if;
@@ -132,7 +132,7 @@ begin
     slv_in <= "11111111";
     wait for 1 ns;
     if slv_out /= "00000000" then
-      report "FAIL: slv incrementer wraparound — got " & to_string(slv_out)
+      report "FAIL: slv incrementer wraparound -- got " & to_string(slv_out)
              & " expected 00000000" severity error;
       errors <= errors + 1;
     end if;
@@ -150,4 +150,4 @@ begin
   end process;
 
 end architecture;
--- TAKEAWAY: VHDL-2008 generic types let you write one entity that works with any data type — instantiate it for integer, slv, or your own type.
+-- TAKEAWAY: VHDL-2008 generic types let you write one entity that works with any data type -- instantiate it for integer, slv, or your own type.

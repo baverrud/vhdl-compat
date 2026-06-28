@@ -42,4 +42,4 @@ begin
     wait;
   end process;
 end architecture;
--- TAKEAWAY: Backwards compatibility — Shared variables must be of protected type.
+-- TAKEAWAY: Backwards compatibility -- Shared variables must be of protected type.

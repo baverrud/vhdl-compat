@@ -1,6 +1,6 @@
 -- ============================================================================
 -- STD: VHDL-2008
--- FEATURE: Enhanced bit string literals — width, signed/unsigned, don't-care
+-- FEATURE: Enhanced bit string literals -- width, signed/unsigned, don't-care
 -- CATEGORY: expressions
 -- XREF: FT09
 -- TEST_TYPE: sim
@@ -40,7 +40,7 @@ begin
     ) is
     begin
       if actual /= expected then
-        report "FAIL: " & label & " — got " & to_string(actual)
+        report "FAIL: " & label & " -- got " & to_string(actual)
                & " expected " & to_string(expected)
           severity error;
         errors <= errors + 1;
@@ -62,11 +62,11 @@ begin
     v := 6x"XF";
     check(v, "XX1111", "6x""XF"" should be XX1111 (X for upper bits, F=1111)");
 
-    -- 3. Sign extension (S) — MSB replicates
+    -- 3. Sign extension (S) -- MSB replicates
     v := 6SX"F";
     check(v, "111111", "6SX""F"" should sign-extend: 111111");
 
-    -- 4. Zero extension (U) — pads with zeros
+    -- 4. Zero extension (U) -- pads with zeros
     v := 6UX"f";
     check(v, "001111", "6UX""f"" should zero-extend: 001111 (lowercase f)");
 

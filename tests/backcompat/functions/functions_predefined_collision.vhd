@@ -25,7 +25,7 @@
 --
 --   EXPECTED RESULT:
 --     VHDL-93/2000/2002: PASS (no built-in to conflict with)
---     VHDL-2008/2019:    Varies — some tools accept (shadowing), some reject
+--     VHDL-2008/2019:    Varies -- some tools accept (shadowing), some reject
 -- ============================================================================
 
 library ieee;
@@ -36,7 +36,7 @@ end entity;
 
 architecture test of tb_predefined_collision is
 
-  -- Define a local "minimum" function — same name and signature as the
+  -- Define a local "minimum" function -- same name and signature as the
   -- VHDL-2008 built-in. This was perfectly legal before VHDL-2008.
   function minimum(a, b : integer) return integer is
   begin
@@ -57,4 +57,4 @@ begin
     wait;
   end process;
 end architecture;
--- TAKEAWAY: Backwards compatibility — Predefined functions to_string, minimum, maximum clash with user code.
+-- TAKEAWAY: Backwards compatibility -- Predefined functions to_string, minimum, maximum clash with user code.

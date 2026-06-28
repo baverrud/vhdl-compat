@@ -1,6 +1,6 @@
 -- ============================================================================
 -- STD: VHDL-2008
--- FEATURE: External (hierarchical) names — access signals across hierarchy
+-- FEATURE: External (hierarchical) names -- access signals across hierarchy
 -- CATEGORY: verification
 -- XREF: FT07
 -- TEST_TYPE: sim
@@ -30,7 +30,7 @@ use ieee.numeric_std.all;
 use std.env.all;
 
 -- ============================================================================
--- A simple 4-bit counter (internal design — we want to peek at its "count")
+-- A simple 4-bit counter (internal design -- we want to peek at its "count")
 -- ============================================================================
 entity counter is
   port (
@@ -110,7 +110,7 @@ begin
   clk <= not clk after CLK_PERIOD / 2;
 
   -- --------------------------------------------------------------------------
-  -- Stimulus + Checker — uses external name to peek at counter internals
+  -- Stimulus + Checker -- uses external name to peek at counter internals
   -- --------------------------------------------------------------------------
   stim_proc : process
     -- VHDL-2008 external name: access the "count" signal inside the counter
@@ -149,7 +149,7 @@ begin
       errors <= errors + 1;
     end if;
 
-    -- The external name works — we read an internal signal without modifying RTL
+    -- The external name works -- we read an internal signal without modifying RTL
     if errors = 0 then
       report "PASS: External names correctly read internal counter signal"
         severity note;

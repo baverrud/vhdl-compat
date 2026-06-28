@@ -1,6 +1,6 @@
 -- ============================================================================
 -- STD: VHDL-2008
--- FEATURE: Reserved keyword "context" — breaks VHDL-93 identifiers named "context"
+-- FEATURE: Reserved keyword "context" -- breaks VHDL-93 identifiers named "context"
 -- CATEGORY: keywords
 -- TEST_TYPE: backcompat
 -- VALID_IN: VHDL-93, VHDL-2000, VHDL-2002
@@ -13,7 +13,7 @@
 --   Each VHDL revision adds reserved keywords. If older code used one of these
 --   words as a user-defined identifier, it becomes illegal in the new standard.
 --
---   This test declares a signal named "context" — a perfectly legal identifier
+--   This test declares a signal named "context" -- a perfectly legal identifier
 --   in VHDL-93 through VHDL-2002. Under VHDL-2008 and VHDL-2019, "context" is
 --   a reserved keyword and this file must be rejected by the compiler.
 --
@@ -22,10 +22,10 @@
 --   parameter, property, sequence, assume, restrict, strong, cover.
 --
 --   EXPECTED RESULT:
---     VHDL-93 mode:  PASS (compiles — "context" is a legal identifier)
---     VHDL-2002 mode: PASS (compiles — "context" is a legal identifier)
---     VHDL-2008 mode: FAIL (correctly rejected — "context" is a reserved word)
---     VHDL-2019 mode: FAIL (correctly rejected — "context" is a reserved word)
+--     VHDL-93 mode:  PASS (compiles -- "context" is a legal identifier)
+--     VHDL-2002 mode: PASS (compiles -- "context" is a legal identifier)
+--     VHDL-2008 mode: FAIL (correctly rejected -- "context" is a reserved word)
+--     VHDL-2019 mode: FAIL (correctly rejected -- "context" is a reserved word)
 -- ============================================================================
 
 entity tb_keyword_context is
@@ -39,4 +39,4 @@ architecture test of tb_keyword_context is
 begin
   context <= 42;
 end architecture;
--- TAKEAWAY: Backwards compatibility — Reserved keyword "context" — breaks VHDL-93 identifiers named "context".
+-- TAKEAWAY: Backwards compatibility -- Reserved keyword "context" -- breaks VHDL-93 identifiers named "context".

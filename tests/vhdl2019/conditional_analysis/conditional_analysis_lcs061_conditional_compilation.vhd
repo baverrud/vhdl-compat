@@ -1,6 +1,6 @@
 -- ============================================================================
 -- STD: VHDL-2019
--- FEATURE: Conditional analysis — `if / `else / `end if tool directives
+-- FEATURE: Conditional analysis -- `if / `else / `end if tool directives
 -- CATEGORY: conditional_analysis (LCS2016-061)
 -- XREF: LCS2016-061
 -- TEST_TYPE: sim

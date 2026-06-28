@@ -16,7 +16,7 @@
 --       function to_string(x : std_ulogic_vector) return string;
 --
 --   In VHDL-2008, std_logic_vector became a subtype of std_ulogic_vector.
---   Now these two function declarations are homographs — they have the same
+--   Now these two function declarations are homographs -- they have the same
 --   name, same parameter profile (since the types are now the same), but
 --   different return types or bodies. A VHDL-2008-compliant tool must flag
 --   this as an error.
@@ -25,9 +25,9 @@
 --   It should compile under VHDL-93/2000/2002 but fail under VHDL-2008/2019.
 --
 --   EXPECTED RESULT:
---     VHDL-93 mode:  PASS (types are distinct — no conflict)
---     VHDL-2002 mode: PASS (types are distinct — no conflict)
---     VHDL-2008 mode: FAIL (homograph conflict — types are now the same)
+--     VHDL-93 mode:  PASS (types are distinct -- no conflict)
+--     VHDL-2002 mode: PASS (types are distinct -- no conflict)
+--     VHDL-2008 mode: FAIL (homograph conflict -- types are now the same)
 --     VHDL-2019 mode: FAIL (homograph conflict)
 -- ============================================================================
 
@@ -68,4 +68,4 @@ begin
     wait;
   end process;
 end architecture;
--- TAKEAWAY: Backwards compatibility — std_logic_vector redefined as subtype of std_ulogic_vector.
+-- TAKEAWAY: Backwards compatibility -- std_logic_vector redefined as subtype of std_ulogic_vector.

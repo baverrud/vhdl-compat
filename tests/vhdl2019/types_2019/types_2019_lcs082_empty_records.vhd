@@ -1,13 +1,13 @@
 -- ============================================================================
 -- STD: VHDL-2019
--- FEATURE: Empty records — record types with no elements
+-- FEATURE: Empty records -- record types with no elements
 -- CATEGORY: types_2019 (LCS2016-082)
 -- XREF: LCS2016-082
 -- TEST_TYPE: sim
 -- DESCRIPTION:
 --   Before VHDL-2019, a VHDL record type had to contain at least one element.
 --   This made it impossible to use records as "marker types" or "token types"
---   — types whose only purpose is to exist as a named placeholder in a generic
+--   -- types whose only purpose is to exist as a named placeholder in a generic
 --   interface.
 --
 --   VHDL-2019 allows records with zero elements:

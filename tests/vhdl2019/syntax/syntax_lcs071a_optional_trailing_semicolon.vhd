@@ -22,7 +22,7 @@
 --
 --   This test verifies that the tool accepts a trailing semicolon after the
 --   last element in an interface list. It also serves as the BASELINE
---   VERIFICATION that the tool is actually running in VHDL-2019 mode —
+--   VERIFICATION that the tool is actually running in VHDL-2019 mode --
 --   if this test fails, the tool is likely in VHDL-2008 or earlier mode.
 -- ============================================================================
 
@@ -113,4 +113,4 @@ begin
   end process;
 
 end architecture;
--- TAKEAWAY: VHDL-2019 optional trailing semicolons eliminate the "expecting IDENTIFIER" error — a common syntax annoyance.
+-- TAKEAWAY: VHDL-2019 optional trailing semicolons eliminate the "expecting IDENTIFIER" error -- a common syntax annoyance.

@@ -18,7 +18,7 @@
 --   This test uses the VHDL-87 file declaration syntax. Most modern tools
 --   cannot parse VHDL-87 syntax at all unless they have an explicit --std=87
 --   flag (rare). This test primarily verifies that the tool REJECTS VHDL-87
---   syntax when running in VHDL-93+ mode — i.e., doesn't silently accept it.
+--   syntax when running in VHDL-93+ mode -- i.e., doesn't silently accept it.
 --
 --   EXPECTED RESULT:
 --     VHDL-93 and later: FAIL (VHDL-87 file syntax is invalid)
@@ -36,4 +36,4 @@ architecture test of tb_file_syntax_87 is
   file my_file : text is in "nonexistent.txt";
 begin
 end architecture;
--- TAKEAWAY: Backwards compatibility — File declaration syntax changed from VHDL-87.
+-- TAKEAWAY: Backwards compatibility -- File declaration syntax changed from VHDL-87.

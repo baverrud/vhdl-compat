@@ -1,6 +1,6 @@
 -- ============================================================================
 -- STD: VHDL-2008
--- FEATURE: process(all) — automatic sensitivity list inference
+-- FEATURE: process(all) -- automatic sensitivity list inference
 -- CATEGORY: processes
 -- XREF: FT19
 -- TEST_TYPE: sim
@@ -20,7 +20,7 @@
 --   This test verifies that process(all) correctly detects changes on three
 --   independent input signals (a, b, c) and recomputes the output (y).
 --   It also serves as the BASELINE VERIFICATION that the tool is actually
---   running in VHDL-2008 mode — if this test fails, the tool is likely in
+--   running in VHDL-2008 mode -- if this test fails, the tool is likely in
 --   VHDL-1993 mode.
 -- ============================================================================
 
@@ -69,7 +69,7 @@ begin
       wait for 1 ns;  -- Allow delta cycle for signal update
 
       if y /= expected(a, b, c) then
-        report "FAIL: " & msg & " — y=" & std_logic'image(y)
+        report "FAIL: " & msg & " -- y=" & std_logic'image(y)
                & " expected " & std_logic'image(expected(a, b, c))
           severity error;
         errors <= errors + 1;
@@ -78,7 +78,7 @@ begin
 
   begin
     report "==============================================" severity note;
-    report "TEST: process(all) — automatic sensitivity list" severity note;
+    report "TEST: process(all) -- automatic sensitivity list" severity note;
     report "STD:  VHDL-2008" severity note;
     report "==============================================" severity note;
 
@@ -104,4 +104,4 @@ begin
   end process;
 
 end architecture;
--- TAKEAWAY: process(all) replaces manual sensitivity lists — never miss a signal again.
+-- TAKEAWAY: process(all) replaces manual sensitivity lists -- never miss a signal again.
