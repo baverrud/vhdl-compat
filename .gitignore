@@ -44,3 +44,4 @@ results/*
 
 # Tool binaries / installs
 tools/bin/
+tools/installed.toml

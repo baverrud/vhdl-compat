@@ -1,0 +1,42 @@
+# ============================================================================
+# Manually declared EDA tool installations.
+#
+# Copy this file to: tools/installed.toml
+# Edit the paths to match your system.
+#
+# installed.toml is gitignored — each developer maintains their own copy.
+# This file takes priority over automatic detection (vhdl-compat --detect).
+# ============================================================================
+
+# ---------------------------------------------------------------------------
+# Vivado (AMD/Xilinx) — simulation + synthesis
+# ---------------------------------------------------------------------------
+# [vivado."2024.1"]
+# path = "C:/Xilinx/Vivado/2024.1/bin"
+#
+# [vivado."2023.2"]
+# path = "C:/Xilinx/Vivado/2023.2/bin"
+
+# ---------------------------------------------------------------------------
+# Questa Advanced Simulator (Siemens EDA)
+# ---------------------------------------------------------------------------
+# [questa."2024.1"]
+# path = "C:/questasim64_2024.1/win64"
+
+# ---------------------------------------------------------------------------
+# ModelSim DE/PE (Siemens EDA)
+# ---------------------------------------------------------------------------
+# [modelsim."2024.1"]
+# path = "C:/modeltech64_2024.1/win64"
+
+# ---------------------------------------------------------------------------
+# GHDL — open-source VHDL simulator
+# ---------------------------------------------------------------------------
+# [ghdl."4.0"]
+# path = "/usr/local/bin"
+
+# ---------------------------------------------------------------------------
+# NVC — open-source VHDL compiler/simulator
+# ---------------------------------------------------------------------------
+# [nvc."1.21"]
+# path = "/usr/local/bin"

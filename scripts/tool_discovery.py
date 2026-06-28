@@ -250,11 +250,106 @@ def detect_installed_versions(
     tools_dir: Path,
     verbose: bool = False,
 ) -> Dict[str, List[DetectedTool]]:
-    """Scan the system for installed EDA tool versions.
+    """Discover installed EDA tool versions.
+
+    Priority:
+    1. Manual config: tools/installed.toml (user-controlled, no filesystem scan)
+    2. Auto-detection: scan filesystem using [detection.search] paths
 
     Returns dict mapping tool_name → list of detected versions.
-    Each entry has the tool name, version string, and path to executable dir.
     """
+    detected: Dict[str, List[DetectedTool]] = {}
+
+    # 1. Check manual config first
+    manual_path = tools_dir / "installed.toml"
+    if manual_path.exists():
+        if verbose:
+            print(f"Reading manual tool config: {manual_path}")
+        manual_detected = _load_manual_installations(manual_path, tools_dir)
+        for tool_key, versions in manual_detected.items():
+            detected.setdefault(tool_key, []).extend(versions)
+        if detected and verbose:
+            print(f"  Found {sum(len(v) for v in detected.values())} manually configured installation(s).")
+        if detected:
+            return detected  # Manual config takes priority — skip auto-scan
+
+    # 2. Fall back to auto-detection
+    if verbose:
+        print("No manual config found — scanning filesystem...")
+        print("  (Create tools/installed.toml to avoid filesystem scans)")
+
+    return _detect_by_scanning(tools_dir, verbose)
+
+
+def _load_manual_installations(
+    manual_path: Path,
+    tools_dir: Path,
+) -> Dict[str, List[DetectedTool]]:
+    """Parse tools/installed.toml and return detected installations."""
+    if tomllib is None:
+        print("Warning: tomli not available, cannot read installed.toml")
+        return {}
+
+    configs = discover_tool_configs(tools_dir)
+
+    try:
+        raw = tomllib.loads(manual_path.read_text(encoding="utf-8"))
+    except Exception as e:
+        print(f"Warning: Failed to parse {manual_path}: {e}")
+        return {}
+
+    detected: Dict[str, List[DetectedTool]] = {}
+
+    for tool_key, versions_data in raw.items():
+        if not isinstance(versions_data, dict):
+            continue
+
+        tool_cfg = configs.get(tool_key.lower())
+        tool_name = tool_cfg.name if tool_cfg else tool_key
+
+        for version, data in versions_data.items():
+            if not isinstance(data, dict):
+                continue
+            exe_dir_str = data.get("path", "")
+            if not exe_dir_str:
+                continue
+
+            exe_dir = Path(exe_dir_str)
+            if not exe_dir.is_dir():
+                if tool_key in configs:
+                    print(f"  Warning: {tool_name} {version} — path not found: {exe_dir}")
+                continue
+
+            # Verify the expected executable exists
+            if tool_cfg and tool_cfg.detection.version_cmd:
+                import platform
+                exe_name = tool_cfg.detection.version_cmd
+                if platform.system() == "Windows":
+                    exe_name += ".exe"
+                exe_path = exe_dir / exe_name
+                if not exe_path.exists():
+                    # Try without .exe
+                    exe_path = exe_dir / tool_cfg.detection.version_cmd
+                    if not exe_path.exists():
+                        print(f"  Warning: {tool_name} {version} — {exe_name} not found in {exe_dir}")
+                        continue
+
+            detected.setdefault(tool_key.lower(), []).append(
+                DetectedTool(
+                    tool_name=tool_name,
+                    version=version,
+                    exe_dir=exe_dir,
+                    exe_path=exe_path if 'exe_path' in dir() else exe_dir,
+                )
+            )
+
+    return detected
+
+
+def _detect_by_scanning(
+    tools_dir: Path,
+    verbose: bool,
+) -> Dict[str, List[DetectedTool]]:
     import glob as glob_mod
     import platform
     import re

@@ -173,28 +173,40 @@ def cli_list_tools(tools_dir: Path) -> None:
 
 
 def cli_detect_tools(tools_dir: Path, verbose: bool = False) -> None:
-    """Scan the system for installed EDA tool versions."""
-    print("\nScanning for installed EDA tools...\n")
+    """Discover installed EDA tool versions (manual config or auto-scan)."""
+    manual_path = tools_dir / "installed.toml"
+
+    print("\nTool discovery:")
+    print(f"  Manual config: {'FOUND' if manual_path.exists() else 'not found'} "
+          f"({manual_path})")
+    print(f"  Auto-scan:     available via --detect (slower, may be invasive)")
+    print()
+
+    if not manual_path.exists():
+        print("Tip: Create tools/installed.toml to declare your tools manually.")
+        print("     Copy tools/installed.example.toml as a starting point.\n")
 
     detected = detect_installed_versions(tools_dir, verbose=verbose)
 
     if not detected:
-        print("No EDA tools detected.")
-        print("Configure search paths in tools/*.toml [detection.search] section.")
+        print("No EDA tools configured.")
+        print("Options:")
+        print("  1. Copy tools/installed.example.toml -> tools/installed.toml and edit paths")
+        print("  2. Or run with --verbose to see auto-scan details")
         return
 
     print(f"{'Tool':<15} {'Version':<14} {'Path'}")
     print("-" * 70)
 
     for tool_key, versions in sorted(detected.items()):
-        for dt in sorted(versions, key=lambda d: d.version, reverse=True):
+        for dt in sorted(versions, key=lambda d: _parse_version(d.version), reverse=True):
             print(f"{dt.tool_name:<15} {dt.version:<14} {dt.exe_dir}")
 
     print(f"\nFound {sum(len(v) for v in detected.values())} installation(s).")
     print(f"\nUsage examples:")
     for tool_key, versions in sorted(detected.items()):
         if versions:
-            latest = max(versions, key=lambda d: d.version)
+            latest = max(versions, key=lambda d: _parse_version(d.version))
             print(f"  vhdl-compat --tool {tool_key} --version {latest.version} --std 2008 --mode sim")
 
 
