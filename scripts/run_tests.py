@@ -203,7 +203,7 @@ def cli_detect_tools(tools_dir: Path, verbose: bool = False) -> None:
 
     for tool_key, versions in sorted(detected.items()):
         for dt in sorted(versions, key=lambda d: _parse_version(d.version), reverse=True):
-            print(f"{dt.tool_name:<15} {dt.version:<14} {dt.exe_dir}")
+            print(f"{dt.display_name or dt.tool_name:<15} {dt.version:<14} {dt.exe_dir}")
 
     print(f"\nFound {sum(len(v) for v in detected.values())} installation(s).")
     print(f"\nUsage examples:")
@@ -224,7 +224,7 @@ def run_tests(
 ) -> RunResult:
     """Run all applicable tests with the given runner and collect results."""
     result = RunResult(
-        tool_name=runner.config.name,
+        tool_name=runner.config.display_name or runner.config.name,
         tool_version=runner.version,
         standard=standard,
         mode="+".join(modes),
@@ -384,14 +384,28 @@ def main(argv: Optional[List[str]] = None) -> int:
         except ImportError:
             from questa_adapter import QuestaRunner
         runner = QuestaRunner(config, version)
+    elif tool_lower == "vivado":
+        try:
+            from .vivado_adapter import VivadoRunner
+        except ImportError:
+            from vivado_adapter import VivadoRunner
+        runner = VivadoRunner(config, version)
     else:
         runner = GenericRunner(config, version)
+
+    # Look up display name from installed.toml if available
+    from scripts.tool_discovery import detect_installed_versions
+    detected = detect_installed_versions(tools_dir, verbose=False)
+    for dt in detected.get(tool_lower, []):
+        if dt.version == version and dt.display_name:
+            config.display_name = dt.display_name
+            break
 
     # Run tests for each standard
     for standard in standards:
         std_display = _normalize_standard(standard)
         print(f"\n{'='*60}")
-        print(f"Running: {config.name} {version} | VHDL-{std_display} | modes={modes}")
+        print(f"Running: {runner.config.display_name or config.name} {version} | VHDL-{std_display} | modes={modes}")
         print(f"{'='*60}")
 
         result = run_tests(

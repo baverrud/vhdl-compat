@@ -89,6 +89,7 @@ class ToolConfig:
     vendor: str = ""
     tool_type: str = ""          # "sim", "synth", or "both"
     description: str = ""
+    display_name: str = ""       # custom display name from installed.toml
     paths: PathConfig = field(default_factory=PathConfig)
     detection: DetectionConfig = field(default_factory=DetectionConfig)
     standards: Dict[str, StandardConfig] = field(default_factory=dict)
@@ -247,6 +248,22 @@ class DetectedTool:
     version: str
     exe_dir: Path
     exe_path: Path
+    display_name: str = ""   # custom display name from installed.toml section
+
+
+# ---------------------------------------------------------------------------
+# Alias map: custom installed.toml section names → canonical tool config keys
+# ---------------------------------------------------------------------------
+TOOL_ALIASES: dict[str, str] = {
+    "altera questa starter": "questa",
+    "altera questastarter": "questa",
+    "intel/altera modelsim starter": "modelsim",
+    "modelsim starter": "modelsim",
+    "modelsim de": "modelsim",
+    "modelsim pe": "modelsim",
+    "vivado": "vivado",
+    "xilinx vivado": "vivado",
+}
 
 
 def detect_installed_versions(
@@ -320,7 +337,12 @@ def _load_manual_installations(
         if not isinstance(versions_data, dict):
             continue
 
-        tool_cfg = configs.get(tool_key.lower())
+        tool_key_lower = tool_key.lower()
+        alias_target = TOOL_ALIASES.get(tool_key_lower, tool_key_lower)
+        tool_cfg = configs.get(alias_target)
+
+        # Use the installed.toml section key as the display name
+        display_name = tool_key.strip()
         tool_name = tool_cfg.name if tool_cfg else tool_key
 
         for version, data in versions_data.items():
@@ -332,7 +354,7 @@ def _load_manual_installations(
 
             exe_dir = Path(exe_dir_str)
             if not exe_dir.is_dir():
-                if tool_key in configs:
+                if alias_target in configs:
                     print(f"  Warning: {tool_name} {version} — path not found: {exe_dir}")
                 continue
 
@@ -350,12 +372,14 @@ def _load_manual_installations(
                         print(f"  Warning: {tool_name} {version} — {exe_name} not found in {exe_dir}")
                         continue
 
-            detected.setdefault(tool_key.lower(), []).append(
+            # Key the detection by CANONICAL name so --tool questa finds it
+            detected.setdefault(alias_target, []).append(
                 DetectedTool(
                     tool_name=tool_name,
                     version=version,
                     exe_dir=exe_dir,
                     exe_path=exe_path if 'exe_path' in dir() else exe_dir,
+                    display_name=display_name,
                 )
             )
 
