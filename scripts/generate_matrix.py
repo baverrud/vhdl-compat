@@ -131,6 +131,71 @@ def generate_matrix_markdown(
         lines.append(row)
 
     lines.append("")
+
+    # ===================================================================
+    # Backwards-Compatibility Section
+    # ===================================================================
+    backcompat_features = [(s, c, f) for s, c, f in features
+                           if c in ("keywords", "functions", "types", "syntax", "semantic")]
+    if backcompat_features:
+        lines.append("## Backwards Compatibility")
+        lines.append("")
+        lines.append("Each row shows whether the tool correctly enforces standard boundaries.")
+        lines.append("A test should **pass** in older standards (code was legal) and **fail** in newer standards (code became illegal).")
+        lines.append("")
+
+        # Build a second table with all standards as columns
+        all_stds = sorted(set(
+            s for _, _, _ in features for s in ["2000", "2002", "2008", "2019"]
+        ))
+        # Filter to standards that actually have results
+        used_stds = []
+        for std in all_stds:
+            for col_key in columns:
+                data = all_reports.get(col_key)
+                if data and data.get("standard") == std:
+                    used_stds.append(std)
+                    break
+        used_stds = sorted(set(used_stds))
+
+        bc_header = "| Feature | Break Reason | " + " | ".join(f"VHDL-{s}" for s in used_stds) + " |"
+        bc_sep = "|---------|-------------|" + "|".join(["---"] * len(used_stds)) + "|"
+        lines.append(bc_header)
+        lines.append(bc_sep)
+
+        for std, category, feature in backcompat_features:
+            row = f"| {feature} | "
+
+            # Find break reason from test info
+            break_info = ""
+            for col_key in columns:
+                data = all_reports.get(col_key)
+                if data:
+                    for r in data.get("results", {}).values():
+                        if r.get("feature") == feature:
+                            comment = r.get("comment", "")
+                            if "Correctly rejected" in comment or "Should compile" in comment:
+                                break_info = comment[:80]
+                            break
+                if break_info:
+                    break
+            row += f"{break_info} |"
+
+            for std in used_stds:
+                cell = " ➖ |"
+                for col_key in columns:
+                    data = all_reports.get(col_key)
+                    if data and data.get("standard") == std:
+                        result = _find_result(data, feature, category)
+                        if result:
+                            cell = f" {build_status_cell(result.get('status', 'untested'))} |"
+                        break
+                row += cell
+
+            lines.append(row)
+
+        lines.append("")
+
     return "\n".join(lines)
 
 

@@ -235,7 +235,12 @@ def run_tests(
     total = len(test_list)
 
     for idx, (key, info) in enumerate(test_list, 1):
-        if not _standard_matches(info.standard, standard):
+        # For backcompat tests, match against VALID_IN + INVALID_IN, not just STD
+        if info.test_type == "backcompat":
+            all_relevant = set(info.valid_in + info.invalid_in)
+            if not any(_standard_matches(s, standard) for s in all_relevant):
+                continue
+        elif not _standard_matches(info.standard, standard):
             continue
 
         for mode in modes:
@@ -263,6 +268,22 @@ def run_tests(
                 )
 
             result.results[test_key] = test_result
+
+            # Backcompat result transformation:
+            # INVALID_IN + FAIL = tool correctly rejects old code → PASS
+            # INVALID_IN + PASS = tool incorrectly accepts old code → FAIL
+            # VALID_IN: keep raw result as-is
+            if info.test_type == "backcompat":
+                is_invalid = any(_standard_matches(s, standard) for s in info.invalid_in)
+                is_valid = any(_standard_matches(s, standard) for s in info.valid_in)
+                if is_invalid and test_result.status == TestStatus.FAIL:
+                    test_result.status = TestStatus.PASS
+                    test_result.comment = f"Correctly rejected in VHDL-{standard}: {test_result.comment}"
+                elif is_invalid and test_result.status == TestStatus.PASS:
+                    test_result.status = TestStatus.FAIL
+                    test_result.comment = f"Incorrectly accepted in VHDL-{standard} — should be rejected"
+                elif is_valid and test_result.status == TestStatus.FAIL:
+                    test_result.comment = f"Should compile in VHDL-{standard}: {test_result.comment}"
 
             if verbose:
                 status_char = {
@@ -361,6 +382,15 @@ def main(argv: Optional[List[str]] = None) -> int:
     # Determine standards to test
     standards = args.standards or ["2008", "2019"]
     standards = [s.strip() for s in standards]
+
+    # Auto-expand standards for backcompat tests: include all standards
+    # listed in VALID_IN/INVALID_IN so we see the full PASS→FAIL transition
+    backcompat_stds = set()
+    for info in all_tests.values():
+        if info.test_type == "backcompat":
+            for s in info.valid_in + info.invalid_in:
+                backcompat_stds.add(_normalize_standard(s))
+    standards = sorted(set(standards) | backcompat_stds)
 
     # Determine modes
     if args.mode == "both":
