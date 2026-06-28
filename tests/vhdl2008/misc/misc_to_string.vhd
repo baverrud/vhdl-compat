@@ -40,7 +40,7 @@ entity to_string is
 end entity;
 architecture rtl of to_string is
   -- KEY FEATURE: to_hstring converts to hex string (used for constant init)
-  constant HEX_VAL : string(1 to 2) := to_hstring(8x"AB");
+  constant HEX_VAL : string(1 to 2) := to_hstring(unsigned'(8x"AB"));
 begin
   output <= X"AB";
 end architecture;
