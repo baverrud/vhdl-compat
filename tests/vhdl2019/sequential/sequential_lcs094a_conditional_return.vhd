@@ -39,10 +39,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_conditional_return is
+entity conditional_return_tb is
 end entity;
 
-architecture test of tb_conditional_return is
+architecture test of conditional_return_tb is
 
   -- VHDL-2019: Conditional return statement
   function classify(x : integer) return string is

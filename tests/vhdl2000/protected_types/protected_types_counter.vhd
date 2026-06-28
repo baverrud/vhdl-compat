@@ -57,10 +57,10 @@ use ieee.std_logic_1164.all;
 use std.env.all;
 use work.counter_pkg.all;
 
-entity tb_protected_types is
+entity protected_types_tb is
 end entity;
 
-architecture test of tb_protected_types is
+architecture test of protected_types_tb is
   -- VHDL-2000: shared variables must be of a protected type
   shared variable counter : protected_counter;
   signal errors : natural := 0;

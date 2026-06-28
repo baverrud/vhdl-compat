@@ -25,10 +25,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_getenv is
+entity getenv_tb is
 end entity;
 
-architecture test of tb_getenv is
+architecture test of getenv_tb is
 begin
 
   stim_proc : process

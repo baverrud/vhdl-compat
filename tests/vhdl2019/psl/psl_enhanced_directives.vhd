@@ -21,10 +21,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_psl_enhanced is
+entity psl_enhanced_tb is
 end entity;
 
-architecture test of tb_psl_enhanced is
+architecture test of psl_enhanced_tb is
   signal clk : std_logic := '0';
   signal a   : std_logic := '0';
   signal b   : std_logic := '0';

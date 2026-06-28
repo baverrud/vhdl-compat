@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Expressions in port maps — use arbitrary expressions (not just signals) in associations
 -- CATEGORY: ports
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: port_expressions
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, port map associations could only be:
 --     - A signal name: port => my_signal
@@ -44,10 +45,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_port_expressions is
+entity port_expressions_tb is
 end entity;
 
-architecture test of tb_port_expressions is
+architecture test of port_expressions_tb is
   signal a, b : std_logic := '0';
   signal result : std_logic;
 begin

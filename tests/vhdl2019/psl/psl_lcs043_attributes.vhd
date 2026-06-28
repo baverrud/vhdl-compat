@@ -23,10 +23,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_psl_attributes is
+entity psl_attributes_tb is
 end entity;
 
-architecture test of tb_psl_attributes is
+architecture test of psl_attributes_tb is
   signal clk   : std_logic := '0';
   signal a     : std_logic := '0';
   signal b     : std_logic := '0';

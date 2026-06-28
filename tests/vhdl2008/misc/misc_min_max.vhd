@@ -21,10 +21,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_min_max is
+entity min_max_tb is
 end entity;
 
-architecture test of tb_min_max is
+architecture test of min_max_tb is
 begin
 
   stim_proc : process

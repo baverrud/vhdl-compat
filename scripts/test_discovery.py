@@ -209,15 +209,14 @@ def _parse_vhd_file(tests_root: Path, file_path: Path) -> TestInfo:
 
 
 def _extract_entity_name(content: str) -> str:
-    """Extract the first entity name from a VHDL file."""
-    # Match: entity <name> is
-    m = re.search(
-        r"^\s*entity\s+(\w+)\s+is",
-        content,
-        re.MULTILINE | re.IGNORECASE,
-    )
-    if m:
-        return m.group(1)
+    """Extract the testbench entity name from a VHDL file.
+    Prefers entity with _tb suffix. Falls back to first entity found.
+    """
+    tb_pattern = r"^\s*entity\s+(\w+_tb)\s+is"
+    any_pattern = r"^\s*entity\s+(\w+)\s+is"
 
-    # Fallback: use filename
+    # First try to find a _tb-suffixed entity (testbench)
+    for pattern in [tb_pattern, any_pattern]:
+        for m in re.finditer(pattern, content, re.MULTILINE | re.IGNORECASE):
+            return m.group(1)
     return ""

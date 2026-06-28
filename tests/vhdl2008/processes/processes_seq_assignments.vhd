@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Conditional sequential assignment — when/else inside processes
 -- CATEGORY: processes
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: seq_assignments
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, assigning to a signal or variable inside a process
 --   based on a condition required a full if statement:
@@ -29,10 +30,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_seq_assignments is
+entity seq_assignments_tb is
 end entity;
 
-architecture test of tb_seq_assignments is
+architecture test of seq_assignments_tb is
   signal sel : std_logic := '0';
   signal a, b : std_logic_vector(3 downto 0) := X"0";
 begin

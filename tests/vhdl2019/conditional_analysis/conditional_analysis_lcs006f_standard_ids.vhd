@@ -3,7 +3,8 @@
 -- FEATURE: Standard conditional analysis identifiers — VHDL_VERSION, TOOL_TYPE, etc.
 -- CATEGORY: conditional_analysis
 -- XREF: LCS2016-006f
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: conditional_ids
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   VHDL-2019 defines standard identifiers available during conditional
 --   analysis ( `if / `else / `end if). These allow tool-independent
@@ -26,10 +27,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_conditional_ids is
+entity conditional_ids_tb is
 end entity;
 
-architecture test of tb_conditional_ids is
+architecture test of conditional_ids_tb is
   signal detected_2019 : boolean := false;
 begin
 

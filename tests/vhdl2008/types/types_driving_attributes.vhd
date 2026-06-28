@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: 'driving and 'driving_value — query signal driver status
 -- CATEGORY: types
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: driving
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, there was no standard way to query whether a signal
 --   was being actively driven or to read the driving value (as opposed to
@@ -27,10 +28,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_driving is
+entity driving_tb is
 end entity;
 
-architecture test of tb_driving is
+architecture test of driving_tb is
   signal my_sig : std_logic := 'Z';
 begin
 

@@ -3,7 +3,8 @@
 -- FEATURE: New reflection attributes — 'designated_type, 'index, 'range
 -- CATEGORY: attributes
 -- XREF: LCS2016-106
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: new_attributes
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, VHDL had limited reflection capabilities. You could get
 --   'left, 'right, 'length of arrays, but there was no way to get the
@@ -23,10 +24,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_new_attributes is
+entity new_attributes_tb is
 end entity;
 
-architecture test of tb_new_attributes is
+architecture test of new_attributes_tb is
   -- Define an access type for testing 'designated_type
   type int_ptr is access integer;
   type vec_ptr is access std_logic_vector;

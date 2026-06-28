@@ -22,10 +22,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_pt_pointers is
+entity pt_pointers_tb is
 end entity;
 
-architecture test of tb_pt_pointers is
+architecture test of pt_pointers_tb is
 
   type counter_t is protected
     procedure increment;

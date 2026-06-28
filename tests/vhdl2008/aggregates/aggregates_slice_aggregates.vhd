@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Array slices in aggregates — assign ranges of array elements
 -- CATEGORY: aggregates
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: slice_aggregates
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, assigning to a slice of an array required separate
 --   assignment statements. You could not use a slice as part of an aggregate.
@@ -19,10 +20,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_slice_aggregates is
+entity slice_aggregates_tb is
 end entity;
 
-architecture test of tb_slice_aggregates is
+architecture test of slice_aggregates_tb is
   signal slv : std_logic_vector(7 downto 0);
   signal result : std_logic_vector(3 downto 0);
 begin

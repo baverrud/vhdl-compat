@@ -28,10 +28,10 @@ use ieee.std_logic_1164.all;
 use std.env.all;
 use std.textio.all;
 
-entity tb_directory_api is
+entity directory_api_tb is
 end entity;
 
-architecture test of tb_directory_api is
+architecture test of directory_api_tb is
 begin
 
   stim_proc : process

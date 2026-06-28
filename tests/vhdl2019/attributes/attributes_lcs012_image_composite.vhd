@@ -3,7 +3,8 @@
 -- FEATURE: 'IMAGE and TO_STRING for composite types — string representation of records and arrays
 -- CATEGORY: attributes
 -- XREF: LCS2016-012
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: image_composite
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, 'IMAGE was only defined for scalar types (enumerated,
 --   integer, etc.). Records and arrays had no standard string representation.
@@ -23,10 +24,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_image_composite is
+entity image_composite_tb is
 end entity;
 
-architecture test of tb_image_composite is
+architecture test of image_composite_tb is
   type point_t is record
     x : integer;
     y : integer;

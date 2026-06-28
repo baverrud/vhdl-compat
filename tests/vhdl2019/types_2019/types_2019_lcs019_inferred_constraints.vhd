@@ -3,7 +3,8 @@
 -- FEATURE: Inferred constraints — constrain unconstrained record elements at signal declaration
 -- CATEGORY: types_2019
 -- XREF: LCS2016-019
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: inferred_constraints
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, if a record contained an unconstrained array element
 --   (e.g., `data : std_logic_vector`), you had to create a separate subtype
@@ -58,10 +59,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_inferred_constraints is
+entity inferred_constraints_tb is
 end entity;
 
-architecture test of tb_inferred_constraints is
+architecture test of inferred_constraints_tb is
   signal clk    : std_logic := '0';
   signal adr    : std_logic_vector(7 downto 0) := (others => '0');
   signal dat_i  : std_logic_vector(7 downto 0) := (others => '0');

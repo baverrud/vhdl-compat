@@ -55,10 +55,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_buffer_ports is
+entity buffer_ports_tb is
 end entity;
 
-architecture test of tb_buffer_ports is
+architecture test of buffer_ports_tb is
   signal clk    : std_logic := '0';
   signal rst    : std_logic := '1';
   signal q_out  : std_logic;  -- VHDL-2002: out port, connected to buffer below

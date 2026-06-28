@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Generic packages — packages parameterized by generics
 -- CATEGORY: packages
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: generic_package
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, a package was fixed — all its constants, types, and
 --   subprograms used hard-coded values. If you wanted a FIFO package that
@@ -55,10 +56,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_generic_package is
+entity generic_package_tb is
 end entity;
 
-architecture test of tb_generic_package is
+architecture test of generic_package_tb is
   signal cnt4 : unsigned(3 downto 0) := X"0";
   signal cnt8 : unsigned(7 downto 0) := X"00";
 begin

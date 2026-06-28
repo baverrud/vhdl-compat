@@ -23,10 +23,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_boolean_edge is
+entity boolean_edge_tb is
 end entity;
 
-architecture test of tb_boolean_edge is
+architecture test of boolean_edge_tb is
   signal bool_sig : boolean := false;
   signal rose_detected : boolean := false;
   signal fell_detected : boolean := false;

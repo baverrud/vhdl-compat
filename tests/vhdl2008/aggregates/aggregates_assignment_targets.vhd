@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Aggregates as assignment targets — using aggregates on the left-hand side of <=
 -- CATEGORY: aggregates
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: aggregate_targets
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, aggregates could only appear on the right-hand side
 --   of assignments (as expressions). You could not assign TO multiple
@@ -23,10 +24,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_aggregate_targets is
+entity aggregate_targets_tb is
 end entity;
 
-architecture test of tb_aggregate_targets is
+architecture test of aggregate_targets_tb is
   type pair_t is record
     hi : std_logic_vector(3 downto 0);
     lo : std_logic_vector(3 downto 0);

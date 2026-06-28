@@ -23,10 +23,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_declaration_regions is
+entity declaration_regions_tb is
 end entity;
 
-architecture test of tb_declaration_regions is
+architecture test of declaration_regions_tb is
 begin
 
   stim_proc : process

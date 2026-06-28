@@ -27,10 +27,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_force_release is
+entity force_release_tb is
 end entity;
 
-architecture test of tb_force_release is
+architecture test of force_release_tb is
   signal clk   : std_logic := '0';
   signal rst   : std_logic := '1';
   signal count : unsigned(3 downto 0) := X"0";

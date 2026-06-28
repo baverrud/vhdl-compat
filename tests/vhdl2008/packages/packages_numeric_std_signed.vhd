@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: numeric_std_signed — signed arithmetic on std_logic_vector without casting
 -- CATEGORY: packages
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: numeric_std_signed
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   numeric_std_signed is the signed counterpart to numeric_std_unsigned.
 --   It interprets std_logic_vector as signed (2's complement) for
@@ -23,10 +24,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std_signed.all;
 use std.env.all;
 
-entity tb_numeric_std_signed is
+entity numeric_std_signed_tb is
 end entity;
 
-architecture test of tb_numeric_std_signed is
+architecture test of numeric_std_signed_tb is
   signal a, b : std_logic_vector(7 downto 0) := X"00";
   signal sum  : std_logic_vector(7 downto 0);
 begin

@@ -3,7 +3,8 @@
 -- FEATURE: Access external types through library path — cross-library type visibility
 -- CATEGORY: types_2019
 -- XREF: LCS2016-028
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: external_types
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, to use a type from another library, you had to
 --   explicitly import it via a use clause. Even then, some type
@@ -36,10 +37,10 @@ use ieee.std_logic_1164.all;
 use std.env.all;
 use work.cross_lib_pkg.all;
 
-entity tb_external_types is
+entity external_types_tb is
 end entity;
 
-architecture test of tb_external_types is
+architecture test of external_types_tb is
   signal my_byte : byte := DEFAULT_BYTE;
   signal my_arr  : byte_array(0 to 3) := (X"00", X"11", X"22", X"33");
 begin

@@ -3,7 +3,8 @@
 -- FEATURE: Array of interface records -- multiple channels using a single bundle type
 -- CATEGORY: interfaces
 -- XREF: LCS2016-045a
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: array_of_interfaces
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   When you have multiple identical interfaces (e.g., 4 SPI slaves, 8 UART
 --   channels), you can declare an array of the interface record type:
@@ -113,10 +114,10 @@ use ieee.numeric_std.all;
 use std.env.all;
 use work.chan_pkg.all;
 
-entity tb_array_of_interfaces is
+entity array_of_interfaces_tb is
 end entity;
 
-architecture test of tb_array_of_interfaces is
+architecture test of array_of_interfaces_tb is
   signal clk   : std_logic := '0';
   signal rst   : std_logic := '1';
   signal errors : natural := 0;

@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Unary reduction operators — and, or, xor, nand, nor, xnor on vectors
 -- CATEGORY: expressions
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: reduction_operators
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, computing the parity or AND-reduce of a vector required
 --   a loop or a chain of gates:
@@ -27,10 +28,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_reduction_operators is
+entity reduction_operators_tb is
 end entity;
 
-architecture test of tb_reduction_operators is
+architecture test of reduction_operators_tb is
 begin
 
   stim_proc : process

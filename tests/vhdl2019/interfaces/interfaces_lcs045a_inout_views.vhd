@@ -3,7 +3,8 @@
 -- FEATURE: Inout mode views -- bidirectional interface fields that can't use 'converse
 -- CATEGORY: interfaces
 -- XREF: LCS2016-045a
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: inout_views
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   The `'converse` attribute automatically flips `in` to `out` and vice
 --   versa. But for `inout` fields (bidirectional signals like I2C's SCL/SDA),
@@ -127,10 +128,10 @@ use ieee.std_logic_1164.all;
 use std.env.all;
 use work.i2c_like_pkg.all;
 
-entity tb_inout_views is
+entity inout_views_tb is
 end entity;
 
-architecture test of tb_inout_views is
+architecture test of inout_views_tb is
   signal clk      : std_logic := '0';
   signal bus_sig  : i2c_like_t;
   signal done     : std_logic;

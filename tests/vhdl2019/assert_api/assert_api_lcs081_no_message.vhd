@@ -22,10 +22,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_assert_no_message is
+entity assert_no_message_tb is
 end entity;
 
-architecture test of tb_assert_no_message is
+architecture test of assert_no_message_tb is
   signal valid : std_logic := '1';
 begin
 

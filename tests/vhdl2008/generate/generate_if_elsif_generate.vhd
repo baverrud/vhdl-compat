@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: If-generate with elsif/else — multi-way conditional elaboration
 -- CATEGORY: generate
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: if_elsif_generate
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, if-generate had no elsif or else. Multi-way elaboration
 --   required deeply nested if-generate statements:
@@ -28,13 +29,13 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_if_elsif_generate is
+entity if_elsif_generate_tb is
   generic (
     IMPL : integer := 0   -- 0=and, 1=or, 2=xor
   );
 end entity;
 
-architecture test of tb_if_elsif_generate is
+architecture test of if_elsif_generate_tb is
   signal a, b : std_logic_vector(3 downto 0) := X"0";
   signal result : std_logic_vector(3 downto 0);
 begin

@@ -3,7 +3,8 @@
 -- FEATURE: Syntax regularization -- component declarations made optional
 -- CATEGORY: syntax
 -- XREF: LCS2016-055a
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: syntax_components
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, direct entity instantiation required either:
 --     1. A component declaration matching the entity's ports
@@ -40,10 +41,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_syntax_components is
+entity syntax_components_tb is
 end entity;
 
-architecture test of tb_syntax_components is
+architecture test of syntax_components_tb is
   signal a, b : std_logic := '0';
 begin
 

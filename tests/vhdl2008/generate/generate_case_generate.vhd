@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Case-generate — conditional elaboration based on a discrete expression
 -- CATEGORY: generate
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: case_generate
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, generate statements could only use "for" (iteration)
 --   or "if" (conditional). Selecting between multiple mutually-exclusive
@@ -24,13 +25,13 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_case_generate is
+entity case_generate_tb is
   generic (
     MODE : integer := 0   -- 0=add, 1=sub, 2=identity
   );
 end entity;
 
-architecture test of tb_case_generate is
+architecture test of case_generate_tb is
   signal a, b : unsigned(3 downto 0) := X"0";
   signal result : unsigned(3 downto 0);
 begin

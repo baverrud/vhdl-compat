@@ -25,10 +25,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_get_call_path is
+entity get_call_path_tb is
 end entity;
 
-architecture test of tb_get_call_path is
+architecture test of get_call_path_tb is
 
   procedure log_with_context(constant msg : string) is
     variable path : string(1 to 256) := (others => ' ');

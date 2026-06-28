@@ -3,7 +3,8 @@
 -- FEATURE: Precedence of unary operators — standardized unary operator binding
 -- CATEGORY: syntax
 -- XREF: LCS2016-I13
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: unary_precedence
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, the precedence of unary operators relative to binary
 --   operators was not always consistent across tools. Expressions like
@@ -23,10 +24,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_unary_precedence is
+entity unary_precedence_tb is
 end entity;
 
-architecture test of tb_unary_precedence is
+architecture test of unary_precedence_tb is
 begin
 
   stim_proc : process

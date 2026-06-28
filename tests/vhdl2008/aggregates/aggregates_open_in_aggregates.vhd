@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: open in aggregates — leave aggregate elements unconnected
 -- CATEGORY: aggregates
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: open_aggregates
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, every element in an aggregate had to be specified.
 --   You could not leave any element "unconnected" (like `open` in port maps).
@@ -23,10 +24,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_open_aggregates is
+entity open_aggregates_tb is
 end entity;
 
-architecture test of tb_open_aggregates is
+architecture test of open_aggregates_tb is
   type packet_t is record
     addr : std_logic_vector(7 downto 0);
     data : std_logic_vector(7 downto 0);

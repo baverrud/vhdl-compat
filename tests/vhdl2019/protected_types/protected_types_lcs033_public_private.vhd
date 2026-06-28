@@ -25,10 +25,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_public_private is
+entity public_private_tb is
 end entity;
 
-architecture test of tb_public_private is
+architecture test of public_private_tb is
 
   -- VHDL-2019: Protected type with public variables
   type status_t is protected

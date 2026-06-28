@@ -24,10 +24,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_garbage_collection is
+entity garbage_collection_tb is
 end entity;
 
-architecture test of tb_garbage_collection is
+architecture test of garbage_collection_tb is
   type int_ptr is access integer;
 begin
 

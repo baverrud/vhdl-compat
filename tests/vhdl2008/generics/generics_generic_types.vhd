@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Generic types -- entities/functions parameterizable by type
 -- CATEGORY: generics
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: generic_types
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, generics on entities could only be constants (integers,
 --   times, etc.). If you wanted a component that worked with multiple data
@@ -51,10 +52,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_generic_types is
+entity generic_types_tb is
 end entity;
 
-architecture test of tb_generic_types is
+architecture test of generic_types_tb is
   signal errors : natural := 0;
 
   -- Increment function for integer

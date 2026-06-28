@@ -3,7 +3,8 @@
 -- FEATURE: Enhanced enumerated type attributes — 'VAL, 'POS, 'SUCC, 'PRED, 'LEFTOF, 'RIGHTOF
 -- CATEGORY: attributes
 -- XREF: LCS2016-018/018a/018d
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: enum_attributes
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, enumerated types had basic attributes like 'POS, 'VAL,
 --   'SUCC, 'PRED, 'LEFTOF, 'RIGHTOF, 'IMAGE, 'VALUE. However, they were not
@@ -29,10 +30,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_enum_attributes is
+entity enum_attributes_tb is
 end entity;
 
-architecture test of tb_enum_attributes is
+architecture test of enum_attributes_tb is
   type color_t is (red, green, blue, yellow, purple);
 
   constant test_color : color_t := blue;

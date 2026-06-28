@@ -3,7 +3,8 @@
 -- FEATURE: Array type generics — generic parameters that are array types
 -- CATEGORY: generics_2019
 -- XREF: LCS2016-059
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: array_type_generics
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, generic types could be scalar types (integer, real,
 --   enumerated) but array types had limited support. You could not pass an
@@ -23,10 +24,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_array_type_generics is
+entity array_type_generics_tb is
 end entity;
 
-architecture test of tb_array_type_generics is
+architecture test of array_type_generics_tb is
   -- Define a simple array type
   type int_array is array (natural range <>) of integer;
   signal my_arr : int_array(0 to 3) := (10, 20, 30, 40);

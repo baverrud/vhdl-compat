@@ -25,10 +25,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_generic_pt is
+entity generic_pt_tb is
 end entity;
 
-architecture test of tb_generic_pt is
+architecture test of generic_pt_tb is
 
   -- VHDL-2019: Generic protected type
   type mod_counter_t is protected

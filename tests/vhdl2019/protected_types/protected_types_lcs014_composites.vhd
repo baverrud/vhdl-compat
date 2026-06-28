@@ -25,10 +25,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_pt_composites is
+entity pt_composites_tb is
 end entity;
 
-architecture test of tb_pt_composites is
+architecture test of pt_composites_tb is
 
   -- A simple protected type
   type counter_t is protected

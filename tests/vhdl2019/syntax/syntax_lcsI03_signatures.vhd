@@ -3,7 +3,8 @@
 -- FEATURE: Signatures in association lists — explicit subprogram signatures
 -- CATEGORY: syntax
 -- XREF: LCS2016-I03
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: signatures
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, when associating a subprogram with a generic
 --   subprogram parameter, the signature (parameter types and return type)
@@ -22,10 +23,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_signatures is
+entity signatures_tb is
 end entity;
 
-architecture test of tb_signatures is
+architecture test of signatures_tb is
 
   -- Overloaded function
   function combine(a, b : integer) return integer is

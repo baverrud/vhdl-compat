@@ -25,10 +25,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_std_env is
+entity std_env_tb is
 end entity;
 
-architecture test of tb_std_env is
+architecture test of std_env_tb is
   signal test_passed : boolean := false;
 begin
 

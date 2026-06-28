@@ -3,7 +3,8 @@
 -- FEATURE: process(all) -- automatic sensitivity list inference
 -- CATEGORY: processes
 -- XREF: FT19
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: process_all
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, a combinational process required the designer to manually
 --   list every signal read in the process body in the sensitivity list.
@@ -28,10 +29,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_process_all is
+entity process_all_tb is
 end entity;
 
-architecture test of tb_process_all is
+architecture test of process_all_tb is
   signal a, b, c : std_logic := '0';
   signal y       : std_logic;
   signal errors  : natural := 0;

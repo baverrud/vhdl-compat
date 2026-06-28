@@ -93,10 +93,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_external_names is
+entity external_names_tb is
 end entity;
 
-architecture test of tb_external_names is
+architecture test of external_names_tb is
   signal clk : std_logic := '0';
   signal rst : std_logic := '1';
   signal en  : std_logic := '0';

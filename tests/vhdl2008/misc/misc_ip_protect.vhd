@@ -30,10 +30,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_ip_protect is
+entity ip_protect_tb is
 end entity;
 
-architecture test of tb_ip_protect is
+architecture test of ip_protect_tb is
   signal test_pass : boolean := false;
 begin
 

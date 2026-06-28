@@ -27,10 +27,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_assert_api is
+entity assert_api_tb is
 end entity;
 
-architecture test of tb_assert_api is
+architecture test of assert_api_tb is
 begin
 
   stim_proc : process

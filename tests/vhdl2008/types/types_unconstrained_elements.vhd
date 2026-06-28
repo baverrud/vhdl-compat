@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Unconstrained element types — records with unconstrained array fields
 -- CATEGORY: types
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: unconstrained_elements
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, every element of a record type had to be fully
 --   constrained. You could not have a record with a field like
@@ -39,10 +40,10 @@ use ieee.std_logic_1164.all;
 use std.env.all;
 use work.unconstrained_pkg.all;
 
-entity tb_unconstrained_elements is
+entity unconstrained_elements_tb is
 end entity;
 
-architecture test of tb_unconstrained_elements is
+architecture test of unconstrained_elements_tb is
   -- VHDL-2008: constrain the unconstrained elements at declaration
   signal narrow : payload_t(addr(3 downto 0), data(7 downto 0));
   signal wide   : payload_t(addr(7 downto 0), data(15 downto 0));

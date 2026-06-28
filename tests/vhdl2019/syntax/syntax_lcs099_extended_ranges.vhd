@@ -3,7 +3,8 @@
 -- FEATURE: Extended ranges / range expressions — dynamic range computation
 -- CATEGORY: syntax
 -- XREF: LCS2016-099 (extended ranges — distinct from LCS2016-099 PT params)
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: extended_ranges
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, array ranges had to be static (known at elaboration
 --   time). You could not declare an array whose size depended on the value
@@ -21,13 +22,13 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_extended_ranges is
+entity extended_ranges_tb is
   generic (
     WIDTH : positive := 8
   );
 end entity;
 
-architecture test of tb_extended_ranges is
+architecture test of extended_ranges_tb is
   -- VHDL-2019: Range can be computed from generic
   signal data : std_logic_vector(WIDTH - 1 downto 0) := (others => '0');
   constant HALF : positive := WIDTH / 2;

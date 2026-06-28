@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Reading output ports — out-mode ports can be read in the same entity
 -- CATEGORY: ports
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: read_output_ports
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, an out-mode port could only be driven; you could NOT read
 --   its value back. This was a major annoyance in RTL design. To read back an
@@ -62,10 +63,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_read_output_ports is
+entity read_output_ports_tb is
 end entity;
 
-architecture test of tb_read_output_ports is
+architecture test of read_output_ports_tb is
   signal clk   : std_logic := '0';
   signal rst   : std_logic := '1';
   signal count : unsigned(3 downto 0);

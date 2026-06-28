@@ -26,10 +26,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_datetime is
+entity datetime_tb is
 end entity;
 
-architecture test of tb_datetime is
+architecture test of datetime_tb is
   -- VHDL-2019: Date/time functions
   -- Returns time in seconds (TIME type)
 begin

@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Shift/rotate operators — SLL, SRL, SLA, SRA, ROL, ROR for vectors
 -- CATEGORY: expressions
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: shift_rotate
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, shifting a vector required concatenation tricks:
 --       result <= sig(sig'high-1 downto 0) & '0';  -- shift left
@@ -27,10 +28,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_shift_rotate is
+entity shift_rotate_tb is
 end entity;
 
-architecture test of tb_shift_rotate is
+architecture test of shift_rotate_tb is
 begin
 
   stim_proc : process

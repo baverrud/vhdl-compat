@@ -22,10 +22,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_sequential_block is
+entity sequential_block_tb is
 end entity;
 
-architecture test of tb_sequential_block is
+architecture test of sequential_block_tb is
 begin
 
   stim_proc : process

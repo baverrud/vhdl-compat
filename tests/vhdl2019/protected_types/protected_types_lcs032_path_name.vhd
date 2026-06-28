@@ -22,10 +22,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_pt_path_name is
+entity pt_path_name_tb is
 end entity;
 
-architecture test of tb_pt_path_name is
+architecture test of pt_path_name_tb is
 
   type logger_t is protected
     procedure log(constant msg : string);

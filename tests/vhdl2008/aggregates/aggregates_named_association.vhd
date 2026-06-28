@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Named association in aggregates — mix positional and named elements
 -- CATEGORY: aggregates
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: named_aggregates
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, aggregates had to be either all positional or all named.
 --   You could not mix the two styles in the same aggregate. This was limiting
@@ -41,10 +42,10 @@ use ieee.numeric_std.all;
 use std.env.all;
 use work.agg_pkg.all;
 
-entity tb_named_aggregates is
+entity named_aggregates_tb is
 end entity;
 
-architecture test of tb_named_aggregates is
+architecture test of named_aggregates_tb is
   signal cfg : config_t;
 begin
 

@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Floating-point package (float_pkg) — IEEE 754 floating-point types
 -- CATEGORY: packages
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: float_point
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, the only floating-point type was REAL, which is not
 --   synthesizable and has no bit-level representation. For hardware floating
@@ -26,10 +27,10 @@ use ieee.std_logic_1164.all;
 use ieee.float_pkg.all;
 use std.env.all;
 
-entity tb_float_point is
+entity float_point_tb is
 end entity;
 
-architecture test of tb_float_point is
+architecture test of float_point_tb is
   -- VHDL-2008: IEEE 754 single-precision float
   signal a : float32 := to_float(2.5);
   signal b : float32 := to_float(1.5);

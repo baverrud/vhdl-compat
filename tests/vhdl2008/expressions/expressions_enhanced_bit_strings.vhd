@@ -3,7 +3,8 @@
 -- FEATURE: Enhanced bit string literals -- width, signed/unsigned, don't-care
 -- CATEGORY: expressions
 -- XREF: FT09
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: enhanced_bit_strings
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   VHDL-1993 introduced bit string literals: B"1010", X"FF", O"37".
 --   These were limited: you couldn't specify the width explicitly, couldn't
@@ -24,10 +25,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_enhanced_bit_strings is
+entity enhanced_bit_strings_tb is
 end entity;
 
-architecture test of tb_enhanced_bit_strings is
+architecture test of enhanced_bit_strings_tb is
   signal errors : natural := 0;
 begin
 

@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Enhanced port maps — open keyword anywhere in port map
 -- CATEGORY: ports
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: enhanced_port_maps
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, the "open" keyword to leave a port unconnected could
 --   only appear at the end of a port map association list. If you wanted to
@@ -51,10 +52,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_enhanced_port_maps is
+entity enhanced_port_maps_tb is
 end entity;
 
-architecture test of tb_enhanced_port_maps is
+architecture test of enhanced_port_maps_tb is
   signal drive  : std_logic := '1';
   signal x_val  : std_logic;
   signal z_val  : std_logic;

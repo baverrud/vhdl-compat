@@ -3,7 +3,8 @@
 -- FEATURE: Partially connected vectors — use `open` to leave port bits unconnected
 -- CATEGORY: vectors
 -- XREF: LCS2016-001
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: partially_connected
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, every bit of a vector port had to be connected in a
 --   port map. If you only needed the upper nibble of an 8-bit output, you
@@ -63,10 +64,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_partially_connected is
+entity partially_connected_tb is
 end entity;
 
-architecture test of tb_partially_connected is
+architecture test of partially_connected_tb is
   signal clk        : std_logic := '0';
   signal rst        : std_logic := '1';
   signal upper_bits : std_logic_vector(7 downto 4);  -- only 4 bits we care about

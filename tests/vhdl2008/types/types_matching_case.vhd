@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Matching case statement (case?) — don't-care aware pattern matching
 -- CATEGORY: types
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: matching_case
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, decoding a std_logic_vector required verbose if-chains
 --   where every bit had to be tested explicitly. VHDL-2008 adds ?= (matching
@@ -21,10 +22,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_matching_case is
+entity matching_case_tb is
 end entity;
 
-architecture test of tb_matching_case is
+architecture test of matching_case_tb is
   signal opcode  : std_logic_vector(3 downto 0);
   signal decoded : string(1 to 8) := "UNKNOWN ";
 begin

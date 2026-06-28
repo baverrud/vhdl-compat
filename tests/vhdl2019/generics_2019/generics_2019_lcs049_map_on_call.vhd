@@ -3,7 +3,8 @@
 -- FEATURE: Map generics on subprogram call — override generics at call site
 -- CATEGORY: generics_2019
 -- XREF: LCS2016-049
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: map_on_call
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, when you called a generic subprogram, the generic
 --   mapping was fixed at instantiation time. You could not override the
@@ -24,10 +25,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_map_on_call is
+entity map_on_call_tb is
 end entity;
 
-architecture test of tb_map_on_call is
+architecture test of map_on_call_tb is
 
   -- VHDL-2019: Generic function
   function my_max generic (type T) parameter (a, b : T) return T is

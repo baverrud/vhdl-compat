@@ -29,7 +29,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_block_comments is
+entity block_comments_tb is
 end entity;
 
 /*
@@ -37,7 +37,7 @@ end entity;
  * Note: nested block comments are not tested here --
  * this test only verifies basic non-nested block comment syntax.
  */
-architecture test of tb_block_comments is
+architecture test of block_comments_tb is
 begin
 
   stim_proc : process

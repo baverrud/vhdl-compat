@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Default values for generic types — generic type with optional default
 -- CATEGORY: generics
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: default_generic_types
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, a generic type parameter had to be specified at every
 --   instantiation. There was no way to provide a default type.
@@ -28,10 +29,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_default_generic_types is
+entity default_generic_types_tb is
 end entity;
 
-architecture test of tb_default_generic_types is
+architecture test of default_generic_types_tb is
 
   -- VHDL-2008: Entity with default generic type
   -- (Declared inline for self-contained test)

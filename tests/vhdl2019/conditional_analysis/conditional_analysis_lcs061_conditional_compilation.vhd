@@ -3,7 +3,8 @@
 -- FEATURE: Conditional analysis -- `if / `else / `end if tool directives
 -- CATEGORY: conditional_analysis (LCS2016-061)
 -- XREF: LCS2016-061
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: conditional_analysis
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   VHDL-2019 introduces "conditional analysis" (also called conditional
 --   compilation), similar to the C preprocessor's #ifdef. Using backtick-
@@ -33,10 +34,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_conditional_analysis is
+entity conditional_analysis_tb is
 end entity;
 
-architecture test of tb_conditional_analysis is
+architecture test of conditional_analysis_tb is
   signal errors : natural := 0;
 
   -- VHDL-2019 conditional analysis: set vendor-specific constants

@@ -3,7 +3,8 @@
 -- FEATURE: Closely related record types — implicit conversion between similar records
 -- CATEGORY: types_2019
 -- XREF: LCS2016-075
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: closely_related
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, two record types with identical field layouts were
 --   completely unrelated. You could not assign one to the other without
@@ -62,10 +63,10 @@ use std.env.all;
 use work.pkg_a.all;
 use work.pkg_b.all;
 
-entity tb_closely_related is
+entity closely_related_tb is
 end entity;
 
-architecture test of tb_closely_related is
+architecture test of closely_related_tb is
   signal bus_a : work.pkg_a.bus_t;
   signal bus_b : work.pkg_b.bus_t;
 begin

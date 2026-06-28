@@ -3,7 +3,8 @@
 -- FEATURE: Function knows vector size — result type depends on input sizes
 -- CATEGORY: vectors
 -- XREF: LCS2016-072b
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: function_size
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, function result types had to be fixed or depend on
 --   generic parameters. A function that concatenated two vectors could not
@@ -26,10 +27,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_function_size is
+entity function_size_tb is
 end entity;
 
-architecture test of tb_function_size is
+architecture test of function_size_tb is
 
   -- VHDL-2019: Function whose result size depends on actual parameter sizes
   function concat(

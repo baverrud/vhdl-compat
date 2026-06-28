@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Matching equality/inequality (?=, ?/=) — don't-care aware comparison
 -- CATEGORY: expressions
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: matching_operators
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, comparing std_logic values required exact equality (=)
 --   or inequality (/=). The '-' (don't-care) value could never match anything.
@@ -24,10 +25,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_matching_operators is
+entity matching_operators_tb is
 end entity;
 
-architecture test of tb_matching_operators is
+architecture test of matching_operators_tb is
 begin
 
   stim_proc : process

@@ -23,10 +23,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_shared_interface is
+entity shared_interface_tb is
 end entity;
 
-architecture test of tb_shared_interface is
+architecture test of shared_interface_tb is
 
   -- A simple protected type
   type counter_t is protected

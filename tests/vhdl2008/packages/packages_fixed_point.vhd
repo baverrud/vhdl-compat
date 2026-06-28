@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Fixed-point package (fixed_pkg) — IEEE 1076.3 fixed-point arithmetic
 -- CATEGORY: packages
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: fixed_point
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, there was no standard fixed-point type. DSP and
 --   filter designers had to use integer arithmetic with manual scaling
@@ -25,10 +26,10 @@ use ieee.std_logic_1164.all;
 use ieee.fixed_pkg.all;
 use std.env.all;
 
-entity tb_fixed_point is
+entity fixed_point_tb is
 end entity;
 
-architecture test of tb_fixed_point is
+architecture test of fixed_point_tb is
   -- VHDL-2008: Fixed-point types from fixed_pkg
   -- ufixed(3 downto -4): 4 integer bits, 4 fractional bits
   -- Range: 0 to 15.9375, resolution: 0.0625

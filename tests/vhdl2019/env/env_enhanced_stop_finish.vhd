@@ -20,10 +20,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_env_enhanced is
+entity env_enhanced_tb is
 end entity;
 
-architecture test of tb_env_enhanced is
+architecture test of env_enhanced_tb is
   type color_t is (red, green, blue, yellow);
   signal hue : color_t := red;
 begin

@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Context declarations — reusable sets of library/use clauses
 -- CATEGORY: packages
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: context
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, every design unit had to repeat the same library and
 --   use clauses. A typical file started with:
@@ -31,10 +32,10 @@ end context;
 -- Use the context — all names above are now visible
 context work.common_context;
 
-entity tb_context is
+entity context_tb is
 end entity;
 
-architecture test of tb_context is
+architecture test of context_tb is
   -- All of these should be visible via the context:
   --   std_logic (from std_logic_1164)
   --   unsigned  (from numeric_std)

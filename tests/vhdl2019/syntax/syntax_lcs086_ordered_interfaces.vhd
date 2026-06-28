@@ -3,7 +3,8 @@
 -- FEATURE: All interface lists can be ordered — named association everywhere
 -- CATEGORY: syntax
 -- XREF: LCS2016-086
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: ordered_interfaces
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, certain interface lists required positional
 --   association. For example, generic maps on configurations and some
@@ -22,10 +23,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_ordered_interfaces is
+entity ordered_interfaces_tb is
 end entity;
 
-architecture test of tb_ordered_interfaces is
+architecture test of ordered_interfaces_tb is
 
   function add(constant a, b : integer) return integer is
   begin

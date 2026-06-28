@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: ?? (condition operator) -- convert std_logic to boolean
 -- CATEGORY: expressions
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: condition_operator
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   In VHDL-1993, you could not use a std_logic signal directly in an "if"
 --   statement because "if" requires a boolean expression. You had to write:
@@ -26,10 +27,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_condition_operator is
+entity condition_operator_tb is
 end entity;
 
-architecture test of tb_condition_operator is
+architecture test of condition_operator_tb is
   signal errors : natural := 0;
 begin
 

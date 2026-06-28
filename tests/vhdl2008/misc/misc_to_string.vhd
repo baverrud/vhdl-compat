@@ -25,10 +25,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_to_string is
+entity to_string_tb is
 end entity;
 
-architecture test of tb_to_string is
+architecture test of to_string_tb is
 begin
 
   stim_proc : process

@@ -3,7 +3,8 @@
 -- FEATURE: Optional trailing semicolon in interface lists
 -- CATEGORY: syntax (LCS2016-071a)
 -- XREF: LCS2016-071a
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: optional_trailing_semicolon
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, every element in a port list or generic list EXCEPT the
 --   last one required a semicolon. The last element could NOT have a trailing
@@ -54,10 +55,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_optional_trailing_semicolon is
+entity optional_trailing_semicolon_tb is
 end entity;
 
-architecture test of tb_optional_trailing_semicolon is
+architecture test of optional_trailing_semicolon_tb is
   signal a, b, y : std_logic := '0';
   signal errors  : natural := 0;
 begin

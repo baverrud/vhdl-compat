@@ -28,10 +28,10 @@ use ieee.std_logic_1164.all;
 use std.env.all;
 use std.textio.all;
 
-entity tb_file_io_ext is
+entity file_io_ext_tb is
 end entity;
 
-architecture test of tb_file_io_ext is
+architecture test of file_io_ext_tb is
 begin
 
   stim_proc : process

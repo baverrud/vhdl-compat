@@ -24,13 +24,13 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_conditional_expr is
+entity conditional_expr_tb is
   generic (
     G : integer := 5
   );
 end entity;
 
-architecture test of tb_conditional_expr is
+architecture test of conditional_expr_tb is
   -- VHDL-2019: Conditional expression in constant declaration
   constant LIMIT : integer := 10 when G > 10 else G;
   constant MODE  : string  := "high" when G > 5 else "low";

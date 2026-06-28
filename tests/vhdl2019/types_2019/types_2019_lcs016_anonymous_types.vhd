@@ -3,7 +3,8 @@
 -- FEATURE: Anonymous types in interface lists — types declared inline in ports/generics
 -- CATEGORY: types_2019
 -- XREF: LCS2016-016
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: anonymous_types
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, every type used in an entity port or generic had to
 --   be declared in a package. This meant that even simple array types like
@@ -50,10 +51,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_anonymous_types is
+entity anonymous_types_tb is
 end entity;
 
-architecture test of tb_anonymous_types is
+architecture test of anonymous_types_tb is
   -- Need a matching type — declare using the same anonymous form
   type byte_array is array (0 to 3) of std_logic_vector(7 downto 0);
   signal inputs : byte_array := (X"00", X"11", X"22", X"33");

@@ -3,7 +3,8 @@
 -- FEATURE: Interface mode views — per-field direction control on composite types
 -- CATEGORY: interfaces
 -- XREF: LCS2016-045a
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: interface_views
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, all fields of a record used as an entity port had to
 --   share the same direction (all in, all out, or all inout). This forced
@@ -120,10 +121,10 @@ use ieee.std_logic_1164.all;
 use std.env.all;
 use work.bus_pkg.all;
 
-entity tb_interface_views is
+entity interface_views_tb is
 end entity;
 
-architecture test of tb_interface_views is
+architecture test of interface_views_tb is
   signal clk      : std_logic := '0';
   signal bus_sig  : simple_bus;  -- VHDL-2019: record used with mode views
   signal addr_out : std_logic_vector(7 downto 0);

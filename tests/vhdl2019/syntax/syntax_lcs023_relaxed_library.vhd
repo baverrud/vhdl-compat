@@ -3,7 +3,8 @@
 -- FEATURE: Relaxed library requirement on configurations
 -- CATEGORY: syntax
 -- XREF: LCS2016-023
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: relaxed_library
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, configurations required explicit library clauses
 --   even when the libraries were obvious from context. This added
@@ -43,10 +44,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_relaxed_library is
+entity relaxed_library_tb is
 end entity;
 
-architecture test of tb_relaxed_library is
+architecture test of relaxed_library_tb is
   signal a, b : std_logic := '0';
 begin
 

@@ -3,7 +3,8 @@
 -- FEATURE: Record introspection — 'reflect attribute for runtime type inspection
 -- CATEGORY: attributes
 -- XREF: LCS2016-041
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: reflect
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, VHDL had no reflection/introspection capability.
 --   You could not query the fields of a record type at runtime, iterate
@@ -27,10 +28,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_reflect is
+entity reflect_tb is
 end entity;
 
-architecture test of tb_reflect is
+architecture test of reflect_tb is
   type simple_rec is record
     a : integer;
     b : boolean;

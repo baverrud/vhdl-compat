@@ -22,10 +22,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_protected_subprogram is
+entity protected_subprogram_tb is
 end entity;
 
-architecture test of tb_protected_subprogram is
+architecture test of protected_subprogram_tb is
 
   -- VHDL-2000: Protected type (shared variable with mutual exclusion)
   type counter_t is protected

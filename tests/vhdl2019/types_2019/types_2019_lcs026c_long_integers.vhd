@@ -3,7 +3,8 @@
 -- FEATURE: Long integers — 64-bit integer support
 -- CATEGORY: types_2019
 -- XREF: LCS2016-026c
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: long_integers
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, the integer type was guaranteed to be at least 32
 --   bits (range -2147483647 to +2147483647). For larger values, you had
@@ -22,10 +23,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_long_integers is
+entity long_integers_tb is
 end entity;
 
-architecture test of tb_long_integers is
+architecture test of long_integers_tb is
 begin
 
   stim_proc : process

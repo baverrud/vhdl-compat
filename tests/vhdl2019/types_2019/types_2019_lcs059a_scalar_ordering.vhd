@@ -3,7 +3,8 @@
 -- FEATURE: Scalar array ordering — relational operators on any scalar array type
 -- CATEGORY: types_2019
 -- XREF: LCS2016-059a
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: scalar_ordering
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, relational operators (<, >, <=, >=) were defined
 --   for scalar types and one-dimensional arrays of discrete types. But
@@ -22,10 +23,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_scalar_ordering is
+entity scalar_ordering_tb is
 end entity;
 
-architecture test of tb_scalar_ordering is
+architecture test of scalar_ordering_tb is
 begin
 
   stim_proc : process

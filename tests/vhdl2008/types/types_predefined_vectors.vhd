@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Predefined array types — boolean_vector, integer_vector, real_vector, time_vector
 -- CATEGORY: types
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: predefined_vectors
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, the only standard array type was bit_vector and
 --   std_logic_vector (from ieee). If you wanted an array of booleans,
@@ -26,10 +27,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_predefined_vectors is
+entity predefined_vectors_tb is
 end entity;
 
-architecture test of tb_predefined_vectors is
+architecture test of predefined_vectors_tb is
   -- VHDL-2008: predefined vector types
   signal bv : boolean_vector(0 to 3);
   signal iv : integer_vector(0 to 3);

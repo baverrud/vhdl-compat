@@ -3,7 +3,8 @@
 -- FEATURE: Empty records -- record types with no elements
 -- CATEGORY: types_2019 (LCS2016-082)
 -- XREF: LCS2016-082
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: empty_records
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, a VHDL record type had to contain at least one element.
 --   This made it impossible to use records as "marker types" or "token types"
@@ -27,10 +28,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_empty_records is
+entity empty_records_tb is
 end entity;
 
-architecture test of tb_empty_records is
+architecture test of empty_records_tb is
   -- VHDL-2019: Records with NO elements are now legal
   type empty_t is record
   end record;

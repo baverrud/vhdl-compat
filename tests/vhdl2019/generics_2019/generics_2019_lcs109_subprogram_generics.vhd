@@ -3,7 +3,8 @@
 -- FEATURE: Generic types on subprograms — functions/procedures parameterized by type
 -- CATEGORY: generics_2019
 -- XREF: LCS2016-109
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: subprogram_generics
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, generic types could only appear on entities and packages.
 --   Subprograms (functions and procedures) could not have generic type
@@ -22,10 +23,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_subprogram_generics is
+entity subprogram_generics_tb is
 end entity;
 
-architecture test of tb_subprogram_generics is
+architecture test of subprogram_generics_tb is
 
   -- VHDL-2019: Generic type on a function
   function my_max generic (type T) parameter (a, b : T) return T is

@@ -24,10 +24,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_file_location is
+entity file_location_tb is
 end entity;
 
-architecture test of tb_file_location is
+architecture test of file_location_tb is
 begin
 
   stim_proc : process

@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: others => in record aggregates — shorthand for unmentioned record fields
 -- CATEGORY: aggregates
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: others_record
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, record aggregates had to specify every field
 --   explicitly. You could not use `others =>` to fill in the remaining
@@ -22,10 +23,10 @@ library ieee;
 use ieee.std_logic_1164.all;
 use std.env.all;
 
-entity tb_others_record is
+entity others_record_tb is
 end entity;
 
-architecture test of tb_others_record is
+architecture test of others_record_tb is
   -- All-integer record: others => works because all fields share type
   type point3d_t is record
     x : integer;

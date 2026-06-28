@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: Generic subprograms on entities — entities with generic functions/procedures
 -- CATEGORY: generics
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: generic_subprograms
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, entities could have generic constants and types, but not
 --   subprograms (functions/procedures). If you wanted a parameterizable
@@ -45,10 +46,10 @@ use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
 
-entity tb_generic_subprograms is
+entity generic_subprograms_tb is
 end entity;
 
-architecture test of tb_generic_subprograms is
+architecture test of generic_subprograms_tb is
   signal a, b : unsigned(3 downto 0) := X"0";
   signal add_result, mul_result : unsigned(3 downto 0);
 
