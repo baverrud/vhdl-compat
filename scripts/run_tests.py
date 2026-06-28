@@ -241,7 +241,7 @@ def run_tests(
         for mode in modes:
             if mode == "synth" and info.test_type not in ("synth", "both"):
                 continue
-            if mode in ("analyze", "sim") and info.test_type not in ("sim", "both"):
+            if mode in ("analyze", "sim") and info.test_type not in ("sim", "both", "backcompat"):
                 continue
 
             test_key = f"{key}@{mode}"

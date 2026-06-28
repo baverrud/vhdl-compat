@@ -153,4 +153,6 @@ class QuestaRunner(ToolRunner):
         std_cfg = self.config.get_standard_config(f"vhdl{standard}")
         if std_cfg.analysis_flags:
             return list(std_cfg.analysis_flags)
-        return ["-2008"] if standard == "2008" else ["-2019"]
+        # VHDL-2000/2002 features are subsets of 2008 — test with closest flag
+        std_map = {"2000": ["-2002"], "2002": ["-2002"], "2008": ["-2008"], "2019": ["-2019"]}
+        return std_map.get(standard, ["-2008"])
