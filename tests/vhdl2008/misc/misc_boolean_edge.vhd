@@ -26,36 +26,30 @@ use std.env.all;
 
 
 -- ============================================================================
--- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- RTL: rising_edge / falling_edge for boolean
+-- VHDL-2008 extends edge detection from std_logic to boolean type
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity boolean_edge is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk : in std_logic; toggle : in boolean; dout : out std_logic);
 end entity;
-
 architecture rtl of boolean_edge is
-  signal reg : std_logic_vector(7 downto 0);
+  signal flag : boolean := false;
 begin
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
+      -- KEY FEATURE: rising_edge() on boolean — detects false->true
+      if rising_edge(toggle) then
+        flag <= not flag;
       end if;
     end if;
   end process;
-  dout <= reg;
+  dout <= '1' when flag else '0';
 end architecture;
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

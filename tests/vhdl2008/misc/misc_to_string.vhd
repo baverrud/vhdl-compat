@@ -28,36 +28,23 @@ use std.env.all;
 
 
 -- ============================================================================
--- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- RTL: to_string / to_hstring — formatted string conversion for constants
+-- VHDL-2008 standardizes to_string, to_bstring, to_hstring, to_ostring
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity to_string is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (output : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of to_string is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: to_hstring converts to hex string (used for constant init)
+  constant HEX_VAL : string(1 to 2) := to_hstring(8x"AB");
 begin
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  output <= X"AB";
 end architecture;
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

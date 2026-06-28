@@ -30,36 +30,23 @@ use std.env.all;
 
 
 -- ============================================================================
--- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- RTL: unary reduction operators — and/or/xor on an entire vector
+-- VHDL-2008: and "1011" = '0'; or "1011" = '1'; xor "1011" = '1'
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity reduction_operators is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (din : in std_logic_vector(7 downto 0); all_and, all_or, parity : out std_logic);
 end entity;
-
 architecture rtl of reduction_operators is
-  signal reg : std_logic_vector(7 downto 0);
 begin
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  -- KEY FEATURE: unary reduction — fold a vector to a single bit
+  all_and <= and din;
+  all_or  <= or din;
+  parity  <= xor din;
 end architecture;
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

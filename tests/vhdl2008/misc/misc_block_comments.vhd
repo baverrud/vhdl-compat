@@ -32,36 +32,23 @@ use std.env.all;
 
 
 -- ============================================================================
--- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- RTL: block comments /* ... */ — C-style multi-line comments
+-- VHDL-2008: /* and */ delimit comment blocks, no repeated -- needed
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity block_comments is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (a : in std_logic; y : out std_logic);
 end entity;
-
 architecture rtl of block_comments is
-  signal reg : std_logic_vector(7 downto 0);
 begin
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  /* KEY FEATURE: this entire paragraph is one block comment.
+     VHDL-2008 block comments make multi-line documentation
+     and temporary code disabling much cleaner.             */
+  y <= not a;
 end architecture;
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

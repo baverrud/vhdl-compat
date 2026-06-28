@@ -65,36 +65,31 @@ use std.env.all;
 
 
 -- ============================================================================
--- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- RTL: reading output ports — out-mode ports can be read internally
+-- VHDL-2008: you can read the value you're driving on an out port
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity read_output_ports is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (clk, rst : in std_logic; count : out unsigned(3 downto 0));
 end entity;
-
 architecture rtl of read_output_ports is
-  signal reg : std_logic_vector(7 downto 0);
 begin
   process(clk)
   begin
     if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
+      if rst = '1' then count <= (others => '0');
       else
-        reg <= din;
+        -- KEY FEATURE: read the out port directly — no internal copy signal
+        if count = 9 then count <= (others => '0');
+        else count <= count + 1; end if;
       end if;
     end if;
   end process;
-  dout <= reg;
 end architecture;
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

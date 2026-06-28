@@ -32,36 +32,26 @@ use std.env.all;
 
 
 -- ============================================================================
--- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- RTL: conditional sequential assignment — when/else inside a process
+-- VHDL-2008: variable <= a when sel='0' else b;
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity seq_assignments is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (a, b : in std_logic_vector(7 downto 0); sel : in std_logic; y : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of seq_assignments is
-  signal reg : std_logic_vector(7 downto 0);
 begin
-  process(clk)
+  process(a, b, sel)
+    -- KEY FEATURE: conditional assignment inside a process (not just concurrent!)
+    variable tmp : std_logic_vector(7 downto 0);
   begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
+    tmp := a when sel = '0' else b;
+    y <= tmp;
   end process;
-  dout <= reg;
 end architecture;
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

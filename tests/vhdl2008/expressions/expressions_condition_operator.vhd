@@ -29,36 +29,25 @@ use std.env.all;
 
 
 -- ============================================================================
--- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- RTL: ?? condition operator — std_logic directly in if-conditions
+-- VHDL-2008 converts std_logic to boolean implicitly via ?? in if/while/assert
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
-use ieee.numeric_std.all;
 
 entity condition_operator is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (a, b, sel : in std_logic; y : out std_logic);
 end entity;
-
 architecture rtl of condition_operator is
-  signal reg : std_logic_vector(7 downto 0);
 begin
-  process(clk)
+  -- KEY FEATURE: if sel then ... (implicit ?? on std_logic signal)
+  -- Before 2008 you had to write: if sel = '1' then
+  process(all)
   begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
+    if sel then y <= a; else y <= b; end if;
   end process;
-  dout <= reg;
 end architecture;
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

@@ -24,36 +24,23 @@ use std.env.all;
 
 
 -- ============================================================================
--- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- RTL: minimum / maximum — standard library functions
+-- VHDL-2008 adds min/max for all scalar types (integer, real, time, etc.)
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity min_max is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (a, b : in integer range 0 to 255; smaller, larger : out integer range 0 to 255);
 end entity;
-
 architecture rtl of min_max is
-  signal reg : std_logic_vector(7 downto 0);
 begin
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  -- KEY FEATURE: minimum() and maximum() on integer type
+  smaller <= minimum(a, b);
+  larger  <= maximum(a, b);
 end architecture;
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

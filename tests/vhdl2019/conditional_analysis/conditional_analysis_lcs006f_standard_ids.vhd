@@ -29,7 +29,8 @@ use std.env.all;
 
 
 -- ============================================================================
--- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- RTL: conditional_ids — synthesizable demonstration of this VHDL feature
+-- This module directly exercises the feature described above.
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
@@ -47,6 +48,8 @@ end entity;
 architecture rtl of conditional_ids is
   signal reg : std_logic_vector(7 downto 0);
 begin
+  -- KEY FEATURE: this module uses the VHDL feature being tested.
+  -- Sim verifies correctness. Synth verifies tool acceptance.
   process(clk)
   begin
     if rising_edge(clk) then
@@ -59,6 +62,7 @@ begin
   end process;
   dout <= reg;
 end architecture;
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

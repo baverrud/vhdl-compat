@@ -27,36 +27,24 @@ use std.env.all;
 
 
 -- ============================================================================
--- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- RTL: enhanced bit string literals — 8x"AB", 8b"1010_0101", don't-care
+-- VHDL-2008 adds width prefixes, signed/unsigned markers
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
 entity enhanced_bit_strings is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
+  port (output : out std_logic_vector(7 downto 0));
 end entity;
-
 architecture rtl of enhanced_bit_strings is
-  signal reg : std_logic_vector(7 downto 0);
+  -- KEY FEATURE: 8b with underscores; 8x for hex notation
+  constant MASK : std_logic_vector(7 downto 0) := 8b"1111_0000";
+  constant DATA : unsigned(7 downto 0) := 8x"5A";
 begin
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  output <= MASK or std_logic_vector(DATA);
 end architecture;
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;

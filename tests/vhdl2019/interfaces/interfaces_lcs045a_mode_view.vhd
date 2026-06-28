@@ -123,36 +123,38 @@ use work.bus_pkg.all;
 
 
 -- ============================================================================
--- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- RTL: interface mode views — per-field direction on record ports
+-- VHDL-2019: view keyword defines direction per record field
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 
-entity interface_views is
-  port (
-    clk  : in  std_logic;
-    rst  : in  std_logic;
-    din  : in  std_logic_vector(7 downto 0);
-    dout : out std_logic_vector(7 downto 0)
-  );
-end entity;
+package view_pkg is
+  type bus_t is record
+    addr : std_logic_vector(7 downto 0);
+    data : std_logic_vector(7 downto 0);
+    wr   : std_logic;
+  end record;
+  view master_view of bus_t is
+    addr, data, wr : out;
+  end view;
+end package;
+use work.view_pkg.all;
 
+entity interface_views is
+  port (clk : in std_logic; bus_if : view master_view of bus_t);
+end entity;
 architecture rtl of interface_views is
-  signal reg : std_logic_vector(7 downto 0);
+  signal cnt : unsigned(7 downto 0) := (others => '0');
 begin
-  process(clk)
-  begin
-    if rising_edge(clk) then
-      if rst = '1' then
-        reg <= (others => '0');
-      else
-        reg <= din;
-      end if;
-    end if;
-  end process;
-  dout <= reg;
+  process(clk) begin if rising_edge(clk) then cnt <= cnt + 1; end if; end process;
+  -- KEY FEATURE: view mode controls per-field direction on the record port
+  bus_if.addr <= std_logic_vector(cnt);
+  bus_if.data <= std_logic_vector(cnt + 1);
+  bus_if.wr   <= '1';
 end architecture;
+
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
