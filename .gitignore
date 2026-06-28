@@ -37,9 +37,8 @@ xsim.dir/
 .DS_Store
 Thumbs.db
 
-# Results are generated
-results/*.json
-results/*.md
+# Results are generated — keep only .gitkeep and matrix.md
+results/*
 !results/.gitkeep
 !results/matrix.md
 
