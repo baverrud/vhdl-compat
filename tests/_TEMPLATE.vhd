@@ -66,15 +66,15 @@ begin
 end architecture;
 
 -- ============================================================================
--- Entity (testbench — no ports for simulation tests)
+-- Entity (testbench — _tb suffix, no ports)
 -- ============================================================================
-entity tb_template is
+entity template_tb is
 end entity;
 
 -- ============================================================================
 -- Architecture
 -- ============================================================================
-architecture test of tb_template is
+architecture test of template_tb is
 
   -- --------------------------------------------------------------------------
   -- Signals / shared variables / constants
