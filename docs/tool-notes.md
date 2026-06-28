@@ -30,7 +30,12 @@ Notes from testing each EDA tool. Not user documentation — internal reference 
 
 ## ModelSim DE/PE (Siemens EDA)
 
-Same as Questa — identical CLI (`vcom`, `vsim`), same quirks. The only difference is licensing and feature set.
+Same CLI as Questa (`vcom`, `vsim`), same quirks. The only difference is licensing and feature set.
+
+### Intel FPGA Edition note
+The ModelSim bundled with Intel Quartus (e.g., "ModelSim 2020.1" = Quartus 21.1) is actually a newer build than the version number suggests. The vcom banner shows the actual build date (e.g., "Compiler 2021.02"). These Intel editions may include VHDL-2019 features backported from newer Siemens releases. **Verified:** ModelSim Intel FPGA Edition (vcom 2021.1) correctly handles both `-2008` and `-2019` flags and enforces standard boundaries:
+- `-2008`: correctly rejects VHDL-2019 features (empty records, conditional analysis)
+- `-2019`: correctly accepts VHDL-2019 features
 
 ---
 
