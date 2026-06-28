@@ -75,6 +75,7 @@ class QuestaRunner(ToolRunner):
             standard=test.standard,
             category=test.category,
             test_type=test.test_type,
+            xref=test.xref,
             mode="analyze",
         )
 

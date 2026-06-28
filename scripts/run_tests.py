@@ -257,6 +257,7 @@ def run_tests(
                     standard=info.standard,
                     category=info.category,
                     test_type=info.test_type,
+                    xref=info.xref,
                     mode=mode,
                     status=TestStatus.FAIL,
                     comment=f"Runner exception: {e}",

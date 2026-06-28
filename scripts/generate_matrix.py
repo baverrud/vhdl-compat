@@ -58,19 +58,89 @@ def _std_sort_key(std: str) -> int:
         return 0
 
 
-def build_feature_index(all_reports: Dict[str, dict]) -> List[Tuple[str, str, str]]:
+def build_feature_index(all_reports: Dict[str, dict]) -> List[Tuple[str, str, str, str]]:
     """Build a sorted list of unique features across all reports.
 
-    Returns list of (standard, category, feature) tuples, sorted chronologically.
+    Returns list of (standard, category, feature, xref) tuples.
+    Deduplicates by (standard, category, feature); picks the first non-empty xref.
+    Sorted chronologically by standard; VHDL-2019 sorted by pass/fail
+    for the primary tool (PASS before FAIL).
     """
-    features: Dict[Tuple[str, str, str], None] = {}
+    # Use dict to deduplicate by (std, cat, feature), keeping best xref
+    feature_map: Dict[Tuple[str, str, str], str] = {}
+
+    # Determine primary tool column: prefer one with most PASS results
+    # (alphabetically first may be a tool with no VHDL-2019 support)
+    all_columns = sorted(all_reports.keys())
+    col_headers = list(dict.fromkeys(c.split("/")[0] for c in all_columns))
+    primary_col_prefix = _pick_primary_column(all_reports, col_headers)
+
     for data in all_reports.values():
         std = data.get("standard", "?")
         for result in data.get("results", {}).values():
             key = (std, result.get("category", "?"), result.get("feature", "?"))
-            features[key] = None
+            xref = result.get("xref", "")
+            # Keep the first non-empty xref found
+            if key not in feature_map or (not feature_map[key] and xref):
+                feature_map[key] = xref
 
-    return sorted(features.keys(), key=lambda x: (_std_sort_key(x[0]), x[1], x[2]))
+    # Build list with xrefs
+    features: List[Tuple[str, str, str, str]] = [
+        (std, cat, feat, xref) for (std, cat, feat), xref in feature_map.items()
+    ]
+
+    # Sort: chronological by standard, then VHDL-2019 by pass/fail priority
+    def sort_key(item: Tuple[str, str, str, str]) -> tuple:
+        std, cat, feat, xref = item
+        std_order = _std_sort_key(std)
+        if std == "2019":
+            status_priority = _get_status_priority(all_reports, primary_col_prefix, std, feat, cat)
+            return (std_order, status_priority, cat, feat)
+        else:
+            return (std_order, 0, cat, feat)
+
+    return sorted(features, key=sort_key)
+
+
+def _pick_primary_column(
+    all_reports: Dict[str, dict],
+    col_headers: List[str],
+) -> str:
+    """Pick the column with the most informative results (most non-UNTESTED)."""
+    best_col = col_headers[0] if col_headers else ""
+    best_score = 0
+    for col in col_headers:
+        # Count how many results this column has that are PASS, PARTIAL, or FAIL
+        score = 0
+        for key, data in all_reports.items():
+            if key.startswith(col + "/"):
+                for r in data.get("results", {}).values():
+                    if r.get("status", "untested") in ("pass", "partial", "fail"):
+                        score += 1
+        if score > best_score:
+            best_score = score
+            best_col = col
+    return best_col
+
+
+def _get_status_priority(
+    all_reports: Dict[str, dict],
+    tool_prefix: str,
+    std: str,
+    feature: str,
+    category: str,
+) -> int:
+    """Get sort priority for a feature based on its status.
+    0=PASS, 1=PARTIAL, 2=FAIL, 3=UNTESTED/N/A.
+    """
+    for col_key, data in all_reports.items():
+        if col_key.startswith(tool_prefix + "/") and data.get("standard") == std:
+            result = _find_result(data, feature, category)
+            if result:
+                status = result.get("status", "untested")
+                priority = {"pass": 0, "partial": 1, "fail": 2}
+                return priority.get(status, 3)
+    return 3  # Not found — put at end
 
 
 def build_status_cell(status: str) -> str:
@@ -87,7 +157,7 @@ def build_status_cell(status: str) -> str:
 
 def generate_matrix_markdown(
     all_reports: Dict[str, dict],
-    features: List[Tuple[str, str, str]],
+    features: List[Tuple[str, str, str, str]],
 ) -> str:
     """Generate a combined comparison matrix in Markdown."""
     lines: List[str] = []
@@ -113,14 +183,19 @@ def generate_matrix_markdown(
     lines.append(separator)
 
     current_std = ""
-    for std, category, feature in features:
+    for std, category, feature, xref in features:
         # Standard section header
         if std != current_std:
             current_std = std
             lines.append(f"| **VHDL-{std}** | | | |" + " | " * len(col_headers))
 
+        # Build display name: prepend LCS xref for VHDL-2019
+        display_feature = feature
+        if xref:
+            display_feature = f"{xref}: {feature}"
+
         # Build row
-        row = f"| {feature} | {std} | {category} |"
+        row = f"| {display_feature} | {std} | {category} |"
 
         for tool_ver in col_headers:
             # Find the report for this tool-version that matches the feature's standard
@@ -162,7 +237,7 @@ def generate_matrix_json(
         "features": [],
     }
 
-    for std, category, feature in features:
+    for std, category, feature, xref in features:
         row = {
             "standard": std,
             "category": category,

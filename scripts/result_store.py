@@ -32,6 +32,7 @@ class TestResult:
     category: str            # subdirectory category
     test_type: str           # sim, synth, or both
     mode: str                # analyze, sim, or synth
+    xref: str = ""           # IEEE cross-reference: LCS2016-XXX or FTXX
     status: TestStatus = TestStatus.UNTESTED
     comment: str = ""        # human explanation for PARTIAL or FAIL
     errors_raw: str = ""     # raw tool output on failure
@@ -85,6 +86,7 @@ class RunResult:
                     "feature": r.feature,
                     "category": r.category,
                     "test_type": r.test_type,
+                    "xref": r.xref,
                     "comment": r.comment,
                     "compile_time_ms": r.compile_time_ms,
                     "sim_time_ms": r.sim_time_ms,
