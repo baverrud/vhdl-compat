@@ -1,0 +1,64 @@
+# ---------------------------------------------------------------------------
+# Questa Advanced Simulator Configuration
+#
+# Questa is Siemens/Mentor Graphics' advanced simulator.
+# It supports VHDL simulation only — no synthesis.
+# Questa shares most CLI conventions with ModelSim (vcom/vsim).
+# ---------------------------------------------------------------------------
+
+[tool]
+name = "Questa"
+vendor = "Siemens EDA (Mentor Graphics)"
+type = "sim"
+description = "Questa Advanced Simulator — VHDL simulation with advanced verification"
+
+[paths]
+environment_variable = "QUESTA_HOME"
+search_paths = [
+    "C:/questasim*/win64",
+    "C:/modeltech/questasim*/win64",
+    "/opt/questasim*/linux_x86_64",
+]
+windows_default = "C:/questasim64_2024.1/win64"
+linux_default = "/opt/questasim/questasim/linux_x86_64"
+
+# ---------------------------------------------------------------------------
+# VHDL standard flags
+# ---------------------------------------------------------------------------
+[standards.vhdl2008]
+analysis_flags = ["-2008"]
+simulation_flags = ["-voptargs=+acc"]
+
+[standards.vhdl2019]
+analysis_flags = ["-2019"]
+simulation_flags = ["-voptargs=+acc"]
+# Note: Questa VHDL-2019 support depends on version. Older versions use -2008.
+
+# ---------------------------------------------------------------------------
+# Simulation mode
+# ---------------------------------------------------------------------------
+[sim]
+# Step 1: Analyze (compile) the VHDL file
+analysis_cmd = "vcom"
+analysis_flags = ["-work", "work", "-quiet"]
+analysis_error_pattern = "\\*\\* Error:"
+
+# Step 2: Start simulation (vsim)
+# The runner extracts the entity name from the test file.
+elaboration_cmd = "vsim"
+elaboration_flags = ["-c", "-quiet", "-do", "run -all; quit"]
+elaboration_error_pattern = "\\*\\* Error:"
+# Note: vsim combines elaboration and run; run_flags are passed to vsim
+
+run_cmd = "vsim"
+run_flags = ["-c", "-do", "run -all; quit -code [coalesce [expr [coalesce [examine -boolean std.env.stop_status] 0] + 1] 0] 0"]
+run_pass_pattern = "PASS:"
+run_fail_pattern = "FAIL:"
+run_timeout_seconds = 30
+
+# ---------------------------------------------------------------------------
+# Synthesis: Not applicable
+# ---------------------------------------------------------------------------
+# Questa is a simulator only. Synthesis tests report "N/A" for this tool.
+[synth]
+supported = false

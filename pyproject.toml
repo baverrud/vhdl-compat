@@ -1,0 +1,30 @@
+[project]
+name = "vhdl-compatibility"
+version = "0.1.0"
+description = "VHDL standards compatibility test suite for EDA tools"
+readme = "README.md"
+requires-python = ">=3.9"
+license = {text = "Apache-2.0"}
+authors = [
+    {name = "VHDL Compatibility Team"}
+]
+keywords = ["vhdl", "fpga", "eda", "compatibility", "testing"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Topic :: Scientific/Engineering :: Electronic Design Automation (EDA)",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: VHDL",
+]
+
+[project.optional-dependencies]
+dev = ["pytest", "pytest-cov", "ruff"]
+
+[project.scripts]
+vhdl-compat = "scripts.run_tests:main"
+vhdl-compat-matrix = "scripts.generate_matrix:main"
+line-length = 100
+target-version = "py39"
+
+[tool.pytest.ini_options]
+testpaths = ["scripts/tests"]

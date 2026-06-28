@@ -1,0 +1,47 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+.venv/
+venv/
+*.egg
+
+# VHDL simulation artifacts
+work/
+*.cf
+*.o
+vunit_out/
+*.vstf
+modelsim.ini
+vsim.wlf
+transcript
+*.backup.*
+
+# Vivado artifacts
+*.jou
+*.log
+*.str
+.vivado/
+xsim.dir/
+.vivado_*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Results are generated
+results/*.json
+results/*.md
+!results/.gitkeep
+!results/matrix.md
+
+# Tool binaries / installs
+tools/bin/

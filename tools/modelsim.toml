@@ -1,0 +1,62 @@
+# ---------------------------------------------------------------------------
+# ModelSim DE/PE Configuration
+#
+# ModelSim is Siemens/Mentor Graphics' mainstream simulator.
+# ModelSim DE (Desktop Edition) and PE (Personal Edition) are lower-cost
+# variants of Questa. They share the same CLI (vcom/vsim) and same flags.
+# ---------------------------------------------------------------------------
+
+[tool]
+name = "ModelSim"
+vendor = "Siemens EDA (Mentor Graphics)"
+type = "sim"
+description = "ModelSim DE/PE — mainstream VHDL simulator"
+
+[paths]
+environment_variable = "MODELSIM_HOME"
+search_paths = [
+    "C:/modeltech*/win64",
+    "C:/ModelSim*/win64",
+    "/opt/modelsim*/linux_x86_64",
+]
+windows_default = "C:/modeltech64_2024.1/win64"
+linux_default = "/opt/modelsim/modelsim/linux_x86_64"
+
+# ---------------------------------------------------------------------------
+# VHDL standard flags
+# ---------------------------------------------------------------------------
+[standards.vhdl2008]
+analysis_flags = ["-2008"]
+simulation_flags = ["-voptargs=+acc"]
+
+[standards.vhdl2019]
+analysis_flags = ["-2019"]
+simulation_flags = ["-voptargs=+acc"]
+# Note: ModelSim VHDL-2019 support depends on version. Older versions use -2008.
+# Some ModelSim editions may not support -2019 at all.
+
+# ---------------------------------------------------------------------------
+# Simulation mode
+# ---------------------------------------------------------------------------
+[sim]
+# Step 1: Analyze (compile) the VHDL file
+analysis_cmd = "vcom"
+analysis_flags = ["-work", "work", "-quiet"]
+analysis_error_pattern = "\\*\\* Error:"
+
+# Step 2: Start simulation (vsim)
+elaboration_cmd = "vsim"
+elaboration_flags = ["-c", "-quiet"]
+elaboration_error_pattern = "\\*\\* Error:"
+
+run_cmd = "vsim"
+run_flags = ["-c", "-do", "run -all; quit"]
+run_pass_pattern = "PASS:"
+run_fail_pattern = "FAIL:"
+run_timeout_seconds = 30
+
+# ---------------------------------------------------------------------------
+# Synthesis: Not applicable
+# ---------------------------------------------------------------------------
+[synth]
+supported = false
