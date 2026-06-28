@@ -5,7 +5,9 @@ A comprehensive test suite for evaluating EDA tool support of VHDL standards: **
 Tests cover **simulation** (compile + run), **synthesis** (compile to netlist), and **backwards-compatibility** (standards enforcement across versions), with per-tool reports and a combined comparison matrix.
 
 > ## 📊 [VHDL Compatibility Matrix →](matrix.md)
-> Live comparison of **68 features** across **Questal 2025.3** and **ModelSim 2020.1** — PASS/FAIL per standard and tool. Updated automatically after each test run.
+> Live comparison of **68 features** across **Questa 2025.3** and **ModelSim 2020.1** — PASS/FAIL per standard and tool. Updated automatically after each test run.
+
+<br>
 
 > **New to this project?** Read the **[User Guide](docs/user-guide.md)** — it walks through every step, no prior knowledge assumed.
 

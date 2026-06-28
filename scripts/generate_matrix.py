@@ -340,6 +340,11 @@ def main(argv: Optional[List[str]] = None) -> int:
     md_path.write_text(md, encoding="utf-8")
     print(f"Matrix (Markdown) saved: {md_path}")
 
+    # Copy to project root for prominent visibility
+    root_path = results_dir.parent / "matrix.md"
+    root_path.write_text(md, encoding="utf-8")
+    print(f"Matrix (Markdown) copied: {root_path}")
+
     # Generate JSON
     json_data = generate_matrix_json(all_reports, features)
     json_path = results_dir / "matrix.json"
