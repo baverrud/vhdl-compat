@@ -197,21 +197,30 @@ def generate_matrix_markdown(
     lines.append("")
 
     # Build column entries: (tool_part, mode, display_name)
-    # Each report key is "tool-version/standard-mode"
+    # Each report key is "tool-name-tool-version/standard-mode"
     # Only include sim and synth modes (not analyze)
     columns = sorted(all_reports.keys())
     col_entries: list[tuple[str, str, str]] = []
     seen: set[str] = set()
     for c in columns:
-        tool_part = c.split("/")[0]       # "Vivado-2023.2"
-        std_mode = c.split("/")[1]         # "vhdl2008-analyze"
-        mode_raw = std_mode.split("-")[-1] # "analyze", "sim", or "synth"
+        tool_part = c.split("/")[0]       # "Altera Questa Starter-2025.3"
+        std_mode = c.split("/")[1]         # "vhdl2008-sim"
+        mode_raw = std_mode.split("-")[-1] # "sim" or "synth"
         if mode_raw == "analyze":
-            continue                       # Skip analyze-only columns
+            continue
         entry_key = f"{tool_part} ({mode_raw})"
         if entry_key not in seen:
             seen.add(entry_key)
-            col_entries.append((tool_part, mode_raw, entry_key))
+            # Split tool_part into name and version
+            # Format: each word on its own line, then version, then mode
+            data = all_reports.get(c, {})
+            tool_name = data.get("tool_name", tool_part.rsplit("-", 1)[0] if "-" in tool_part else tool_part)
+            tool_ver = data.get("tool_version", tool_part.rsplit("-", 1)[-1] if "-" in tool_part else "")
+            # Build multi-line header: name words + version + mode
+            name_parts = tool_name.split()
+            header_lines = name_parts + [tool_ver, f"({mode_raw})"]
+            display = "<br>".join(header_lines)
+            col_entries.append((tool_part, mode_raw, display))
 
     # Reorder: Questa first, ModelSim second, rest alphabetically
     col_entries = _reorder_column_entries(col_entries)
