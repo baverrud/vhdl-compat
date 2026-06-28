@@ -4,7 +4,7 @@ A comprehensive test suite for evaluating EDA tool support of VHDL standards: **
 
 Tests cover **simulation** (compile + run) and **synthesis** (compile to netlist), with per-tool reports and a combined comparison matrix.
 
-> **[📊 VHDL Compatibility Matrix →](MATRIX.md)** — Live comparison of **92 features** across **3 tools**. PASS/FAIL per standard and tool. Updated after each run.
+> **[📊 VHDL Compatibility Matrix →](MATRIX.md)** — Live comparison of **92 features** across **various tools**. PASS/FAIL per standard and tool. Updated after each run.
 
 <br>
 
