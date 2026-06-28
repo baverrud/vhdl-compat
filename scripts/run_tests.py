@@ -436,10 +436,13 @@ def main(argv: Optional[List[str]] = None) -> int:
     if all_reports:
         features = build_feature_index(all_reports)
         md = generate_matrix_markdown(all_reports, features)
-        (results_dir / "matrix.md").write_text(md, encoding="utf-8")
+        (results_dir / "MATRIX.md").write_text(md, encoding="utf-8")
+        root_md = results_dir.parent / "MATRIX.md"
+        if not root_md.exists():
+            root_md.write_text(md, encoding="utf-8")
         json_data = generate_matrix_json(all_reports, features)
         (results_dir / "matrix.json").write_text(_json.dumps(json_data, indent=2), encoding="utf-8")
-        print(f"Matrix saved: {results_dir / 'matrix.md'}")
+        print(f"Matrix saved: {results_dir / 'MATRIX.md'}")
 
     return 0
 

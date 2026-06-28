@@ -36,7 +36,7 @@ vhdl-compatibility/
 ├── tools/                  # Per-tool TOML configuration files
 ├── scripts/                # Python test runner and adapters
 ├── docs/                   # Documentation
-├── results/                # Generated reports (gitignored except matrix.md)
+├── results/                # Generated reports (gitignored except MATRIX.md)
 └── README.md
 ```
 

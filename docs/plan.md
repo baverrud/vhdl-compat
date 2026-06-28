@@ -171,7 +171,7 @@ vhdl-compat-matrix --results-dir results/
 - Markdown: human-readable with category summaries and detail sections
 
 ### Combined comparison matrix
-- Reads all `report.json` files, generates `matrix.md` + `matrix.json`
+- Reads all `report.json` files, generates `MATRIX.md` + `matrix.json`
 - Rows = features, columns = tools/versions/modes
 
 ---

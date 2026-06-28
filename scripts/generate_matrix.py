@@ -71,9 +71,19 @@ def build_feature_index(all_reports: Dict[str, dict]) -> List[Tuple[str, str, st
 
     # Determine primary tool column: Questa first, then most informative
     all_columns = sorted(all_reports.keys())
-    col_headers = list(dict.fromkeys(c.split("/")[0] for c in all_columns))
-    col_headers = _reorder_columns(col_headers)
-    primary_col_prefix = _pick_primary_column(all_reports, col_headers)
+    # Build col_entries for primary tool selection
+    col_entries: list[tuple[str, str, str]] = []
+    seen: set[str] = set()
+    for c in all_columns:
+        tool_part = c.split("/")[0]
+        std_mode = c.split("/")[1]
+        mode = std_mode.split("-")[-1]
+        entry_key = f"{tool_part} ({mode})"
+        if entry_key not in seen:
+            seen.add(entry_key)
+            col_entries.append((tool_part, mode, entry_key))
+    col_entries = _reorder_column_entries(col_entries)
+    primary_col_prefix = _pick_primary_column(all_reports, col_entries)
 
     for data in all_reports.values():
         std = data.get("standard", "?")
@@ -99,46 +109,43 @@ def build_feature_index(all_reports: Dict[str, dict]) -> List[Tuple[str, str, st
     return sorted(features, key=sort_key)
 
 
-def _reorder_columns(col_headers: List[str]) -> List[str]:
+def _reorder_column_entries(entries: list[tuple[str, str, str]]) -> list[tuple[str, str, str]]:
     """Reorder columns: Questa first, ModelSim second, rest alphabetically."""
-    ordered = []
+    ordered: list[tuple[str, str, str]] = []
     # Pull Questa to front
     for prefix in ("questa", "Questa"):
-        matches = [c for c in col_headers if c.lower().startswith(prefix)]
-        for m in sorted(matches):
-            if m not in ordered:
-                ordered.append(m)
+        for e in entries:
+            if e[0].lower().startswith(prefix) and e not in ordered:
+                ordered.append(e)
     # Pull ModelSim second
     for prefix in ("modelsim", "ModelSim"):
-        matches = [c for c in col_headers if c.lower().startswith(prefix)]
-        for m in sorted(matches):
-            if m not in ordered:
-                ordered.append(m)
-    # Rest alphabetically
-    for c in sorted(col_headers):
-        if c not in ordered:
-            ordered.append(c)
+        for e in entries:
+            if e[0].lower().startswith(prefix) and e not in ordered:
+                ordered.append(e)
+    # Rest alphabetically by tool_part
+    for e in sorted(entries, key=lambda x: x[0].lower()):
+        if e not in ordered:
+            ordered.append(e)
     return ordered
 
 
 def _pick_primary_column(
     all_reports: Dict[str, dict],
-    col_headers: List[str],
+    col_entries: list[tuple[str, str, str]],
 ) -> str:
     """Pick the column with the most informative results (most non-UNTESTED)."""
-    best_col = col_headers[0] if col_headers else ""
+    best_col = col_entries[0][0] if col_entries else ""
     best_score = 0
-    for col in col_headers:
-        # Count how many results this column has that are PASS, PARTIAL, or FAIL
+    for tool_part, mode, _display in col_entries:
         score = 0
         for key, data in all_reports.items():
-            if key.startswith(col + "/"):
+            if key.startswith(tool_part + "/") and data.get("mode") == mode:
                 for r in data.get("results", {}).values():
                     if r.get("status", "untested") in ("pass", "partial", "fail"):
                         score += 1
         if score > best_score:
             best_score = score
-            best_col = col
+            best_col = tool_part
     return best_col
 
 
@@ -189,16 +196,27 @@ def generate_matrix_markdown(
     lines.append("> Legend: ✅ PASS  ❌ FAIL")
     lines.append("")
 
-    # Column headers: group by unique tool-version, deduplicate across standards
+    # Build column entries: (tool_part, mode, display_name)
+    # Each report key is "tool-version/standard-mode"
     columns = sorted(all_reports.keys())
-    # Extract unique tool-version identifiers (first part of key before /)
-    col_headers = list(dict.fromkeys(c.split("/")[0] for c in columns))
+    col_entries: list[tuple[str, str, str]] = []
+    seen: set[str] = set()
+    for c in columns:
+        tool_part = c.split("/")[0]       # "Vivado-2023.2"
+        std_mode = c.split("/")[1]         # "vhdl2008-analyze"
+        mode = std_mode.split("-")[-1]     # "analyze"
+        entry_key = f"{tool_part} ({mode})"
+        if entry_key not in seen:
+            seen.add(entry_key)
+            col_entries.append((tool_part, mode, entry_key))
+
     # Reorder: Questa first, ModelSim second, rest alphabetically
-    col_headers = _reorder_columns(col_headers)
+    col_entries = _reorder_column_entries(col_entries)
 
     # Build the table
-    header = "| Feature | Standard | Category | " + " | ".join(col_headers) + " |"
-    separator = "|---------|----------|----------|" + "|".join(["---"] * len(col_headers)) + "|"
+    col_displays = [e[2] for e in col_entries]
+    header = "| Feature | Standard | Category | " + " | ".join(col_displays) + " |"
+    separator = "|---------|----------|----------|" + "|".join(["---"] * len(col_displays)) + "|"
 
     lines.append(header)
     lines.append(separator)
@@ -208,7 +226,7 @@ def generate_matrix_markdown(
         # Standard section header
         if std != current_std:
             current_std = std
-            lines.append(f"| **VHDL-{std}** | | |" + "|".join([""] * len(col_headers)) + "|")
+            lines.append(f"| **VHDL-{std}** | | |" + "|".join([""] * len(col_displays)) + "|")
 
         # Build display name: prepend LCS xref for VHDL-2019, link to test file
         display_feature = feature
@@ -221,16 +239,16 @@ def generate_matrix_markdown(
             url = GITHUB_BASE + test_file
             display_feature = f"[{display_feature}]({url})"
 
-        # Build row
+        # Build row — iterate over (tool_part, mode, display_name) entries
         row = f"| {display_feature} | {std} | {category} |"
 
-        for tool_ver in col_headers:
-            # Find the report for this tool-version that matches the feature's standard
+        for tool_part, mode, _display in col_entries:
             cell = " ❌ |"
+            # Find the report matching this tool_part, standard, and mode
             for col_key in columns:
-                if col_key.startswith(tool_ver + "/"):
+                if col_key.startswith(tool_part + "/"):
                     data = all_reports.get(col_key)
-                    if data and data.get("standard") == std:
+                    if data and data.get("standard") == std and data.get("mode") == mode:
                         result = _find_result(data, feature, category)
                         if result:
                             cell = f" {build_status_cell(result.get('status', 'untested'))} |"
@@ -275,13 +293,26 @@ def _find_test_file(all_reports: Dict[str, dict], std: str,
 
 def generate_matrix_json(
     all_reports: Dict[str, dict],
-    features: List[Tuple[str, str, str]],
+    features: List[Tuple[str, str, str, str]],
 ) -> dict:
     """Generate a combined comparison matrix in JSON-compatible dict."""
+    # Build column entries matching the Markdown version
     columns = sorted(all_reports.keys())
+    col_entries: list[tuple[str, str, str]] = []
+    seen: set[str] = set()
+    for c in columns:
+        tool_part = c.split("/")[0]
+        std_mode = c.split("/")[1]
+        mode = std_mode.split("-")[-1]
+        entry_key = f"{tool_part} ({mode})"
+        if entry_key not in seen:
+            seen.add(entry_key)
+            col_entries.append((tool_part, mode, entry_key))
+    col_entries = _reorder_column_entries(col_entries)
+    col_displays = [e[2] for e in col_entries]
 
     matrix = {
-        "columns": columns,
+        "columns": col_displays,
         "features": [],
     }
 
@@ -292,12 +323,15 @@ def generate_matrix_json(
             "feature": feature,
             "results": {},
         }
-        for col_key in columns:
-            data = all_reports.get(col_key)
+        for tool_part, mode, col_display in col_entries:
             result = None
-            if data:
-                result = _find_result(data, feature, category)
-            row["results"][col_key] = {
+            for col_key in columns:
+                if col_key.startswith(tool_part + "/"):
+                    data = all_reports.get(col_key)
+                    if data and data.get("standard") == std and data.get("mode") == mode:
+                        result = _find_result(data, feature, category)
+                        break
+            row["results"][col_display] = {
                 "status": result.get("status", "untested") if result else "untested",
                 "comment": result.get("comment", "") if result else "",
             }
@@ -336,7 +370,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Generate Markdown — save directly to project root
     md = generate_matrix_markdown(all_reports, features)
-    root_path = results_dir.parent / "matrix.md"
+    root_path = results_dir.parent / "MATRIX.md"
     root_path.write_text(md, encoding="utf-8")
     print(f"Matrix (Markdown) saved: {root_path}")
 

@@ -4,7 +4,7 @@ A comprehensive test suite for evaluating EDA tool support of VHDL standards: **
 
 Tests cover **simulation** (compile + run) and **synthesis** (compile to netlist), with per-tool reports and a combined comparison matrix.
 
-> **[📊 VHDL Compatibility Matrix →](matrix.md)** — Live comparison of **68 features** across **Questa 2025.3** and **ModelSim 2020.1**. PASS/FAIL per standard and tool. Updated after each run.
+> **[📊 VHDL Compatibility Matrix →](MATRIX.md)** — Live comparison of **92 features** across **3 tools**. PASS/FAIL per standard and tool. Updated after each run.
 
 <br>
 
@@ -78,10 +78,10 @@ results/
 ├── modelsim-2020.1/
 │   └── ... (same structure)
 ├── matrix.json
-└── matrix.md
+└── MATRIX.md
 ```
 
-[**matrix.md**](matrix.md) at the project root is a combined comparison view across all tools and standards. Generated automatically by `vhdl-compat-matrix` or at the end of any `run_tests.py` run.
+[**MATRIX.md**](MATRIX.md) at the project root is a combined comparison view across all tools and standards. Generated automatically by `vhdl-compat-matrix` or at the end of any `run_tests.py` run.
 │   ├── vhdl2008-sim/
 │   │   ├── report.json    # Machine-readable per-feature results
 │   │   └── report.md      # Human-readable summary with details
@@ -90,7 +90,7 @@ results/
 │       └── report.md
 ├── questa-2024.1/
 │   └── ...
-└── matrix.md               # Combined comparison: all tools × all features × all standards
+└── MATRIX.md               # Combined comparison: all tools × all features × all standards
 ```
 
 ## Adding a New Tool

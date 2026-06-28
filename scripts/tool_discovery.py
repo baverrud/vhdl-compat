@@ -257,6 +257,7 @@ class DetectedTool:
 TOOL_ALIASES: dict[str, str] = {
     "altera questa starter": "questa",
     "altera questastarter": "questa",
+    "altera modelsim starter": "modelsim",
     "intel/altera modelsim starter": "modelsim",
     "modelsim starter": "modelsim",
     "modelsim de": "modelsim",
@@ -334,9 +335,10 @@ def _load_manual_installations(
     detected: Dict[str, List[DetectedTool]] = {}
 
     for tool_key, versions_data in raw.items():
-        if not isinstance(versions_data, dict):
+        if not isinstance(versions_data, (dict, list)):
             continue
 
+        # Determine tool key and alias target
         tool_key_lower = tool_key.lower()
         alias_target = TOOL_ALIASES.get(tool_key_lower, tool_key_lower)
         tool_cfg = configs.get(alias_target)
@@ -345,9 +347,29 @@ def _load_manual_installations(
         display_name = tool_key.strip()
         tool_name = tool_cfg.name if tool_cfg else tool_key
 
-        for version, data in versions_data.items():
-            if not isinstance(data, dict):
-                continue
+        # Normalize to a list of (version, data) entries
+        #   - [[table]] array → list of dicts with "version" and "path"
+        #   - [table] dict    → {version: {path: ...}} or {"version": ..., "path": ...}
+        entries: list[tuple[str, dict]] = []
+        if isinstance(versions_data, list):
+            # Array of tables: [[Tool]]  → list of {"version": ..., "path": ...}
+            for item in versions_data:
+                if isinstance(item, dict) and "version" in item and "path" in item:
+                    entries.append((item["version"], item))
+        elif isinstance(versions_data, dict):
+            # Check if new format (version key inside) or old (versions as keys)
+            if "version" in versions_data:
+                # New single-entry format
+                version = versions_data.get("version", "")
+                if version:
+                    entries.append((version, versions_data))
+            else:
+                # Old format: versions as sub-keys
+                for version, data in versions_data.items():
+                    if isinstance(data, dict) and "path" in data:
+                        entries.append((version, data))
+
+        for version, data in entries:
             exe_dir_str = data.get("path", "")
             if not exe_dir_str:
                 continue
@@ -359,6 +381,7 @@ def _load_manual_installations(
                 continue
 
             # Verify the expected executable exists
+            exe_path = exe_dir
             if tool_cfg and tool_cfg.detection.version_cmd:
                 import platform
                 exe_name = tool_cfg.detection.version_cmd
@@ -366,19 +389,17 @@ def _load_manual_installations(
                     exe_name += ".exe"
                 exe_path = exe_dir / exe_name
                 if not exe_path.exists():
-                    # Try without .exe
                     exe_path = exe_dir / tool_cfg.detection.version_cmd
                     if not exe_path.exists():
                         print(f"  Warning: {tool_name} {version} — {exe_name} not found in {exe_dir}")
                         continue
 
-            # Key the detection by CANONICAL name so --tool questa finds it
             detected.setdefault(alias_target, []).append(
                 DetectedTool(
                     tool_name=tool_name,
                     version=version,
                     exe_dir=exe_dir,
-                    exe_path=exe_path if 'exe_path' in dir() else exe_dir,
+                    exe_path=exe_path,
                     display_name=display_name,
                 )
             )

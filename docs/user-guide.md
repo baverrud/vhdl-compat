@@ -261,7 +261,7 @@ After running tests with multiple tools or versions, generate a combined compari
 vhdl-compat-matrix --results-dir results/
 ```
 
-This creates `results/matrix.md` — a table where each row is a VHDL feature and each column is a tool/version. You can open this in any Markdown viewer or on GitHub to see at a glance which tools support which features.
+This creates `MATRIX.md` — a table where each row is a VHDL feature and each column is a tool/version. You can open this in any Markdown viewer or on GitHub to see at a glance which tools support which features.
 
 ```
 | Feature | Standard | Category | Vivado-2024.1 | Questa-2024.1 |
@@ -319,7 +319,7 @@ vhdl-compat --tool questa --std 2008 --std 2019 --mode sim
 # Generate the combined matrix
 vhdl-compat-matrix
 
-# results/matrix.md is your comparison table
+# MATRIX.md is your live comparison table
 ```
 
 ---
