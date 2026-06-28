@@ -374,11 +374,12 @@ def main(argv: Optional[List[str]] = None) -> int:
     )
     work_dir.mkdir(parents=True, exist_ok=True)
 
-    # Create the appropriate runner — use Questa adapter if available
+    # Create the appropriate runner
     runner = None
-    if config.name.lower() == "questa":
+    tool_lower = config.name.lower()
+    if tool_lower in ("questa", "modelsim"):
         try:
-            from .questa_adapter import QuestaRunner
+            from .questa_adapter import QuestaRunner  # works for both Questa and ModelSim
         except ImportError:
             from questa_adapter import QuestaRunner
         runner = QuestaRunner(config, version)

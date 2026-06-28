@@ -131,7 +131,6 @@ class QuestaRunner(ToolRunner):
 
     def _find_vcom(self) -> Path | None:
         import sys
-        # Ensure project root is on path so tool_discovery import works
         project_root = Path(__file__).resolve().parent.parent
         if str(project_root) not in sys.path:
             sys.path.insert(0, str(project_root))
@@ -141,10 +140,12 @@ class QuestaRunner(ToolRunner):
             from tool_discovery import detect_installed_versions
 
         detected = detect_installed_versions(Path("tools"), verbose=False)
-        for dt in detected.get("questa", []):
-            vcom = dt.exe_dir / ("vcom.exe" if os.name == "nt" else "vcom")
-            if vcom.exists():
-                return vcom
+        # Check both questa and modelsim (same CLI, same adapter)
+        for tool_key in ("questa", "modelsim"):
+            for dt in detected.get(tool_key, []):
+                vcom = dt.exe_dir / ("vcom.exe" if os.name == "nt" else "vcom")
+                if vcom.exists():
+                    return vcom
         return None
 
     def _get_std_flags(self, standard: str) -> list:
