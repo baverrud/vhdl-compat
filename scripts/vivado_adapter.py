@@ -224,7 +224,7 @@ exit 0
         start = time.time()
         try:
             proc = subprocess.run(
-                [str(vivado), "-mode", "batch", "-source", str(tcl_path), "--nolog"],
+                [str(vivado), "-mode", "batch", "-source", str(tcl_path)],
                 capture_output=True, text=True, timeout=300,  # synthesis can take minutes
                 cwd=str(work_dir),
             )
