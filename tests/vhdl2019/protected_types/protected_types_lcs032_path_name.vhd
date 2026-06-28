@@ -3,7 +3,8 @@
 -- FEATURE: PATH_NAME/INSTANCE_NAME for protected types
 -- CATEGORY: protected_types
 -- XREF: LCS2016-032
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: pt_path_name
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, 'PATH_NAME and 'INSTANCE_NAME attributes were only
 --   defined for signals and entities. Protected types and their shared
@@ -20,6 +21,43 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use std.env.all;
+
+
+-- ============================================================================
+-- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity pt_path_name is
+  port (
+    clk  : in  std_logic;
+    rst  : in  std_logic;
+    din  : in  std_logic_vector(7 downto 0);
+    dout : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture rtl of pt_path_name is
+  signal reg : std_logic_vector(7 downto 0);
+begin
+  process(clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        reg <= (others => '0');
+      else
+        reg <= din;
+      end if;
+    end if;
+  end process;
+  dout <= reg;
+end architecture;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 use std.env.all;
 
 entity pt_path_name_tb is

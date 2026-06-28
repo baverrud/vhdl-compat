@@ -3,7 +3,8 @@
 -- FEATURE: Shared variables on entity interface — shared variable ports/generics
 -- CATEGORY: protected_types
 -- XREF: LCS2016-047
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: shared_interface
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, shared variables were only accessible within a single
 --   design unit (architecture). You could not pass a shared variable to an
@@ -21,6 +22,43 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use std.env.all;
+
+
+-- ============================================================================
+-- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity shared_interface is
+  port (
+    clk  : in  std_logic;
+    rst  : in  std_logic;
+    din  : in  std_logic_vector(7 downto 0);
+    dout : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture rtl of shared_interface is
+  signal reg : std_logic_vector(7 downto 0);
+begin
+  process(clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        reg <= (others => '0');
+      else
+        reg <= din;
+      end if;
+    end if;
+  end process;
+  dout <= reg;
+end architecture;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 use std.env.all;
 
 entity shared_interface_tb is

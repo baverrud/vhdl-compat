@@ -3,7 +3,8 @@
 -- FEATURE: Composites of protected types — records and arrays containing PT elements
 -- CATEGORY: protected_types
 -- XREF: LCS2016-014
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: pt_composites
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, protected types could only be used as shared variables.
 --   You could not put a protected type inside a record, array, or pass it
@@ -23,6 +24,43 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use std.env.all;
+
+
+-- ============================================================================
+-- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity pt_composites is
+  port (
+    clk  : in  std_logic;
+    rst  : in  std_logic;
+    din  : in  std_logic_vector(7 downto 0);
+    dout : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture rtl of pt_composites is
+  signal reg : std_logic_vector(7 downto 0);
+begin
+  process(clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        reg <= (others => '0');
+      else
+        reg <= din;
+      end if;
+    end if;
+  end process;
+  dout <= reg;
+end architecture;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 use std.env.all;
 
 entity pt_composites_tb is

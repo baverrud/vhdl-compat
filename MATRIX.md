@@ -15,7 +15,7 @@
 | **VHDL-2008** | | |||||
 | [Aggregates as assignment targets — using aggregates on the left-hand side of <=](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_assignment_targets.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ❌ |
 | [Array slices in aggregates — assign ranges of array elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_slice_aggregates.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ❌ |
-| [Named association in aggregates — mix positional and named elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_named_association.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ❌ |
+| [Named association in aggregates — mix positional and named elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_named_association.vhd) | 2008 | aggregates | ✅ | ❌ | ✅ | ❌ |
 | [others => in record aggregates — shorthand for unmentioned record fields](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_others_record.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ❌ |
 | [?? (condition operator) -- convert std_logic to boolean](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_condition_operator.vhd) | 2008 | expressions | ✅ | ✅ | ✅ | ❌ |
 | [FT09: Enhanced bit string literals -- width, signed/unsigned, don't-care](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_enhanced_bit_strings.vhd) | 2008 | expressions | ✅ | ✅ | ✅ | ❌ |
@@ -31,11 +31,11 @@
 | [minimum / maximum — standard min/max functions for all scalar types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_min_max.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ➖ |
 | [rising_edge / falling_edge for boolean signals](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_boolean_edge.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ➖ |
 | [to_string / to_bstring / to_hstring / to_ostring — formatted string conversion](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_to_string.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ➖ |
-| [Context declarations — reusable sets of library/use clauses](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_context.vhd) | 2008 | packages | ✅ | ✅ | ❌ | ❌ |
-| [Fixed-point package (fixed_pkg) — IEEE 1076.3 fixed-point arithmetic](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_fixed_point.vhd) | 2008 | packages | ✅ | ✅ | ❌ | ❌ |
-| [Floating-point package (float_pkg) — IEEE 754 floating-point types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_float_point.vhd) | 2008 | packages | ✅ | ✅ | ✅ | ❌ |
+| [Context declarations — reusable sets of library/use clauses](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_context.vhd) | 2008 | packages | ✅ | ❌ | ❌ | ❌ |
+| [Fixed-point package (fixed_pkg) — IEEE 1076.3 fixed-point arithmetic](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_fixed_point.vhd) | 2008 | packages | ✅ | ❌ | ❌ | ❌ |
+| [Floating-point package (float_pkg) — IEEE 754 floating-point types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_float_point.vhd) | 2008 | packages | ✅ | ❌ | ✅ | ❌ |
 | [Generic packages — packages parameterized by generics](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_generic_package.vhd) | 2008 | packages | ✅ | ✅ | ✅ | ❌ |
-| [numeric_std_unsigned — arithmetic on std_logic_vector without casting](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_unsigned.vhd) | 2008 | packages | ✅ | ✅ | ✅ | ❌ |
+| [numeric_std_unsigned — arithmetic on std_logic_vector without casting](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_unsigned.vhd) | 2008 | packages | ✅ | ❌ | ✅ | ❌ |
 | [Enhanced port maps — open keyword anywhere in port map](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_enhanced_port_maps.vhd) | 2008 | ports | ✅ | ✅ | ❌ | ❌ |
 | [Expressions in port maps — use arbitrary expressions (not just signals) in associations](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_expressions_in_port_maps.vhd) | 2008 | ports | ✅ | ✅ | ❌ | ❌ |
 | [Reading output ports — out-mode ports can be read in the same entity](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_read_output.vhd) | 2008 | ports | ✅ | ✅ | ❌ | ❌ |
@@ -44,7 +44,7 @@
 | ['driving and 'driving_value — query signal driver status](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_driving_attributes.vhd) | 2008 | types | ✅ | ✅ | ❌ | ❌ |
 | [Matching case statement (case?) — don't-care aware pattern matching](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_matching_case.vhd) | 2008 | types | ✅ | ✅ | ✅ | ❌ |
 | [Predefined array types — boolean_vector, integer_vector, real_vector, time_vector](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_predefined_vectors.vhd) | 2008 | types | ✅ | ✅ | ✅ | ❌ |
-| [Unconstrained element types — records with unconstrained array fields](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_unconstrained_elements.vhd) | 2008 | types | ✅ | ✅ | ✅ | ❌ |
+| [Unconstrained element types — records with unconstrained array fields](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_unconstrained_elements.vhd) | 2008 | types | ✅ | ❌ | ✅ | ❌ |
 | [FT07: External (hierarchical) names -- access signals across hierarchy](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_external_names.vhd) | 2008 | verification | ✅ | ✅ | ❌ | ➖ |
 | [Force / Release — override signal values for verification](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_force_release.vhd) | 2008 | verification | ✅ | ✅ | ❌ | ➖ |
 | [std.env.stop / std.env.finish — standard simulation control](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_std_env.vhd) | 2008 | verification | ✅ | ✅ | ✅ | ➖ |

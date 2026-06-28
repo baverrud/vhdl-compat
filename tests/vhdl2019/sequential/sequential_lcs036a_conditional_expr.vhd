@@ -3,7 +3,8 @@
 -- FEATURE: Conditional expressions in declarations — if/when in constant/signal defaults
 -- CATEGORY: sequential
 -- XREF: LCS2016-036a
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: conditional_expr
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, the initial value of a constant or signal had to be a
 --   simple expression. Conditional initialization required a separate
@@ -22,6 +23,43 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use std.env.all;
+
+
+-- ============================================================================
+-- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity conditional_expr is
+  port (
+    clk  : in  std_logic;
+    rst  : in  std_logic;
+    din  : in  std_logic_vector(7 downto 0);
+    dout : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture rtl of conditional_expr is
+  signal reg : std_logic_vector(7 downto 0);
+begin
+  process(clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        reg <= (others => '0');
+      else
+        reg <= din;
+      end if;
+    end if;
+  end process;
+  dout <= reg;
+end architecture;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 use std.env.all;
 
 entity conditional_expr_tb is

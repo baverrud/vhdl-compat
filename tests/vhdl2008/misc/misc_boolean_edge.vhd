@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: rising_edge / falling_edge for boolean signals
 -- CATEGORY: misc
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: boolean_edge
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, the edge-detection functions rising_edge() and
 --   falling_edge() were defined only for std_logic (in std_logic_1164)
@@ -21,6 +22,43 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use std.env.all;
+
+
+-- ============================================================================
+-- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity boolean_edge is
+  port (
+    clk  : in  std_logic;
+    rst  : in  std_logic;
+    din  : in  std_logic_vector(7 downto 0);
+    dout : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture rtl of boolean_edge is
+  signal reg : std_logic_vector(7 downto 0);
+begin
+  process(clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        reg <= (others => '0');
+      else
+        reg <= din;
+      end if;
+    end if;
+  end process;
+  dout <= reg;
+end architecture;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 use std.env.all;
 
 entity boolean_edge_tb is

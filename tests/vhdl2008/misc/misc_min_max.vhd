@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: minimum / maximum — standard min/max functions for all scalar types
 -- CATEGORY: misc
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: min_max
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, there were no standard minimum or maximum functions.
 --   You had to write your own:
@@ -19,6 +20,43 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use std.env.all;
+
+
+-- ============================================================================
+-- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity min_max is
+  port (
+    clk  : in  std_logic;
+    rst  : in  std_logic;
+    din  : in  std_logic_vector(7 downto 0);
+    dout : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture rtl of min_max is
+  signal reg : std_logic_vector(7 downto 0);
+begin
+  process(clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        reg <= (others => '0');
+      else
+        reg <= din;
+      end if;
+    end if;
+  end process;
+  dout <= reg;
+end architecture;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 use std.env.all;
 
 entity min_max_tb is

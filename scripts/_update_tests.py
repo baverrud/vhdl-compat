@@ -15,12 +15,12 @@ RTL_CATEGORIES = {
     "aggregates", "types", "packages", "ports",
     "generics_2019", "interfaces", "vectors", "types_2019",
     "syntax", "attributes", "conditional_analysis",
+    "misc", "protected_types", "sequential",
 }
 
 # Categories that are simulation-only (stay TEST_TYPE: sim, no SYNTH_ENTITY)
 SIM_ONLY = {
     "verification", "env", "file_io", "psl", "assert_api",
-    "misc", "protected_types", "sequential",
 }
 
 

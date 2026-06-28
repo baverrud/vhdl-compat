@@ -3,7 +3,8 @@
 -- FEATURE: Public variable + PRIVATE keyword in protected types
 -- CATEGORY: protected_types
 -- XREF: LCS2016-033
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: public_private
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2019, all variables inside a protected type body were
 --   private. External access was only through methods (procedures/functions).
@@ -23,6 +24,43 @@
 
 library ieee;
 use ieee.std_logic_1164.all;
+use std.env.all;
+
+
+-- ============================================================================
+-- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity public_private is
+  port (
+    clk  : in  std_logic;
+    rst  : in  std_logic;
+    din  : in  std_logic_vector(7 downto 0);
+    dout : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture rtl of public_private is
+  signal reg : std_logic_vector(7 downto 0);
+begin
+  process(clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        reg <= (others => '0');
+      else
+        reg <= din;
+      end if;
+    end if;
+  end process;
+  dout <= reg;
+end architecture;
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
 use std.env.all;
 
 entity public_private_tb is

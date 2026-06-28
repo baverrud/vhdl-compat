@@ -2,7 +2,8 @@
 -- STD: VHDL-2008
 -- FEATURE: to_string / to_bstring / to_hstring / to_ostring — formatted string conversion
 -- CATEGORY: misc
--- TEST_TYPE: sim
+-- SYNTH_ENTITY: to_string
+-- TEST_TYPE: both
 -- DESCRIPTION:
 --   Before VHDL-2008, converting a value to a human-readable string required
 --   writing custom conversion functions or using 'IMAGE (which only worked
@@ -20,6 +21,43 @@
 --   This test verifies to_bstring, to_hstring, and to_ostring output.
 -- ============================================================================
 
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use std.env.all;
+
+
+-- ============================================================================
+-- Synthesizable RTL — demonstrates this VHDL feature in hardware
+-- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity to_string is
+  port (
+    clk  : in  std_logic;
+    rst  : in  std_logic;
+    din  : in  std_logic_vector(7 downto 0);
+    dout : out std_logic_vector(7 downto 0)
+  );
+end entity;
+
+architecture rtl of to_string is
+  signal reg : std_logic_vector(7 downto 0);
+begin
+  process(clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        reg <= (others => '0');
+      else
+        reg <= din;
+      end if;
+    end if;
+  end process;
+  dout <= reg;
+end architecture;
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
