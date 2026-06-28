@@ -239,7 +239,7 @@ def run_tests(
             continue
 
         for mode in modes:
-            if mode == "synth" and info.test_type not in ("synth", "both"):
+            if mode == "synth" and info.test_type not in ("sim", "synth", "both"):
                 continue
             if mode in ("analyze", "sim") and info.test_type not in ("sim", "both"):
                 continue
@@ -436,13 +436,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     if all_reports:
         features = build_feature_index(all_reports)
         md = generate_matrix_markdown(all_reports, features)
-        (results_dir / "MATRIX.md").write_text(md, encoding="utf-8")
-        root_md = results_dir.parent / "MATRIX.md"
-        if not root_md.exists():
-            root_md.write_text(md, encoding="utf-8")
+        (results_dir.parent / "MATRIX.md").write_text(md, encoding="utf-8")
         json_data = generate_matrix_json(all_reports, features)
         (results_dir / "matrix.json").write_text(_json.dumps(json_data, indent=2), encoding="utf-8")
-        print(f"Matrix saved: {results_dir / 'MATRIX.md'}")
+        print(f"Matrix saved: {results_dir.parent / 'MATRIX.md'}")
 
     return 0
 

@@ -193,22 +193,25 @@ def generate_matrix_markdown(
     lines.append(f"**Generated from {len(all_reports)} test runs across "
                  f"{len(set(k.split('/')[0] for k in all_reports))} tools.**")
     lines.append("")
-    lines.append("> Legend: ✅ PASS  ❌ FAIL")
+    lines.append("> Legend: ✅ PASS  ❌ FAIL — sim = simulation, synth = synthesis")
     lines.append("")
 
     # Build column entries: (tool_part, mode, display_name)
     # Each report key is "tool-version/standard-mode"
+    # Only include sim and synth modes (not analyze)
     columns = sorted(all_reports.keys())
     col_entries: list[tuple[str, str, str]] = []
     seen: set[str] = set()
     for c in columns:
         tool_part = c.split("/")[0]       # "Vivado-2023.2"
         std_mode = c.split("/")[1]         # "vhdl2008-analyze"
-        mode = std_mode.split("-")[-1]     # "analyze"
-        entry_key = f"{tool_part} ({mode})"
+        mode_raw = std_mode.split("-")[-1] # "analyze", "sim", or "synth"
+        if mode_raw == "analyze":
+            continue                       # Skip analyze-only columns
+        entry_key = f"{tool_part} ({mode_raw})"
         if entry_key not in seen:
             seen.add(entry_key)
-            col_entries.append((tool_part, mode, entry_key))
+            col_entries.append((tool_part, mode_raw, entry_key))
 
     # Reorder: Questa first, ModelSim second, rest alphabetically
     col_entries = _reorder_column_entries(col_entries)
@@ -304,6 +307,8 @@ def generate_matrix_json(
         tool_part = c.split("/")[0]
         std_mode = c.split("/")[1]
         mode = std_mode.split("-")[-1]
+        if mode == "analyze":
+            continue
         entry_key = f"{tool_part} ({mode})"
         if entry_key not in seen:
             seen.add(entry_key)
