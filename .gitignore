@@ -18,6 +18,15 @@ modelsim.ini
 vsim.wlf
 transcript
 *.backup.*
+
+# Vivado artifacts
+.Xil/
+vivado_*.log
+vivado_*.jou
+*.dcp
+*.xdc
+hs_err_pid*.dmp
+usage_statistics_webtalk.*
 tmp/
 
 # Vivado artifacts
