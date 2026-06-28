@@ -29,6 +29,7 @@
 | Fixed-point package (fixed_pkg) — IEEE 1076.3 fixed-point arithmetic | 2008 | packages | ✅ | ✅ |
 | Floating-point package (float_pkg) — IEEE 754 floating-point types | 2008 | packages | ✅ | ✅ |
 | Generic packages — packages parameterized by generics | 2008 | packages | ✅ | ✅ |
+| numeric_std_signed — signed arithmetic on std_logic_vector without casting | 2008 | packages | ➖ | ❌ |
 | numeric_std_unsigned — arithmetic on std_logic_vector without casting | 2008 | packages | ✅ | ✅ |
 | Enhanced port maps — open keyword anywhere in port map | 2008 | ports | ✅ | ✅ |
 | Reading output ports — out-mode ports can be read in the same entity | 2008 | ports | ✅ | ✅ |
@@ -39,30 +40,57 @@
 | Unconstrained element types — records with unconstrained array fields | 2008 | types | ✅ | ✅ |
 | External (hierarchical) names -- access signals across hierarchy | 2008 | verification | ✅ | ✅ |
 | Force / Release — override signal values for verification | 2008 | verification | ✅ | ✅ |
+| std.env.stop / std.env.finish — standard simulation control | 2008 | verification | ➖ | ✅ |
 | **VHDL-2019** | | | | |  | 
 | Full assert API — IsVhdlAssertFailed, GetVhdlAssertCount, SetVhdlAssertFormat | 2019 | assert_api | ➖ | ✅ |
 | Optional report clause in assert — assert without message string | 2019 | assert_api | ❌ | ✅ |
+| 'IMAGE and TO_STRING for composite types — string representation of records and arrays | 2019 | attributes | ➖ | ✅ |
+| Enhanced enumerated type attributes — 'VAL, 'POS, 'SUCC, 'PRED, 'LEFTOF, 'RIGHTOF | 2019 | attributes | ➖ | ❌ |
 | New reflection attributes — 'designated_type, 'index, 'range | 2019 | attributes | ❌ | ✅ |
+| Record introspection — 'reflect attribute for runtime type inspection | 2019 | attributes | ➖ | ✅ |
 | Conditional analysis -- `if / `else / `end if tool directives | 2019 | conditional_analysis | ❌ | ✅ |
 | Standard conditional analysis identifiers — VHDL_VERSION, TOOL_TYPE, etc. | 2019 | conditional_analysis | ➖ | ✅ |
 | Date/time functions — LOCALTIME, GMTIME, EPOCH for testbench timestamps | 2019 | env | ➖ | ✅ |
 | Enhanced std.env — stop/finish with integer exit codes | 2019 | env | ❌ | ✅ |
 | Environment variables — GETENV for reading system environment | 2019 | env | ➖ | ✅ |
+| FILE_NAME, FILE_PATH, FILE_LINE — source location introspection | 2019 | env | ➖ | ✅ |
+| GET_CALL_PATH — runtime call stack introspection | 2019 | env | ➖ | ✅ |
+| Directory API — DIR_OPEN, DIR_CREATEDIR, DIR_DELETEFILE, DIR_CLOSE | 2019 | file_io | ➖ | ❌ |
 | Enhanced FILE_OPEN/FILE_CLOSE with STATUS parameter | 2019 | file_io | ❌ | ✅ |
 | File I/O extensions — FILE_REWIND, FILE_SEEK, FILE_TRUNCATE, FILE_STATE | 2019 | file_io | ➖ | ❌ |
+| Array type generics — generic parameters that are array types | 2019 | generics_2019 | ➖ | ✅ |
 | Generic types on subprograms — functions/procedures parameterized by type | 2019 | generics_2019 | ❌ | ❌ |
+| Map generics on subprogram call — override generics at call site | 2019 | generics_2019 | ➖ | ❌ |
 | Array of interface records -- multiple channels using a single bundle type | 2019 | interfaces | ❌ | ✅ |
 | Inout mode views -- bidirectional interface fields that can't use 'converse | 2019 | interfaces | ❌ | ✅ |
 | Interface mode views — per-field direction control on composite types | 2019 | interfaces | ❌ | ✅ |
+| Composites of protected types — records and arrays containing PT elements | 2019 | protected_types | ➖ | ❌ |
+| Garbage collection — automatic memory management for access types | 2019 | protected_types | ➖ | ✅ |
+| PATH_NAME/INSTANCE_NAME for protected types | 2019 | protected_types | ➖ | ✅ |
+| Pointers to composites of protected types | 2019 | protected_types | ➖ | ❌ |
 | Protected types as subprogram parameters | 2019 | protected_types | ❌ | ✅ |
+| Protected types with generic clause — parameterizable protected types | 2019 | protected_types | ➖ | ❌ |
+| Public variable + PRIVATE keyword in protected types | 2019 | protected_types | ➖ | ❌ |
+| Shared variables on entity interface — shared variable ports/generics | 2019 | protected_types | ➖ | ✅ |
 | Embedded PSL directives — property specification language in comments | 2019 | psl | ❌ | ✅ |
+| PSL attributes and functions — extended PSL built-in capabilities | 2019 | psl | ➖ | ❌ |
 | Conditional expressions in declarations — if/when in constant/signal defaults | 2019 | sequential | ➖ | ✅ |
 | Conditional return statement — return with when/else conditions | 2019 | sequential | ➖ | ❌ |
 | Sequential block statements — named scopes within processes | 2019 | sequential | ❌ | ❌ |
+| Sequential declaration regions — declare variables anywhere in sequential code | 2019 | sequential | ➖ | ❌ |
+| All interface lists can be ordered — named association everywhere | 2019 | syntax | ➖ | ✅ |
+| Extended ranges / range expressions — dynamic range computation | 2019 | syntax | ➖ | ✅ |
 | Optional trailing semicolon in interface lists | 2019 | syntax | ❌ | ❌ |
+| Precedence of unary operators — standardized unary operator binding | 2019 | syntax | ➖ | ❌ |
+| Relaxed library requirement on configurations | 2019 | syntax | ➖ | ❌ |
+| Signatures in association lists — explicit subprogram signatures | 2019 | syntax | ➖ | ✅ |
+| Syntax regularization -- component declarations made optional | 2019 | syntax | ➖ | ✅ |
+| Access external types through library path — cross-library type visibility | 2019 | types_2019 | ➖ | ❌ |
 | Anonymous types in interface lists — types declared inline in ports/generics | 2019 | types_2019 | ➖ | ❌ |
 | Closely related record types — implicit conversion between similar records | 2019 | types_2019 | ➖ | ❌ |
 | Empty records -- record types with no elements | 2019 | types_2019 | ❌ | ✅ |
 | Inferred constraints — constrain unconstrained record elements at signal declaration | 2019 | types_2019 | ❌ | ✅ |
 | Long integers — 64-bit integer support | 2019 | types_2019 | ➖ | ❌ |
+| Scalar array ordering — relational operators on any scalar array type | 2019 | types_2019 | ➖ | ✅ |
+| Function knows vector size — result type depends on input sizes | 2019 | vectors | ➖ | ✅ |
 | Partially connected vectors — use `open` to leave port bits unconnected | 2019 | vectors | ❌ | ❌ |

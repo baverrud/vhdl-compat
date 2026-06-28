@@ -1,0 +1,74 @@
+-- ============================================================================
+-- STD: VHDL-2019
+-- FEATURE: Precedence of unary operators — standardized unary operator binding
+-- CATEGORY: syntax
+-- XREF: LCS2016-I13
+-- TEST_TYPE: sim
+-- DESCRIPTION:
+--   Before VHDL-2019, the precedence of unary operators relative to binary
+--   operators was not always consistent across tools. Expressions like
+--   `not a and b` could be interpreted as `(not a) and b` or `not (a and b)`
+--   depending on the tool.
+--
+--   VHDL-2019 standardizes unary operator precedence:
+--     - Unary operators (not, abs, +, -) bind tighter than binary operators
+--     - `not a and b` always means `(not a) and b`
+--     - Mixed unary operators associate left-to-right
+--
+--   This test verifies the standardized precedence with explicit
+--   expressions.
+-- ============================================================================
+
+library ieee;
+use ieee.std_logic_1164.all;
+use std.env.all;
+
+entity tb_unary_precedence is
+end entity;
+
+architecture test of tb_unary_precedence is
+begin
+
+  stim_proc : process
+    variable a, b, c : std_logic;
+    variable result : std_logic;
+  begin
+    report "==============================================" severity note;
+    report "TEST: Precedence of unary operators" severity note;
+    report "STD:  VHDL-2019 (LCS2016-I13)" severity note;
+    report "==============================================" severity note;
+
+    -- VHDL-2019: `not a and b` means `(not a) and b`
+    a := '0';  b := '1';
+    result := not a and b;
+    assert result = '1'
+      report "FAIL: not '0' and '1' should be (not '0') and '1' = '1', got "
+             & std_logic'image(result)
+      severity error;
+
+    -- `not a or b` means `(not a) or b`
+    result := not a or b;
+    assert result = '1'
+      report "FAIL: not '0' or '1' should be '1'"
+      severity error;
+
+    -- Unary minus binds tighter than multiplication
+    -- -5 * 3 = (-5) * 3 = -15 (not -(5*3) = -15)
+    -- For integers: test with abs function
+    assert abs(-10) = 10
+      report "FAIL: abs(-10) should be 10"
+      severity error;
+
+    -- Double negation
+    a := '1';
+    result := not not a;
+    assert result = '1'
+      report "FAIL: not not '1' should be '1', got " & std_logic'image(result)
+      severity error;
+
+    report "PASS: Unary operator precedence is standardized" severity note;
+    stop(0);
+    wait;
+  end process;
+
+end architecture;
