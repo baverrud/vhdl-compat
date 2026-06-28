@@ -105,6 +105,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--stop-on-fail", action="store_true",
         help="Stop after first failure"
     )
+    parser.add_argument(
+        "--clean", action="store_true",
+        help="Clean work directories before running"
+    )
 
     return parser
 
@@ -370,8 +374,16 @@ def main(argv: Optional[List[str]] = None) -> int:
     )
     work_dir.mkdir(parents=True, exist_ok=True)
 
-    # Create runner (placeholder — tool-specific adapters to be added)
-    runner = GenericRunner(config, version)
+    # Create the appropriate runner — use Questa adapter if available
+    runner = None
+    if config.name.lower() == "questa":
+        try:
+            from .questa_adapter import QuestaRunner
+        except ImportError:
+            from questa_adapter import QuestaRunner
+        runner = QuestaRunner(config, version)
+    else:
+        runner = GenericRunner(config, version)
 
     # Run tests for each standard
     for standard in standards:

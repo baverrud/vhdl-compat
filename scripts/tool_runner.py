@@ -144,8 +144,8 @@ class GenericRunner(ToolRunner):
 # Add new adapters here when they are created.
 # ---------------------------------------------------------------------------
 ADAPTER_REGISTRY: dict[str, type[ToolRunner]] = {
+    "questa": None,  # Imported lazily to avoid circular imports
     # "vivado": VivadoRunner,
-    # "questa": QuestaRunner,
     # "modelsim": ModelSimRunner,
     # "ghdl": GhdlRunner,
     # "nvc": NvcRunner,
