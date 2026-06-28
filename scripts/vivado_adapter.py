@@ -203,37 +203,59 @@ class VivadoRunner(ToolRunner):
 
         work_dir = self._setup_work_dir()
 
+        # Create a synthesis-safe copy: strip std.env and TB section
+        synth_file = work_dir / f"synth_{test.synth_entity}.vhd"
+        original = test.file_path.read_text(encoding="utf-8", errors="replace")
+        # Strip use std.env.all lines
+        clean = "\n".join(
+            line for line in original.split("\n")
+            if "use std.env.all" not in line
+        )
+        # Cut at TB_IMPORT: the "library ieee; use ... use std.env.all;" block after RTL
+        # Find the TB_IMPORT pattern that appears AFTER the RTL entity
+        import re
+        rtl_entity_pattern = rf"entity {re.escape(test.synth_entity)}\s+is"
+        m_start = re.search(rtl_entity_pattern, clean)
+        if m_start:
+            # Find TB_IMPORT after RTL entity
+            after_rtl = clean[m_start.end():]
+            # TB_IMPORT = library + use + use + (use std.env which was already stripped)
+            m_tb = re.search(r'library ieee;\s*\nuse ieee\.std_logic_1164\.all;\s*\nuse ieee\.numeric_std\.all;', after_rtl)
+            if m_tb:
+                cut_pos = m_start.end() + m_tb.start()
+                clean = clean[:cut_pos].rstrip()
+        synth_file.write_text(clean, encoding="utf-8")
+
         # Create a synthesis Tcl script targeting the synthesizable entity
         synth_top = test.synth_entity
-        tcl_script = f"""
-set vhdl_file [file normalize "{test.file_path.resolve()}"]
-puts "INFO: Reading VHDL file: $vhdl_file"
-if {{[catch {{
-    read_vhdl $vhdl_file
-}} err]}} {{
-    puts "ERROR: $err"
-    exit 1
-}}
-set part xc7k70tfbg676-1
-puts "INFO: Running synth_design -top {synth_top} for part $part"
-if {{[catch {{
-    synth_design -top {synth_top} -part $part -flatten_hierarchy rebuilt
-}} err]}} {{
-    puts "ERROR: $err"
-    exit 1
-}}
-puts "PASS: Synthesis completed successfully"
-exit 0
-"""
-        tcl_path = work_dir / f"synth_{test.category}.tcl"
+        vhd_path = str(synth_file.resolve())
+        # Map VHDL standard to read_vhdl flag
+        std_flag = {"2000": "-vhdl93", "2002": "-vhdl2002", "2008": "-vhdl2008", "2019": "-vhdl2019"}.get(standard, "-vhdl2008")
+        tcl_script = (
+            f'create_project -in_memory -part xc7a35tcsg324-1\n'
+            f'set vhdl_file {{{vhd_path}}}\n'
+            f'puts "INFO: Reading VHDL file with {std_flag}: $vhdl_file"\n'
+            f'if {{[catch {{read_vhdl {std_flag} $vhdl_file}} err]}} {{\n'
+            f'    puts "ERROR: $err"\n'
+            f'    exit 1\n'
+            f'}}\n'
+            f'puts "INFO: Running synth_design -top {synth_top}"\n'
+            f'if {{[catch {{synth_design -top {synth_top} -part xc7a35tcsg324-1 -flatten_hierarchy rebuilt}} err]}} {{\n'
+            f'    puts "ERROR: $err"\n'
+            f'    exit 1\n'
+            f'}}\n'
+            f'puts "PASS: Synthesis completed successfully"\n'
+            f'exit 0\n'
+        )
+        tcl_path = (work_dir / f"synth_{test.category}.tcl").resolve()
         tcl_path.write_text(tcl_script, encoding="utf-8")
 
         start = time.time()
         try:
             proc = subprocess.run(
                 [str(vivado), "-mode", "batch", "-source", str(tcl_path)],
-                capture_output=True, text=True, timeout=300,  # synthesis can take minutes
-                cwd=str(work_dir),
+                capture_output=True, text=True, timeout=300,
+                cwd=str(Path(__file__).resolve().parent.parent),
             )
             result.compile_time_ms = (time.time() - start) * 1000
 
@@ -242,12 +264,18 @@ exit 0
 
             if "PASS: Synthesis completed successfully" in output:
                 result.status = TestStatus.PASS
-            elif "ERROR" in output:
+            elif "ERROR:" in output:
                 result.status = TestStatus.FAIL
                 for line in output.split("\n"):
-                    if "ERROR" in line:
-                        result.comment = line.strip()[:200]
+                    s = line.strip()
+                    # Skip Tcl echo lines (start with #) and Vivado banner lines
+                    if s.startswith("#") or "Copyright" in s or "All Rights Reserved" in s:
+                        continue
+                    if "ERROR:" in s:
+                        result.comment = s[:200]
                         break
+                if not result.comment:
+                    result.comment = "Synthesis error (see errors_raw)"
             else:
                 result.status = TestStatus.FAIL
                 result.comment = f"vivado exit code {proc.returncode}"
