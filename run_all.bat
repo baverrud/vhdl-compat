@@ -60,24 +60,29 @@ echo ===== ModelSim sim start ===== >> "%LOGFILE%"
 if %ERRORLEVEL% neq 0 echo   WARNING: ModelSim sim had failures ^(see log^)
 echo.
 
-REM --- Vivado Simulation ---
-echo [4/6] Vivado simulation ^(all standards^)...
-echo   This may take 5-10 minutes...
+REM --- Vivado Simulation (all installed versions) ---
+echo [4/6] Vivado simulation ^(all installed versions^)...
 echo ===== Vivado sim start ===== >> "%LOGFILE%"
-.venv\Scripts\python.exe scripts/run_tests.py --tool vivado --std 2000 --std 2002 --std 2008 --std 2019 --mode sim --verbose 1>>"%LOGFILE%" 2>&1
-if %ERRORLEVEL% neq 0 echo   WARNING: Vivado sim had failures ^(see log^)
+for %%v in (2023.2 2026.1) do (
+    echo   Running Vivado %%v sim...
+    .venv\Scripts\python.exe scripts/run_tests.py --tool vivado --version %%v --std 2000 --std 2002 --std 2008 --std 2019 --mode sim --verbose 1>>"%LOGFILE%" 2>&1
+    if !ERRORLEVEL! neq 0 echo   WARNING: Vivado %%v sim had failures ^(see log^)
+)
 echo.
 
-REM --- Vivado Synthesis (optional) ---
+REM --- Vivado Synthesis (optional, all installed versions) ---
 set SKIP_SYNTH=0
 if "%1"=="--skip-synth" set SKIP_SYNTH=1
 
 if "%SKIP_SYNTH%"=="0" (
-    echo [5/6] Vivado synthesis ^(VHDL-2008 and VHDL-2019^)...
-    echo   NOTE: This takes ~45 minutes ^(each test ~37 seconds^)
+    echo [5/6] Vivado synthesis ^(all installed versions^)...
+    echo   NOTE: Each version takes ~30-45 minutes
     echo ===== Vivado synth start ===== >> "%LOGFILE%"
-    .venv\Scripts\python.exe scripts/run_tests.py --tool vivado --std 2008 --std 2019 --mode synth --verbose 1>>"%LOGFILE%" 2>&1
-    if %ERRORLEVEL% neq 0 echo   WARNING: Vivado synth had failures ^(see log^)
+    for %%v in (2023.2 2026.1) do (
+        echo   Running Vivado %%v synth...
+        .venv\Scripts\python.exe scripts/run_tests.py --tool vivado --version %%v --std 2008 --std 2019 --mode synth --verbose 1>>"%LOGFILE%" 2>&1
+        if !ERRORLEVEL! neq 0 echo   WARNING: Vivado %%v synth had failures ^(see log^)
+    )
 ) else (
     echo [5/6] SKIPPING Vivado synthesis ^(--skip-synth^)
 )
