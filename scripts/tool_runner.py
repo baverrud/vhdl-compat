@@ -7,7 +7,7 @@ GenericRunner is a placeholder that reports UNTESTED until real adapters exist.
 To add a new tool:
   1. Create scripts/{tool}_adapter.py
   2. Subclass ToolRunner
-  3. Implement analyze(), simulate(), and optionally synthesize()
+  3. Implement simulate() and optionally synthesize()
   4. Register it in ADAPTER_REGISTRY below
 """
 
@@ -32,7 +32,6 @@ class ToolRunner(ABC):
     """Abstract base for tool-specific adapters.
 
     Subclasses implement the tool-specific subprocess invocations for:
-      - analyze(): compile/lint the VHDL file
       - simulate(): compile + elaborate + run, capture PASS/FAIL
       - synthesize(): run synthesis via Tcl batch or equivalent
     """
@@ -40,10 +39,6 @@ class ToolRunner(ABC):
     def __init__(self, config: ToolConfig, version: str):
         self.config = config
         self.version = version
-
-    @abstractmethod
-    def analyze(self, test: TestInfo, standard: str) -> TestResult:
-        """Compile/check the VHDL file. Return result with status."""
 
     @abstractmethod
     def simulate(self, test: TestInfo, standard: str, work_dir: Path) -> TestResult:
@@ -66,9 +61,7 @@ class ToolRunner(ABC):
     def run_test(self, test: TestInfo, standard: str, mode: str,
                  work_dir: Path) -> TestResult:
         """Dispatch to the appropriate method based on mode."""
-        if mode == "analyze":
-            return self.analyze(test, standard)
-        elif mode == "sim":
+        if mode == "sim":
             return self.simulate(test, standard, work_dir)
         elif mode == "synth":
             return self.synthesize(test, standard)
@@ -90,18 +83,6 @@ class GenericRunner(ToolRunner):
 
     Replace with real tool-specific adapters as they are implemented.
     """
-
-    def analyze(self, test: TestInfo, standard: str) -> TestResult:
-        return TestResult(
-            test_file=test.relative_path,
-            feature=test.feature,
-            standard=test.standard,
-            category=test.category,
-            test_type=test.test_type,
-            mode="analyze",
-            status=TestStatus.UNTESTED,
-            comment="Tool adapter not yet implemented",
-        )
 
     def simulate(self, test: TestInfo, standard: str, work_dir: Path) -> TestResult:
         return TestResult(

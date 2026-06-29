@@ -31,7 +31,7 @@ class TestResult:
     standard: str            # VHDL-2000, VHDL-2002, VHDL-2008, VHDL-2019
     category: str            # subdirectory category
     test_type: str           # sim, synth, or both
-    mode: str                # analyze, sim, or synth
+    mode: str                # sim or synth
     xref: str = ""           # IEEE cross-reference: LCS2016-XXX or FTXX
     status: TestStatus = TestStatus.UNTESTED
     comment: str = ""        # human explanation for PARTIAL or FAIL
@@ -83,6 +83,7 @@ class RunResult:
             "results": {
                 key: {
                     "status": r.status.value,
+                    "standard": r.standard,
                     "feature": r.feature,
                     "category": r.category,
                     "test_type": r.test_type,

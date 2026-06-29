@@ -63,12 +63,8 @@ class QuestaRunner(ToolRunner):
         except Exception:
             pass
 
-    def analyze(self, test: TestInfo, standard: str) -> TestResult:
-        """Compile the VHDL file with vcom. PASS if no errors, FAIL if rejected.
-
-        Questa quirk: exit code 1 is often just notes/warnings, not errors.
-        Only treat as failure if "** Error:" appears in output.
-        """
+    def _compile(self, test: TestInfo, standard: str) -> TestResult:
+        """Compile the VHDL file with vcom. Returns result with compile_time_ms."""
         result = TestResult(
             test_file=test.relative_path,
             feature=test.feature,
@@ -129,7 +125,7 @@ class QuestaRunner(ToolRunner):
         return result
 
     def simulate(self, test: TestInfo, standard: str, work_dir: Path) -> TestResult:
-        return self.analyze(test, standard)
+        return self._compile(test, standard)
 
     def _find_vcom(self) -> Path | None:
         import sys

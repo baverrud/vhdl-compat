@@ -21,64 +21,7 @@ except ImportError:
 
 
 class VivadoRunner(ToolRunner):
-    """Vivado Design Suite runner for analyze, simulate, and synthesize."""
-
-    # ------------------------------------------------------------------
-    # Analysis (compile-only with xvhdl)
-    # ------------------------------------------------------------------
-    def analyze(self, test: TestInfo, standard: str) -> TestResult:
-        """Compile the VHDL file with xvhdl. PASS if no errors."""
-        result = TestResult(
-            test_file=test.relative_path,
-            feature=test.feature,
-            standard=test.standard,
-            category=test.category,
-            test_type=test.test_type,
-            xref=test.xref,
-            mode="analyze",
-        )
-
-        xvhdl = self._find_tool("xvhdl")
-        if not xvhdl:
-            result.status = TestStatus.UNTESTED
-            result.comment = "xvhdl not found — check tools/installed.toml"
-            return result
-
-        flags = self._get_std_flags(standard)
-        work_dir = self._setup_work_dir()
-
-        cmd = [str(xvhdl), "-work", "work", "--nolog"] + flags + [str(test.file_path.resolve())]
-
-        start = time.time()
-        try:
-            proc = subprocess.run(
-                cmd, capture_output=True, text=True, timeout=60,
-                cwd=str(work_dir),
-            )
-            result.compile_time_ms = (time.time() - start) * 1000
-
-            output = proc.stdout + proc.stderr
-            result.errors_raw = output[:2000]
-
-            if proc.returncode != 0 or "ERROR" in output or "Error:" in output:
-                result.status = TestStatus.FAIL
-                for line in output.split("\n"):
-                    if "ERROR" in line or "Error:" in line:
-                        result.comment = line.strip()[:200]
-                        break
-                if not result.comment:
-                    result.comment = f"xvhdl exit code {proc.returncode}"
-            else:
-                result.status = TestStatus.PASS
-
-        except subprocess.TimeoutExpired:
-            result.status = TestStatus.FAIL
-            result.comment = "xvhdl timed out (60s)"
-        except Exception as e:
-            result.status = TestStatus.FAIL
-            result.comment = f"Runner error: {e}"
-
-        return result
+    """Vivado Design Suite runner for simulation and synthesis."""
 
     # ------------------------------------------------------------------
     # Simulation (xvhdl + xelab + xsim)

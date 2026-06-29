@@ -56,7 +56,7 @@ def build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument(
         "--mode", type=str, default="sim",
-        choices=["analyze", "sim", "synth", "both"],
+        choices=["sim", "synth", "both"],
         help="Test mode (default: sim)"
     )
     parser.add_argument(
@@ -241,7 +241,7 @@ def run_tests(
         for mode in modes:
             if mode == "synth" and info.test_type not in ("sim", "synth", "both"):
                 continue
-            if mode in ("analyze", "sim") and info.test_type not in ("sim", "both"):
+            if mode in ("sim", "both") and info.test_type not in ("sim", "both"):
                 continue
 
             test_key = f"{key}@{mode}"
