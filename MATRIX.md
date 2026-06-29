@@ -1,6 +1,6 @@
 # VHDL Compatibility Matrix
 
-**Generated from 30 test runs across 6 tools.**
+**Generated from 32 test runs across 6 tools.**
 
 > Legend: ✅ PASS  ❌ FAIL  ➖ N/A (not applicable to this mode)
 
@@ -13,44 +13,82 @@
 | **VHDL-2002** | | |||||||
 | [Relaxed buffer port rules -- buffer ports can connect to out ports](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2002/buffer_ports/buffer_ports_relaxed.vhd) | 2002 | buffer_ports | ✅ | ✅ | ❌ | ❌ | ➖ | ➖ |
 | **VHDL-2008** | | |||||||
-| [Aggregates as assignment targets — using aggregates on the left-hand side of <=](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_assignment_targets.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [Array slices in aggregates — assign ranges of array elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_slice_aggregates.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [Named association in aggregates — mix positional and named elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_named_association.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [others => in record aggregates — shorthand for unmentioned record fields](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_others_record.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [?? (condition operator) -- convert std_logic to boolean](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_condition_operator.vhd) | 2008 | expressions | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [FT09: Enhanced bit string literals -- width, signed/unsigned, don't-care](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_enhanced_bit_strings.vhd) | 2008 | expressions | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [Matching equality/inequality (?=, ?/=) — don't-care aware comparison](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_matching_operators.vhd) | 2008 | expressions | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [Shift/rotate operators — SLL, SRL, SLA, SRA, ROL, ROR for vectors](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_shift_rotate.vhd) | 2008 | expressions | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [Unary reduction operators — and, or, xor, nand, nor, xnor on vectors](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_reduction_operators.vhd) | 2008 | expressions | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [Case-generate — conditional elaboration based on a discrete expression](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generate/generate_case_generate.vhd) | 2008 | generate | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [If-generate with elsif/else — multi-way conditional elaboration](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generate/generate_if_elsif_generate.vhd) | 2008 | generate | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [Generic subprograms on entities — entities with generic functions/procedures](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generics/generics_subprograms.vhd) | 2008 | generics | ❌ | ✅ | ❌ | ❌ | ✅ | ❌ |
-| [Generic types -- entities/functions parameterizable by type](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generics/generics_generic_types.vhd) | 2008 | generics | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| [Block comments /* ... */](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_block_comments.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [IP encryption — protect tool directives for IP protection](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_ip_protect.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [minimum / maximum — standard min/max functions for all scalar types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_min_max.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [rising_edge / falling_edge for boolean signals](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_boolean_edge.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [to_string / to_bstring / to_hstring / to_ostring — formatted string conversion](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_to_string.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| [Context declarations — reusable sets of library/use clauses](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_context.vhd) | 2008 | packages | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| [Fixed-point package (fixed_pkg) — IEEE 1076.3 fixed-point arithmetic](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_fixed_point.vhd) | 2008 | packages | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| [Floating-point package (float_pkg) — IEEE 754 floating-point types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_float_point.vhd) | 2008 | packages | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [Generic packages — packages parameterized by generics](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_generic_package.vhd) | 2008 | packages | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| [numeric_std_unsigned — arithmetic on std_logic_vector without casting](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_unsigned.vhd) | 2008 | packages | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [Enhanced port maps — open keyword anywhere in port map](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_enhanced_port_maps.vhd) | 2008 | ports | ❌ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| [Expressions in port maps — use arbitrary expressions (not just signals) in associations](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_expressions_in_port_maps.vhd) | 2008 | ports | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ |
-| [Reading output ports — out-mode ports can be read in the same entity](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_read_output.vhd) | 2008 | ports | ✅ | ✅ | ❌ | ❌ | ✅ | ❌ |
-| [Conditional sequential assignment — when/else inside processes](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/processes/processes_seq_assignments.vhd) | 2008 | processes | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [FT19: process(all) -- automatic sensitivity list inference](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/processes/processes_process_all.vhd) | 2008 | processes | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| ['driving and 'driving_value — query signal driver status](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_driving_attributes.vhd) | 2008 | types | ✅ | ✅ | ❌ | ❌ | ❌ | ❌ |
-| [Matching case statement (case?) — don't-care aware pattern matching](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_matching_case.vhd) | 2008 | types | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [Predefined array types — boolean_vector, integer_vector, real_vector, time_vector](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_predefined_vectors.vhd) | 2008 | types | ❌ | ✅ | ✅ | ❌ | ❌ | ❌ |
-| [Unconstrained element types — records with unconstrained array fields](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_unconstrained_elements.vhd) | 2008 | types | ✅ | ✅ | ✅ | ❌ | ✅ | ❌ |
-| [FT07: External (hierarchical) names -- access signals across hierarchy](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_external_names.vhd) | 2008 | verification | ✅ | ✅ | ❌ | ➖ | ❌ | ➖ |
-| [Force / Release — override signal values for verification](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_force_release.vhd) | 2008 | verification | ✅ | ✅ | ❌ | ➖ | ❌ | ➖ |
-| [std.env.stop / std.env.finish — standard simulation control](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_std_env.vhd) | 2008 | verification | ✅ | ✅ | ✅ | ➖ | ✅ | ➖ |
-| [open in aggregates — leave aggregate elements unconnected](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_open_in_aggregates.vhd) | 2008 | aggregates | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| [Default values for generic types — generic type with optional default](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generics/generics_default_types.vhd) | 2008 | generics | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
-| [numeric_std_signed — signed arithmetic on std_logic_vector without casting](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_signed.vhd) | 2008 | packages | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| [Aggregates as assignment targets — using aggregates on the left-hand side of <=](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_assignment_targets.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [Array slices in aggregates — assign ranges of array elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_slice_aggregates.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [Named association in aggregates — mix positional and named elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_named_association.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [others => in record aggregates — shorthand for unmentioned record fields](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_others_record.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [?? (condition operator) -- convert std_logic to boolean](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_condition_operator.vhd) | 2008 | expressions | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [FT09: Enhanced bit string literals -- width, signed/unsigned, don't-care](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_enhanced_bit_strings.vhd) | 2008 | expressions | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [Matching equality/inequality (?=, ?/=) — don't-care aware comparison](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_matching_operators.vhd) | 2008 | expressions | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [Shift/rotate operators — SLL, SRL, SLA, SRA, ROL, ROR for vectors](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_shift_rotate.vhd) | 2008 | expressions | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [Unary reduction operators — and, or, xor, nand, nor, xnor on vectors](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_reduction_operators.vhd) | 2008 | expressions | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [Case-generate — conditional elaboration based on a discrete expression](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generate/generate_case_generate.vhd) | 2008 | generate | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [If-generate with elsif/else — multi-way conditional elaboration](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generate/generate_if_elsif_generate.vhd) | 2008 | generate | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [Generic subprograms on entities — entities with generic functions/procedures](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generics/generics_subprograms.vhd) | 2008 | generics | ❌ | ✅ | ❌ | ❌ | ➖ | ➖ |
+| [Generic types -- entities/functions parameterizable by type](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generics/generics_generic_types.vhd) | 2008 | generics | ❌ | ✅ | ❌ | ❌ | ➖ | ➖ |
+| [Block comments /* ... */](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_block_comments.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [IP encryption — protect tool directives for IP protection](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_ip_protect.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [minimum / maximum — standard min/max functions for all scalar types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_min_max.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [rising_edge / falling_edge for boolean signals](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_boolean_edge.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [to_string / to_bstring / to_hstring / to_ostring — formatted string conversion](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_to_string.vhd) | 2008 | misc | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [Context declarations — reusable sets of library/use clauses](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_context.vhd) | 2008 | packages | ✅ | ✅ | ❌ | ❌ | ➖ | ➖ |
+| [Fixed-point package (fixed_pkg) — IEEE 1076.3 fixed-point arithmetic](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_fixed_point.vhd) | 2008 | packages | ✅ | ✅ | ❌ | ❌ | ➖ | ➖ |
+| [Floating-point package (float_pkg) — IEEE 754 floating-point types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_float_point.vhd) | 2008 | packages | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [Generic packages — packages parameterized by generics](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_generic_package.vhd) | 2008 | packages | ❌ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [numeric_std_unsigned — arithmetic on std_logic_vector without casting](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_unsigned.vhd) | 2008 | packages | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [Enhanced port maps — open keyword anywhere in port map](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_enhanced_port_maps.vhd) | 2008 | ports | ❌ | ✅ | ❌ | ❌ | ➖ | ➖ |
+| [Expressions in port maps — use arbitrary expressions (not just signals) in associations](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_expressions_in_port_maps.vhd) | 2008 | ports | ✅ | ✅ | ❌ | ❌ | ➖ | ➖ |
+| [Reading output ports — out-mode ports can be read in the same entity](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_read_output.vhd) | 2008 | ports | ✅ | ✅ | ❌ | ❌ | ➖ | ➖ |
+| [Conditional sequential assignment — when/else inside processes](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/processes/processes_seq_assignments.vhd) | 2008 | processes | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [FT19: process(all) -- automatic sensitivity list inference](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/processes/processes_process_all.vhd) | 2008 | processes | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| ['driving and 'driving_value — query signal driver status](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_driving_attributes.vhd) | 2008 | types | ✅ | ✅ | ❌ | ❌ | ➖ | ➖ |
+| [Matching case statement (case?) — don't-care aware pattern matching](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_matching_case.vhd) | 2008 | types | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [Predefined array types — boolean_vector, integer_vector, real_vector, time_vector](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_predefined_vectors.vhd) | 2008 | types | ❌ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [Unconstrained element types — records with unconstrained array fields](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_unconstrained_elements.vhd) | 2008 | types | ✅ | ✅ | ✅ | ❌ | ➖ | ➖ |
+| [FT07: External (hierarchical) names -- access signals across hierarchy](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_external_names.vhd) | 2008 | verification | ✅ | ✅ | ❌ | ➖ | ➖ | ➖ |
+| [Force / Release — override signal values for verification](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_force_release.vhd) | 2008 | verification | ✅ | ✅ | ❌ | ➖ | ➖ | ➖ |
+| [std.env.stop / std.env.finish — standard simulation control](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_std_env.vhd) | 2008 | verification | ✅ | ✅ | ✅ | ➖ | ➖ | ➖ |
+| [open in aggregates — leave aggregate elements unconnected](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_open_in_aggregates.vhd) | 2008 | aggregates | ❌ | ❌ | ❌ | ❌ | ➖ | ➖ |
+| [Default values for generic types — generic type with optional default](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generics/generics_default_types.vhd) | 2008 | generics | ❌ | ❌ | ❌ | ❌ | ➖ | ➖ |
+| [numeric_std_signed — signed arithmetic on std_logic_vector without casting](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_signed.vhd) | 2008 | packages | ❌ | ❌ | ❌ | ❌ | ➖ | ➖ |
+| [aggregates_assignment_targets](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_assignment_targets.vhd) | 2008 | aggregates | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [aggregates_named_association](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_named_association.vhd) | 2008 | aggregates | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [aggregates_open_in_aggregates](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_open_in_aggregates.vhd) | 2008 | aggregates | ➖ | ➖ | ➖ | ➖ | ❌ | ❌ |
+| [aggregates_others_record](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_others_record.vhd) | 2008 | aggregates | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [aggregates_slice_aggregates](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_slice_aggregates.vhd) | 2008 | aggregates | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [expressions_condition_operator](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_condition_operator.vhd) | 2008 | expressions | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [expressions_enhanced_bit_strings](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_enhanced_bit_strings.vhd) | 2008 | expressions | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [expressions_matching_operators](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_matching_operators.vhd) | 2008 | expressions | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [expressions_reduction_operators](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_reduction_operators.vhd) | 2008 | expressions | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [expressions_shift_rotate](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/expressions/expressions_shift_rotate.vhd) | 2008 | expressions | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [generate_case_generate](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generate/generate_case_generate.vhd) | 2008 | generate | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [generate_if_elsif_generate](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generate/generate_if_elsif_generate.vhd) | 2008 | generate | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [generics_default_types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generics/generics_default_types.vhd) | 2008 | generics | ➖ | ➖ | ➖ | ➖ | ❌ | ❌ |
+| [generics_generic_types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generics/generics_generic_types.vhd) | 2008 | generics | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [generics_subprograms](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generics/generics_subprograms.vhd) | 2008 | generics | ➖ | ➖ | ➖ | ➖ | ✅ | ❌ |
+| [misc_block_comments](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_block_comments.vhd) | 2008 | misc | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [misc_boolean_edge](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_boolean_edge.vhd) | 2008 | misc | ➖ | ➖ | ➖ | ➖ | ✅ | ❌ |
+| [misc_ip_protect](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_ip_protect.vhd) | 2008 | misc | ➖ | ➖ | ➖ | ➖ | ✅ | ❌ |
+| [misc_min_max](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_min_max.vhd) | 2008 | misc | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [misc_to_string](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_to_string.vhd) | 2008 | misc | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [packages_context](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_context.vhd) | 2008 | packages | ➖ | ➖ | ➖ | ➖ | ❌ | ❌ |
+| [packages_fixed_point](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_fixed_point.vhd) | 2008 | packages | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [packages_float_point](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_float_point.vhd) | 2008 | packages | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [packages_generic_package](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_generic_package.vhd) | 2008 | packages | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [packages_numeric_std_signed](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_signed.vhd) | 2008 | packages | ➖ | ➖ | ➖ | ➖ | ❌ | ❌ |
+| [packages_numeric_std_unsigned](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_unsigned.vhd) | 2008 | packages | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [ports_enhanced_port_maps](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_enhanced_port_maps.vhd) | 2008 | ports | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [ports_expressions_in_port_maps](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_expressions_in_port_maps.vhd) | 2008 | ports | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [ports_read_output](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/ports/ports_read_output.vhd) | 2008 | ports | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [processes_process_all](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/processes/processes_process_all.vhd) | 2008 | processes | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [processes_seq_assignments](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/processes/processes_seq_assignments.vhd) | 2008 | processes | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [types_driving_attributes](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_driving_attributes.vhd) | 2008 | types | ➖ | ➖ | ➖ | ➖ | ✅ | ❌ |
+| [types_matching_case](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_matching_case.vhd) | 2008 | types | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [types_predefined_vectors](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_predefined_vectors.vhd) | 2008 | types | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [types_unconstrained_elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_unconstrained_elements.vhd) | 2008 | types | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [verification_external_names](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_external_names.vhd) | 2008 | verification | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [verification_force_release](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_force_release.vhd) | 2008 | verification | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [verification_std_env](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_std_env.vhd) | 2008 | verification | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
 | **VHDL-2019** | | |||||||
 | [LCS2016-050: Full assert API — IsVhdlAssertFailed, GetVhdlAssertCount, SetVhdlAssertFormat](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/assert_api/assert_api_lcs050_full_api.vhd) | 2019 | assert_api | ❌ | ✅ | ✅ | ➖ | ➖ | ➖ |
 | [LCS2016-081: Optional report clause in assert — assert without message string](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/assert_api/assert_api_lcs081_no_message.vhd) | 2019 | assert_api | ❌ | ✅ | ✅ | ➖ | ➖ | ➖ |
@@ -104,3 +142,55 @@
 | [LCS2016-075: Closely related record types — implicit conversion between similar records](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs075_related_records.vhd) | 2019 | types_2019 | ❌ | ❌ | ❌ | ❌ | ➖ | ➖ |
 | [LCS2016-026c: Long integers — 64-bit integer support](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs026c_long_integers.vhd) | 2019 | types_2019 | ❌ | ❌ | ❌ | ❌ | ➖ | ➖ |
 | [LCS2016-001: Partially connected vectors — use `open` to leave port bits unconnected](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/vectors/vectors_lcs001_partially_connected.vhd) | 2019 | vectors | ❌ | ❌ | ❌ | ❌ | ➖ | ➖ |
+| [assert_api_lcs050_full_api](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/assert_api/assert_api_lcs050_full_api.vhd) | 2019 | assert_api | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [assert_api_lcs081_no_message](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/assert_api/assert_api_lcs081_no_message.vhd) | 2019 | assert_api | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [attributes_lcs012_image_composite](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs012_image_composite.vhd) | 2019 | attributes | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [attributes_lcs018_enum_attributes](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs018_enum_attributes.vhd) | 2019 | attributes | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [attributes_lcs041_reflect](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs041_reflect.vhd) | 2019 | attributes | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [attributes_lcs106_reflection](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs106_reflection.vhd) | 2019 | attributes | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [conditional_analysis_lcs006f_standard_ids](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/conditional_analysis/conditional_analysis_lcs006f_standard_ids.vhd) | 2019 | conditional_analysis | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [conditional_analysis_lcs061_conditional_compilation](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/conditional_analysis/conditional_analysis_lcs061_conditional_compilation.vhd) | 2019 | conditional_analysis | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [env_enhanced_stop_finish](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/env/env_enhanced_stop_finish.vhd) | 2019 | env | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [env_lcs006e_getenv](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/env/env_lcs006e_getenv.vhd) | 2019 | env | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [env_lcs011_datetime](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/env/env_lcs011_datetime.vhd) | 2019 | env | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [env_lcs015_get_call_path](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/env/env_lcs015_get_call_path.vhd) | 2019 | env | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [env_lcs015a_file_location](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/env/env_lcs015a_file_location.vhd) | 2019 | env | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [file_io_lcs006a_extensions](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/file_io/file_io_lcs006a_extensions.vhd) | 2019 | file_io | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [file_io_lcs006c_directory_api](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/file_io/file_io_lcs006c_directory_api.vhd) | 2019 | file_io | ➖ | ➖ | ➖ | ➖ | ❌ | ➖ |
+| [file_io_lcs103_enhanced](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/file_io/file_io_lcs103_enhanced.vhd) | 2019 | file_io | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [generics_2019_lcs049_map_on_call](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/generics_2019/generics_2019_lcs049_map_on_call.vhd) | 2019 | generics_2019 | ➖ | ➖ | ➖ | ➖ | ❌ | ✅ |
+| [generics_2019_lcs059_array_type_generics](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/generics_2019/generics_2019_lcs059_array_type_generics.vhd) | 2019 | generics_2019 | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [generics_2019_lcs109_subprogram_generics](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/generics_2019/generics_2019_lcs109_subprogram_generics.vhd) | 2019 | generics_2019 | ➖ | ➖ | ➖ | ➖ | ❌ | ❌ |
+| [interfaces_lcs045a_array_of_interfaces](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/interfaces/interfaces_lcs045a_array_of_interfaces.vhd) | 2019 | interfaces | ➖ | ➖ | ➖ | ➖ | ❌ | ✅ |
+| [interfaces_lcs045a_inout_views](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/interfaces/interfaces_lcs045a_inout_views.vhd) | 2019 | interfaces | ➖ | ➖ | ➖ | ➖ | ❌ | ✅ |
+| [interfaces_lcs045a_mode_view](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/interfaces/interfaces_lcs045a_mode_view.vhd) | 2019 | interfaces | ➖ | ➖ | ➖ | ➖ | ❌ | ❌ |
+| [protected_types_lcs014_composites](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs014_composites.vhd) | 2019 | protected_types | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [protected_types_lcs014a_pt_pointers](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs014a_pt_pointers.vhd) | 2019 | protected_types | ➖ | ➖ | ➖ | ➖ | ❌ | ✅ |
+| [protected_types_lcs030_garbage_collection](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs030_garbage_collection.vhd) | 2019 | protected_types | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [protected_types_lcs032_path_name](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs032_path_name.vhd) | 2019 | protected_types | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [protected_types_lcs033_public_private](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs033_public_private.vhd) | 2019 | protected_types | ➖ | ➖ | ➖ | ➖ | ❌ | ✅ |
+| [protected_types_lcs034_generic_pt](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs034_generic_pt.vhd) | 2019 | protected_types | ➖ | ➖ | ➖ | ➖ | ❌ | ✅ |
+| [protected_types_lcs047_shared_on_interface](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs047_shared_on_interface.vhd) | 2019 | protected_types | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [protected_types_lcs099_subprogram_param](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs099_subprogram_param.vhd) | 2019 | protected_types | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [psl_enhanced_directives](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/psl/psl_enhanced_directives.vhd) | 2019 | psl | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [psl_lcs043_attributes](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/psl/psl_lcs043_attributes.vhd) | 2019 | psl | ➖ | ➖ | ➖ | ➖ | ✅ | ➖ |
+| [sequential_lcs007_declaration_regions](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs007_declaration_regions.vhd) | 2019 | sequential | ➖ | ➖ | ➖ | ➖ | ❌ | ❌ |
+| [sequential_lcs036a_conditional_expr](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs036a_conditional_expr.vhd) | 2019 | sequential | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [sequential_lcs094a_conditional_return](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs094a_conditional_return.vhd) | 2019 | sequential | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [sequential_lcs107_blocks](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs107_blocks.vhd) | 2019 | sequential | ➖ | ➖ | ➖ | ➖ | ❌ | ❌ |
+| [syntax_lcs023_relaxed_library](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs023_relaxed_library.vhd) | 2019 | syntax | ➖ | ➖ | ➖ | ➖ | ❌ | ✅ |
+| [syntax_lcs055a_components](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs055a_components.vhd) | 2019 | syntax | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [syntax_lcs071a_optional_trailing_semicolon](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs071a_optional_trailing_semicolon.vhd) | 2019 | syntax | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [syntax_lcs086_ordered_interfaces](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs086_ordered_interfaces.vhd) | 2019 | syntax | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [syntax_lcs099_extended_ranges](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs099_extended_ranges.vhd) | 2019 | syntax | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [syntax_lcsI03_signatures](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcsI03_signatures.vhd) | 2019 | syntax | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [syntax_lcsI13_unary_precedence](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcsI13_unary_precedence.vhd) | 2019 | syntax | ➖ | ➖ | ➖ | ➖ | ❌ | ✅ |
+| [types_2019_lcs016_anonymous_types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs016_anonymous_types.vhd) | 2019 | types_2019 | ➖ | ➖ | ➖ | ➖ | ❌ | ❌ |
+| [types_2019_lcs019_inferred_constraints](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs019_inferred_constraints.vhd) | 2019 | types_2019 | ➖ | ➖ | ➖ | ➖ | ❌ | ❌ |
+| [types_2019_lcs026c_long_integers](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs026c_long_integers.vhd) | 2019 | types_2019 | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [types_2019_lcs028_external_types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs028_external_types.vhd) | 2019 | types_2019 | ➖ | ➖ | ➖ | ➖ | ❌ | ✅ |
+| [types_2019_lcs059a_scalar_ordering](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs059a_scalar_ordering.vhd) | 2019 | types_2019 | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [types_2019_lcs075_related_records](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs075_related_records.vhd) | 2019 | types_2019 | ➖ | ➖ | ➖ | ➖ | ❌ | ❌ |
+| [types_2019_lcs082_empty_records](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs082_empty_records.vhd) | 2019 | types_2019 | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [vectors_lcs001_partially_connected](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/vectors/vectors_lcs001_partially_connected.vhd) | 2019 | vectors | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
+| [vectors_lcs072b_function_knows_size](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/vectors/vectors_lcs072b_function_knows_size.vhd) | 2019 | vectors | ➖ | ➖ | ➖ | ➖ | ✅ | ✅ |
