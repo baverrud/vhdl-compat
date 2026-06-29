@@ -266,5 +266,8 @@ class VivadoRunner(ToolRunner):
         std_cfg = self.config.get_standard_config(f"vhdl{standard}")
         if std_cfg.analysis_flags:
             return list(std_cfg.analysis_flags)
-        std_map = {"2000": ["-2002"], "2002": ["-2002"], "2008": ["-2008"], "2019": ["-2019"]}
+        # xvhdl only supports --2008 and --2019 flags.
+        # VHDL-2000 and VHDL-2002 must use -2008 (closest standard with
+        # protected type support). VHDL-93 is the default (no flag).
+        std_map = {"2000": ["-2008"], "2002": ["-2008"], "2008": ["-2008"], "2019": ["-2019"]}
         return std_map.get(standard, [])

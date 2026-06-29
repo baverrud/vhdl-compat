@@ -41,12 +41,20 @@ exe_subdir = "bin"
 # ---------------------------------------------------------------------------
 # VHDL standard flags
 # ---------------------------------------------------------------------------
+# VHDL-2000 and VHDL-2002 use no flag (xvhdl defaults to VHDL-93/2002 compat).
+# VHDL-2008 is the first standard flag xvhdl supports.
+
+[standards.vhdl2000]
+analysis_flags = []
+
+[standards.vhdl2002]
+analysis_flags = []
+
 [standards.vhdl2008]
 analysis_flags = ["-2008"]
 
 [standards.vhdl2019]
 analysis_flags = ["-2019"]
-# Note: Vivado's VHDL-2019 support is limited. This flag may not exist in all versions.
 
 # ---------------------------------------------------------------------------
 # Simulation mode

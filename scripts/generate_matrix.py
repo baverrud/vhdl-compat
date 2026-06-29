@@ -88,6 +88,8 @@ def build_feature_index(all_reports: Dict[str, dict]) -> List[Tuple[str, str, st
     for data in all_reports.values():
         for result in data.get("results", {}).values():
             std = result.get("standard", data.get("standard", "?"))
+            # Normalize: strip "VHDL-" prefix so _std_sort_key can parse it
+            std = std.replace("VHDL-", "")
             key = (std, result.get("category", "?"), result.get("feature", "?"))
             xref = result.get("xref", "")
             # Keep the first non-empty xref found
@@ -168,7 +170,8 @@ def _get_status_priority(
             result = _find_result(data, feature, category)
             if result:
                 result_std = result.get("standard", data.get("standard", "?"))
-                if result_std != std:
+                # Normalize: strip "VHDL-" prefix for consistent comparison
+                if result_std.replace("VHDL-", "") != std:
                     continue
                 status = result.get("status", "untested")
                 priority = {"pass": 0, "partial": 1, "fail": 2}
@@ -177,15 +180,15 @@ def _get_status_priority(
 
 
 def build_status_cell(status: str) -> str:
-    """Convert a status string to a compact table cell — only PASS vs FAIL."""
+    """Convert a status string to a compact table cell."""
     mapping = {
         "pass": "✅",
         "partial": "❌",
         "fail": "❌",
-        "untested": "❌",
-        "n/a": "➖",
+        "untested": "⬜",  # not run yet on this tool
+        "n/a": "➖",       # genuinely not applicable (e.g., synth for sim-only)
     }
-    return mapping.get(status, "❌")
+    return mapping.get(status, "⬜")
 
 
 def generate_matrix_markdown(
@@ -200,7 +203,7 @@ def generate_matrix_markdown(
     lines.append(f"**Generated from {len(all_reports)} test runs across "
                  f"{len(set(k.split('/')[0] for k in all_reports))} tools.**")
     lines.append("")
-    lines.append("> Legend: ✅ PASS  ❌ FAIL  ➖ N/A (not applicable to this mode)")
+    lines.append("> Legend: ✅ PASS  ❌ FAIL  ⬜ not run  ➖ N/A (not applicable to this mode)")
     lines.append("")
     lines.append("> sim = simulation  |  synth = synthesis (only features expected to synthesize)")
     lines.append("")
@@ -247,7 +250,9 @@ def generate_matrix_markdown(
         # Standard section header
         if std != current_std:
             current_std = std
-            lines.append(f"| **VHDL-{std}** | |" + "|".join([""] * len(col_displays)) + "|")
+            # std may be "VHDL-2000" or just "2000" — normalize
+            std_clean = std.replace("VHDL-", "")
+            lines.append(f"| **VHDL-{std_clean}** | |" + "|".join([""] * len(col_displays)) + "|")
 
         # Build display name: prepend LCS xref for VHDL-2019, link to test file
         display_feature = feature
@@ -264,7 +269,7 @@ def generate_matrix_markdown(
         row = f"| {display_feature} | {category} |"
 
         for tool_part, mode, _display in col_entries:
-            cell = " ➖ |"
+            cell = " ⬜ |"
             # Find the report matching this tool_part, standard, and mode
             for col_key in columns:
                 if col_key.startswith(tool_part + "/"):
@@ -273,7 +278,8 @@ def generate_matrix_markdown(
                         result = _find_result(data, feature, category)
                         if result:
                             result_std = result.get("standard", data.get("standard", "?"))
-                            if result_std == std:
+                            # Normalize: strip "VHDL-" prefix for consistent comparison
+                            if result_std.replace("VHDL-", "") == std:
                                 cell = f" {build_status_cell(result.get('status', 'untested'))} |"
                         break
             row += cell
@@ -304,7 +310,8 @@ def _find_test_file(all_reports: Dict[str, dict], std: str,
     for data in all_reports.values():
         for result in data.get("results", {}).values():
             result_std = result.get("standard", data.get("standard", "?"))
-            if result_std != std:
+            # Normalize: strip "VHDL-" prefix for consistent comparison
+            if result_std.replace("VHDL-", "") != std:
                 continue
             if (result.get("feature") == feature
                     and result.get("category") == category):
@@ -371,7 +378,7 @@ def generate_vivado_comparison(all_reports: Dict[str, dict]) -> str:
         for result in sim_data.get("results", {}).values():
             feature = result.get("feature", "")
             category = result.get("category", "")
-            std = result.get("standard", "")
+            std = result.get("standard", "").replace("VHDL-", "")
             sim_status = result.get("status", "")
 
             # Skip sim-only features (marked n/a in synth)
@@ -406,16 +413,131 @@ def generate_vivado_comparison(all_reports: Dict[str, dict]) -> str:
         for std, category, feature, sim_status, synth_status in sorted(diffs, key=lambda x: (x[0], x[2])):
             if std != current_std:
                 current_std = std
-                lines.append(f"| **VHDL-{std}** | | | | |")
+                std_clean = std.replace("VHDL-", "")
+                lines.append(f"| **VHDL-{std_clean}** | | | | |")
             sim_cell = "✅" if sim_status == "pass" else "❌"
             synth_cell = "✅" if synth_status == "pass" else "❌"
             if sim_status == "pass":
                 note = "Simulation only"
             else:
                 note = "Synthesis only"
-            lines.append(f"| {feature} | {std} | {sim_cell} | {synth_cell} | {note} |")
+            display_feature = feature
+            test_file = _find_test_file(all_reports, std, feature, category)
+            if test_file:
+                display_feature = f"[{feature}]({GITHUB_BASE}{test_file})"
+            lines.append(f"| {display_feature} | VHDL-{std} | {sim_cell} | {synth_cell} | {note} |")
         lines.append("")
 
+    return "\n".join(lines)
+
+
+def generate_uvvm_appendix(all_reports: Dict[str, dict]) -> str:
+    """Generate UVVM compatibility appendix.
+
+    UVVM (Universal VHDL Verification Methodology) is the most widely used
+    open-source VHDL verification framework. Its adoption is a key test of
+    real-world VHDL tool compatibility.
+    """
+    lines: List[str] = []
+    lines.append("")
+    lines.append("---")
+    lines.append("## UVVM Compatibility")
+    lines.append("")
+    lines.append("UVVM (Universal VHDL Verification Methodology) is the leading")
+    lines.append("open-source VHDL verification framework. It relies on several")
+    lines.append("VHDL language features, most critically **global shared")
+    lines.append("variables of protected types** declared in packages.")
+    lines.append("")
+    lines.append("This pattern (shared variable in a package, not inside an")
+    lines.append("architecture) enables UVVM's global infrastructure: loggers,")
+    lines.append("alert managers, scoreboards, and message queues shared across")
+    lines.append("all testbench components.")
+    lines.append("")
+
+    # Determine column order matching the main matrix
+    columns = sorted(all_reports.keys())
+    col_entries: list[tuple[str, str, str]] = []
+    seen: set[str] = set()
+    for c in columns:
+        tool_part = c.split("/")[0]
+        std_mode = c.split("/")[1]
+        mode_raw = std_mode.split("-")[-1]
+        if mode_raw == "analyze":
+            continue
+        entry_key = f"{tool_part} ({mode_raw})"
+        if entry_key not in seen:
+            seen.add(entry_key)
+            data = all_reports.get(c, {})
+            tool_name = data.get("tool_name", tool_part)
+            tool_ver = data.get("tool_version", "")
+            name_parts = tool_name.split()
+            header_lines = name_parts + [tool_ver, f"({mode_raw})"]
+            col_entries.append((tool_part, mode_raw, "<br>".join(header_lines)))
+    col_entries = _reorder_column_entries(col_entries)
+
+    # Critical UVVM features and their lookup info
+    # (feature_name, category, standard, description)
+    uvvm_features = [
+        # Foundation features
+        ("Protected types -- class-like constructs with mutual exclusion",
+         "protected_types", "2000",
+         "Foundation: protected types are required for shared variables"),
+        ("Global shared variables of protected types — package-level shared variables",
+         "protected_types", "2000",
+         "Critical: package-level shared variable visible across all design units"),
+        ("std.env.stop / std.env.finish — standard simulation control",
+         "verification", "2008",
+         "Required: UVVM uses std.env for simulation control"),
+        ("to_string / to_bstring / to_hstring / to_ostring — formatted string conversion",
+         "misc", "2008",
+         "Required: UVVM uses string formatting for logging"),
+        # UVVM-specific VHDL-2008 patterns
+        ("Unconstrained arrays of unconstrained vectors — UVVM data type pattern",
+         "uvvm", "2008",
+         "Blocker: array of std_logic_vector — UVVM t_generic_package pattern"),
+        ("External names targeting arrays and records — UVVM signal spying pattern",
+         "uvvm", "2008",
+         "Blocker: << signal .path.arr(n) >> — UVVM BFM hierarchy access"),
+        ("Protected types with internal access types — UVVM dynamic data pattern",
+         "uvvm", "2008",
+         "Blocker: allocate/deallocate in PT — UVVM command queue pattern"),
+    ]
+
+    # Build header row matching main matrix columns
+    col_displays = [e[2] for e in col_entries]
+    header = "| Feature | Standard | " + " | ".join(col_displays) + " | Description |"
+    separator = "|---------|----------|" + "|".join(["---"] * len(col_displays)) + "|-----------|"
+    lines.append(header)
+    lines.append(separator)
+
+    for feature, category, std, description in uvvm_features:
+        display_feature = feature
+        test_file = _find_test_file(all_reports, std, feature, category)
+        if test_file:
+            display_feature = f"[{feature}]({GITHUB_BASE}{test_file})"
+        row = f"| {display_feature} | VHDL-{std} |"
+        for tool_part, mode, _display in col_entries:
+            cell = " ⬜ |"
+            for col_key in columns:
+                if col_key.startswith(tool_part + "/"):
+                    data = all_reports.get(col_key)
+                    if data and data.get("mode") == mode:
+                        result = _find_result(data, feature, category)
+                        if result:
+                            result_std = result.get("standard", data.get("standard", "?"))
+                            # result_std is "VHDL-2000", std is "2000"
+                            if result_std == f"VHDL-{std}":
+                                cell = f" {build_status_cell(result.get('status', 'untested'))} |"
+                        break
+            row += cell
+        row += f" {description} |"
+        lines.append(row)
+
+    lines.append("")
+    lines.append("> **Note:** Protected types and shared variables are simulation-only")
+    lines.append("> features — they cannot be synthesized. ⬜ in synthesis columns")
+    lines.append("> is expected and correct.")
+    lines.append("")
     return "\n".join(lines)
 
 
@@ -450,6 +572,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     # Generate Markdown — save directly to project root
     md = generate_matrix_markdown(all_reports, features)
     md += generate_vivado_comparison(all_reports)
+    md += generate_uvvm_appendix(all_reports)
     root_path = results_dir.parent / "MATRIX.md"
     root_path.write_text(md, encoding="utf-8")
     print(f"Matrix saved: {root_path}")

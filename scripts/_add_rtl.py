@@ -1931,6 +1931,86 @@ begin
   end process;
 end architecture;
 """,
+
+    # === VHDL-2008 UVVM compatibility ===
+    "uvvm_unconstrained_array": """-- ============================================================================
+-- RTL: unconstrained arrays of unconstrained vectors
+-- VHDL-2008: array of unconstrained std_logic_vector (UVVM data type pattern)
+-- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+use work.uvvm_types_pkg.all;
+
+entity uvvm_unconstrained_array is
+  port (
+    clk   : in  std_logic;
+    rst   : in  std_logic;
+    sel   : in  natural range 0 to 3;
+    arr   : in  slv_array(0 to 3)(7 downto 0);
+    dout  : out std_logic_vector(7 downto 0)
+  );
+end entity;
+architecture rtl of uvvm_unconstrained_array is
+begin
+  process(clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        dout <= (others => '0');
+      else
+        dout <= arr(sel);
+      end if;
+    end if;
+  end process;
+end architecture;
+""",
+
+    "uvvm_external_names": """-- ============================================================================
+-- RTL: register file with record status — target for UVVM external name spying
+-- VHDL-2008: hierarchical signal access via << signal >>
+-- ============================================================================
+library ieee;
+use ieee.std_logic_1164.all;
+use ieee.numeric_std.all;
+
+entity uvvm_external_names is
+  port (
+    clk      : in  std_logic;
+    rst      : in  std_logic;
+    wr_en    : in  std_logic;
+    wr_addr  : in  natural range 0 to 7;
+    wr_data  : in  std_logic_vector(7 downto 0)
+  );
+end entity;
+architecture rtl of uvvm_external_names is
+  type reg_array is array (0 to 7) of std_logic_vector(7 downto 0);
+  signal reg_file : reg_array := (others => (others => '0'));
+  type status_t is record
+    busy   : std_logic;
+    ready  : std_logic;
+    count  : natural range 0 to 255;
+  end record;
+  signal status : status_t := ('0', '1', 0);
+begin
+  process(clk)
+  begin
+    if rising_edge(clk) then
+      if rst = '1' then
+        reg_file <= (others => (others => '0'));
+        status   <= ('0', '1', 0);
+      else
+        if wr_en = '1' then
+          reg_file(wr_addr) <= wr_data;
+          status.count <= status.count + 1;
+        end if;
+        status.busy  <= wr_en;
+        status.ready <= not wr_en;
+      end if;
+    end if;
+  end process;
+end architecture;
+""",
 }
 
 

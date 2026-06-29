@@ -369,12 +369,6 @@ def main(argv: Optional[List[str]] = None) -> int:
     else:
         modes = [args.mode]
 
-    # Setup work directory — uses tmp/{tool}/{version}/ to avoid cluttering system temp
-    work_dir = Path(args.work_dir) if args.work_dir else (
-        Path("tmp") / f"{safe_name}-{version}"
-    )
-    work_dir.mkdir(parents=True, exist_ok=True)
-
     # Create the appropriate runner
     runner = None
     tool_lower = config.name.lower()
@@ -402,6 +396,12 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Use display_name for folder naming (distinguishes editions)
     safe_name = (config.display_name or config.name).lower().replace(" ", "_")
+
+    # Setup work directory — uses tmp/{tool}/{version}/ to avoid cluttering system temp
+    work_dir = Path(args.work_dir) if args.work_dir else (
+        Path("tmp") / f"{safe_name}-{version}"
+    )
+    work_dir.mkdir(parents=True, exist_ok=True)
 
     # Accumulate results per mode across all standards
     from collections import defaultdict
@@ -455,13 +455,21 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Auto-generate the combined matrix after all test runs
     try:
-        from .generate_matrix import load_all_results, build_feature_index, generate_matrix_markdown
+        from .generate_matrix import (load_all_results, build_feature_index,
+                                       generate_matrix_markdown,
+                                       generate_vivado_comparison,
+                                       generate_uvvm_appendix)
     except ImportError:
-        from generate_matrix import load_all_results, build_feature_index, generate_matrix_markdown
+        from generate_matrix import (load_all_results, build_feature_index,
+                                      generate_matrix_markdown,
+                                      generate_vivado_comparison,
+                                      generate_uvvm_appendix)
     all_reports = load_all_results(results_dir)
     if all_reports:
         features = build_feature_index(all_reports)
         md = generate_matrix_markdown(all_reports, features)
+        md += generate_vivado_comparison(all_reports)
+        md += generate_uvvm_appendix(all_reports)
         (results_dir.parent / "MATRIX.md").write_text(md, encoding="utf-8")
         print(f"Matrix saved: {results_dir.parent / 'MATRIX.md'}")
 
