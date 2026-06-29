@@ -104,3 +104,67 @@
 | [LCS2016-059a: Scalar array ordering — relational operators on any scalar array type](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs059a_scalar_ordering.vhd) | types_2019 | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | [LCS2016-072b: Function knows vector size — result type depends on input sizes](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/vectors/vectors_lcs072b_function_knows_size.vhd) | vectors | ❌ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | [LCS2016-001: Partially connected vectors — use `open` to leave port bits unconnected](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/vectors/vectors_lcs001_partially_connected.vhd) | vectors | ❌ | ❌ | ❌ | ✅ | ❌ | ✅ |
+
+---
+## Vivado Sim vs Synth Comparison
+
+Features where simulation and synthesis **disagree** —
+works in one but not the other. Highlights the different
+VHDL engines: xvhdl/xsim (Verific parser) vs synth_design.
+
+### Vivado 2026.1
+
+| Feature | Standard | Sim | Synth | Notes |
+|---------|----------|:---:|:----:|-------|
+| **VHDL-2008** | | | | |
+| 'driving and 'driving_value — query signal driver status | 2008 | ❌ | ✅ | Synthesis only |
+| Context declarations — reusable sets of library/use clauses | 2008 | ❌ | ✅ | Synthesis only |
+| Fixed-point package (fixed_pkg) — IEEE 1076.3 fixed-point arithmetic | 2008 | ❌ | ✅ | Synthesis only |
+| Generic types -- entities/functions parameterizable by type | 2008 | ✅ | ❌ | Simulation only |
+| numeric_std_unsigned — arithmetic on std_logic_vector without casting | 2008 | ✅ | ❌ | Simulation only |
+| rising_edge / falling_edge for boolean signals | 2008 | ✅ | ❌ | Simulation only |
+| **VHDL-2019** | | | | |
+| 'IMAGE and TO_STRING for composite types — string representation of records and arrays | 2019 | ❌ | ✅ | Synthesis only |
+| Access external types through library path — cross-library type visibility | 2019 | ❌ | ✅ | Synthesis only |
+| Conditional expressions in declarations — if/when in constant/signal defaults | 2019 | ❌ | ✅ | Synthesis only |
+| Interface mode views — per-field direction control on composite types | 2019 | ✅ | ❌ | Simulation only |
+| Long integers — 64-bit integer support | 2019 | ❌ | ✅ | Synthesis only |
+| Map generics on subprogram call — override generics at call site | 2019 | ❌ | ✅ | Synthesis only |
+| Pointers to composites of protected types | 2019 | ❌ | ✅ | Synthesis only |
+| Precedence of unary operators — standardized unary operator binding | 2019 | ❌ | ✅ | Synthesis only |
+| Protected types with generic clause — parameterizable protected types | 2019 | ❌ | ✅ | Synthesis only |
+| Public variable + PRIVATE keyword in protected types | 2019 | ❌ | ✅ | Synthesis only |
+| Relaxed library requirement on configurations | 2019 | ❌ | ✅ | Synthesis only |
+
+### Vivado 2023.2
+
+| Feature | Standard | Sim | Synth | Notes |
+|---------|----------|:---:|:----:|-------|
+| **VHDL-2008** | | | | |
+| 'driving and 'driving_value — query signal driver status | 2008 | ❌ | ✅ | Synthesis only |
+| Context declarations — reusable sets of library/use clauses | 2008 | ❌ | ✅ | Synthesis only |
+| Enhanced port maps — open keyword anywhere in port map | 2008 | ❌ | ✅ | Synthesis only |
+| Floating-point package (float_pkg) — IEEE 754 floating-point types | 2008 | ✅ | ❌ | Simulation only |
+| Generic packages — packages parameterized by generics | 2008 | ✅ | ❌ | Simulation only |
+| Generic subprograms on entities — entities with generic functions/procedures | 2008 | ❌ | ✅ | Synthesis only |
+| Matching case statement (case?) — don't-care aware pattern matching | 2008 | ✅ | ❌ | Simulation only |
+| Predefined array types — boolean_vector, integer_vector, real_vector, time_vector | 2008 | ✅ | ❌ | Simulation only |
+| Unconstrained element types — records with unconstrained array fields | 2008 | ✅ | ❌ | Simulation only |
+| numeric_std_unsigned — arithmetic on std_logic_vector without casting | 2008 | ✅ | ❌ | Simulation only |
+| rising_edge / falling_edge for boolean signals | 2008 | ✅ | ❌ | Simulation only |
+| **VHDL-2019** | | | | |
+| Access external types through library path — cross-library type visibility | 2019 | ✅ | ❌ | Simulation only |
+| Array type generics — generic parameters that are array types | 2019 | ✅ | ❌ | Simulation only |
+| Composites of protected types — records and arrays containing PT elements | 2019 | ✅ | ❌ | Simulation only |
+| Conditional analysis -- `if / `else / `end if tool directives | 2019 | ✅ | ❌ | Simulation only |
+| Conditional expressions in declarations — if/when in constant/signal defaults | 2019 | ❌ | ✅ | Synthesis only |
+| Garbage collection — automatic memory management for access types | 2019 | ✅ | ❌ | Simulation only |
+| Long integers — 64-bit integer support | 2019 | ❌ | ✅ | Synthesis only |
+| New reflection attributes — 'designated_type, 'index, 'range | 2019 | ✅ | ❌ | Simulation only |
+| Optional trailing semicolon in interface lists | 2019 | ❌ | ✅ | Synthesis only |
+| PATH_NAME/INSTANCE_NAME for protected types | 2019 | ✅ | ❌ | Simulation only |
+| Protected types as subprogram parameters | 2019 | ✅ | ❌ | Simulation only |
+| Record introspection — 'reflect attribute for runtime type inspection | 2019 | ✅ | ❌ | Simulation only |
+| Shared variables on entity interface — shared variable ports/generics | 2019 | ✅ | ❌ | Simulation only |
+| Standard conditional analysis identifiers — VHDL_VERSION, TOOL_TYPE, etc. | 2019 | ✅ | ❌ | Simulation only |
+| Syntax regularization -- component declarations made optional | 2019 | ❌ | ✅ | Synthesis only |

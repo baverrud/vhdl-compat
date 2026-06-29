@@ -315,6 +315,110 @@ def _find_test_file(all_reports: Dict[str, dict], std: str,
     return candidate or None
 
 
+def _find_result_in_report(report_data: dict, feature: str, category: str) -> Optional[dict]:
+    """Find a test result in a report matching feature and category."""
+    for result in report_data.get("results", {}).values():
+        if (result.get("feature") == feature
+                and result.get("category") == category):
+            return result
+    return None
+
+
+def generate_vivado_comparison(all_reports: Dict[str, dict]) -> str:
+    """Generate sim-vs-synth comparison table for each Vivado version."""
+    lines: List[str] = []
+    lines.append("")
+    lines.append("---")
+    lines.append("## Vivado Sim vs Synth Comparison")
+    lines.append("")
+    lines.append("Features where simulation and synthesis **disagree** —")
+    lines.append("works in one but not the other. Highlights the different")
+    lines.append("VHDL engines: xvhdl/xsim (Verific parser) vs synth_design.")
+    lines.append("")
+
+    # Group reports by Vivado version
+    vivado_versions: dict[str, dict[str, dict]] = {}
+    for col_key, data in all_reports.items():
+        if "vivado" not in col_key.lower():
+            continue
+        parts = col_key.split("/")
+        tool_part = parts[0]
+        if "-" not in tool_part:
+            continue
+        version = tool_part.split("-", 1)[1]
+        std_mode = parts[1] if len(parts) > 1 else ""
+        mode = std_mode.split("-")[-1] if "-" in std_mode else std_mode
+        if version not in vivado_versions:
+            vivado_versions[version] = {}
+        vivado_versions[version][mode] = data
+
+    for version in sorted(vivado_versions.keys(), reverse=True):
+        modes = vivado_versions[version]
+        sim_data = modes.get("sim")
+        synth_data = modes.get("synth")
+        if not sim_data or not synth_data:
+            lines.append(f"### Vivado {version}")
+            lines.append("")
+            if not sim_data:
+                lines.append("No simulation results available.")
+            if not synth_data:
+                lines.append("No synthesis results available.")
+            lines.append("")
+            continue
+
+        # Find features where sim and synth differ
+        diffs: list[tuple[str, str, str, str, str]] = []
+        for result in sim_data.get("results", {}).values():
+            feature = result.get("feature", "")
+            category = result.get("category", "")
+            std = result.get("standard", "")
+            sim_status = result.get("status", "")
+
+            # Skip sim-only features (marked n/a in synth)
+            if sim_status == "n/a":
+                continue
+
+            synth_result = _find_result_in_report(synth_data, feature, category)
+            synth_status = synth_result.get("status", "") if synth_result else "n/a"
+
+            if sim_status == synth_status:
+                continue
+            if synth_status == "n/a":
+                continue  # sim-only feature, not interesting
+            if sim_status == "untested" or synth_status == "untested":
+                continue
+
+            diffs.append((std, category, feature, sim_status, synth_status))
+
+        if not diffs:
+            lines.append(f"### Vivado {version}")
+            lines.append("")
+            lines.append("No differences — sim and synth agree on all features.")
+            lines.append("")
+            continue
+
+        # Group by standard
+        lines.append(f"### Vivado {version}")
+        lines.append("")
+        lines.append("| Feature | Standard | Sim | Synth | Notes |")
+        lines.append("|---------|----------|:---:|:----:|-------|")
+        current_std = ""
+        for std, category, feature, sim_status, synth_status in sorted(diffs, key=lambda x: (x[0], x[2])):
+            if std != current_std:
+                current_std = std
+                lines.append(f"| **VHDL-{std}** | | | | |")
+            sim_cell = "✅" if sim_status == "pass" else "❌"
+            synth_cell = "✅" if synth_status == "pass" else "❌"
+            if sim_status == "pass":
+                note = "Simulation only"
+            else:
+                note = "Synthesis only"
+            lines.append(f"| {feature} | {std} | {sim_cell} | {synth_cell} | {note} |")
+        lines.append("")
+
+    return "\n".join(lines)
+
+
 def main(argv: Optional[List[str]] = None) -> int:
     """CLI entry point for matrix generation."""
     import argparse
@@ -345,6 +449,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Generate Markdown — save directly to project root
     md = generate_matrix_markdown(all_reports, features)
+    md += generate_vivado_comparison(all_reports)
     root_path = results_dir.parent / "MATRIX.md"
     root_path.write_text(md, encoding="utf-8")
     print(f"Matrix saved: {root_path}")
