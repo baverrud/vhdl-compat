@@ -110,7 +110,7 @@ def build_feature_index(all_reports: Dict[str, dict]) -> List[Tuple[str, str, st
 
 
 def _reorder_column_entries(entries: list[tuple[str, str, str]]) -> list[tuple[str, str, str]]:
-    """Reorder columns: Questa first, ModelSim second, rest alphabetically."""
+    """Reorder columns: sim first (Questa, ModelSim, rest), then synth last."""
     ordered: list[tuple[str, str, str]] = []
     # Pull Questa to front
     for prefix in ("questa", "Questa"):
@@ -122,9 +122,13 @@ def _reorder_column_entries(entries: list[tuple[str, str, str]]) -> list[tuple[s
         for e in entries:
             if e[0].lower().startswith(prefix) and e not in ordered:
                 ordered.append(e)
-    # Rest alphabetically by tool_part
+    # Rest sim columns alphabetically
     for e in sorted(entries, key=lambda x: x[0].lower()):
-        if e not in ordered:
+        if e not in ordered and e[1] != "synth":
+            ordered.append(e)
+    # Synth columns last
+    for e in sorted(entries, key=lambda x: x[0].lower()):
+        if e not in ordered and e[1] == "synth":
             ordered.append(e)
     return ordered
 
