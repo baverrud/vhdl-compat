@@ -27,7 +27,6 @@ from scripts.run_tests import main as run_tests_main
 def run_tool(tool: str, version: str, standards: list[str], modes: list[str]) -> bool:
     """Run tests for one tool/version. Returns True on success."""
     argv = [
-        "run_tests.py",
         "--tool", tool,
         "--version", version,
         *[s for std in standards for s in ("--std", std)],

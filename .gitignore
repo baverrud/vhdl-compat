@@ -8,6 +8,9 @@ build/
 venv/
 *.egg
 
+# External repos (downloaded for testing, not part of this project)
+UVVM/
+
 # VHDL simulation artifacts
 work/
 *.cf

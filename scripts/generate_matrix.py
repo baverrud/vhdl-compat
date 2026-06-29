@@ -444,14 +444,16 @@ def generate_uvvm_appendix(all_reports: Dict[str, dict]) -> str:
     lines.append("## UVVM Compatibility")
     lines.append("")
     lines.append("UVVM (Universal VHDL Verification Methodology) is the leading")
-    lines.append("open-source VHDL verification framework. It relies on several")
-    lines.append("VHDL language features, most critically **global shared")
-    lines.append("variables of protected types** declared in packages.")
+    lines.append("open-source VHDL verification framework. As of 2026-06-29,")
+    lines.append("**uvvm_util (20 files) and uvvm_vvc_framework (8 files) compile")
+    lines.append("and run on xsim 2026.1**. A minimal UVVM testbench with logging,")
+    lines.append("alerts, and check_value executes successfully.")
     lines.append("")
-    lines.append("This pattern (shared variable in a package, not inside an")
-    lines.append("architecture) enables UVVM's global infrastructure: loggers,")
-    lines.append("alert managers, scoreboards, and message queues shared across")
-    lines.append("all testbench components.")
+    lines.append("The only confirmed VHDL language blocker for xsim is **external")
+    lines.append("names** (`<< signal >>`), which are required by some VIPs but")
+    lines.append("NOT by the UVVM core libraries. Multi-library compilation")
+    lines.append("(same file into different libraries) is a Vivado tool limitation")
+    lines.append("that affects VVC setup scripts but not VHDL compliance.")
     lines.append("")
 
     # Determine column order matching the main matrix
@@ -474,33 +476,30 @@ def generate_uvvm_appendix(all_reports: Dict[str, dict]) -> str:
             header_lines = name_parts + [tool_ver, f"({mode_raw})"]
             col_entries.append((tool_part, mode_raw, "<br>".join(header_lines)))
     col_entries = _reorder_column_entries(col_entries)
+    # UVVM is simulation-only — filter to sim columns
+    col_entries = [e for e in col_entries if e[1] == "sim"]
 
-    # Critical UVVM features and their lookup info
+    # UVVM-critical features — verified against actual UVVM source (28 files)
     # (feature_name, category, standard, description)
     uvvm_features = [
-        # Foundation features
-        ("Protected types -- class-like constructs with mutual exclusion",
-         "protected_types", "2000",
-         "Foundation: protected types are required for shared variables"),
         ("Global shared variables of protected types — package-level shared variables",
          "protected_types", "2000",
-         "Critical: package-level shared variable visible across all design units"),
+         "Working — package-level shared variable (UVVM logger pattern)"),
         ("std.env.stop / std.env.finish — standard simulation control",
          "verification", "2008",
-         "Required: UVVM uses std.env for simulation control"),
+         "Working — UVVM uses std.env for simulation control"),
         ("to_string / to_bstring / to_hstring / to_ostring — formatted string conversion",
          "misc", "2008",
-         "Required: UVVM uses string formatting for logging"),
-        # UVVM-specific VHDL-2008 patterns
+         "Working — UVVM uses string formatting for log messages"),
         ("Unconstrained arrays of unconstrained vectors — UVVM data type pattern",
          "uvvm", "2008",
-         "Blocker: array of std_logic_vector — UVVM t_generic_package pattern"),
-        ("External names targeting arrays and records — UVVM signal spying pattern",
-         "uvvm", "2008",
-         "Blocker: << signal .path.arr(n) >> — UVVM BFM hierarchy access"),
+         "Working — type slv_array is array(<>) of std_logic_vector"),
         ("Protected types with internal access types — UVVM dynamic data pattern",
          "uvvm", "2008",
-         "Blocker: allocate/deallocate in PT — UVVM command queue pattern"),
+         "Working — allocate/deallocate in PTs (UVVM command queue)"),
+        ("External names targeting arrays and records — UVVM signal spying pattern",
+         "uvvm", "2008",
+         "BLOCKER — << signal >> not on xsim (VIP BFMs only, not core)"),
     ]
 
     # Build header row matching main matrix columns
@@ -534,9 +533,11 @@ def generate_uvvm_appendix(all_reports: Dict[str, dict]) -> str:
         lines.append(row)
 
     lines.append("")
-    lines.append("> **Note:** Protected types and shared variables are simulation-only")
-    lines.append("> features — they cannot be synthesized. ⬜ in synthesis columns")
-    lines.append("> is expected and correct.")
+    lines.append("> **Source:** uvvm_util (20 files) + uvvm_vvc_framework (8 files)")
+    lines.append("> compiled with xvhdl 2026.1 — all passed. A minimal UVVM testbench")
+    lines.append("> with log(), check_value(), and stop() executed successfully.")
+    lines.append("> The only blocker is `<< signal >>` (external names), which UVVM")
+    lines.append("> core does NOT use — only certain VIP BFMs need it.")
     lines.append("")
     return "\n".join(lines)
 
