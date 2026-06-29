@@ -422,9 +422,9 @@ def main(argv: Optional[List[str]] = None) -> int:
               f"{result.fail_count} fail "
               f"({result.total_count} total)")
 
-        # Save report
-        report_subdir = f"{safe_name}-{version}/vhdl{std_display}-{'-'.join(modes)}"
-        report_path = results_dir / report_subdir / "report.json"
+        # Save report — flat filename: tool-version_standard_mode.json
+        report_name = f"{safe_name}-{version}_vhdl{std_display}_{'-'.join(modes)}.json"
+        report_path = results_dir / report_name
         result.save_json(report_path)
         print(f"Report saved: {report_path}")
 

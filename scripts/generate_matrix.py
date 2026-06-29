@@ -33,7 +33,9 @@ def load_all_results(results_dir: Path) -> Dict[str, dict]:
     """
     all_reports: Dict[str, dict] = {}
 
-    for json_file in sorted(results_dir.rglob("report.json")):
+    for json_file in sorted(results_dir.glob("*.json")):
+        if json_file.name == "matrix.json":
+            continue  # skip the combined matrix itself
         try:
             data = json.loads(json_file.read_text(encoding="utf-8"))
 
