@@ -20,6 +20,9 @@ pip install -e .
 python scripts/run_tests.py --list
 
 # Run all VHDL-2008 simulation tests with Vivado 2026.1
+python scripts/run_tests.py --tool vivado --version v26 --std 2008 --mode sim
+
+# Or use the full version number
 python scripts/run_tests.py --tool vivado --version 2026.1 --std 2008 --mode sim
 
 # Run all tools (from installed.toml) for all standards

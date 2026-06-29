@@ -249,6 +249,7 @@ class DetectedTool:
     exe_dir: Path
     exe_path: Path
     display_name: str = ""   # custom display name from installed.toml section
+    alias: str = ""          # optional short alias from installed.toml
 
 
 # ---------------------------------------------------------------------------
@@ -394,6 +395,7 @@ def _load_manual_installations(
                         print(f"  Warning: {tool_name} {version} — {exe_name} not found in {exe_dir}")
                         continue
 
+            alias = data.get("alias", "")
             detected.setdefault(alias_target, []).append(
                 DetectedTool(
                     tool_name=tool_name,
@@ -401,6 +403,7 @@ def _load_manual_installations(
                     exe_dir=exe_dir,
                     exe_path=exe_path,
                     display_name=display_name,
+                    alias=alias,
                 )
             )
 

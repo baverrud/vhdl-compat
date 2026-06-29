@@ -4,7 +4,35 @@
 
 Each EDA tool is configured via a single TOML file in `tools/`. The Python test runner reads these files to know how to invoke the tool.
 
-## Configuration Schema
+## Manual Installation Config (`installed.toml`)
+
+To declare fixed tool paths (bypassing automatic detection), edit `tools/installed.toml`:
+
+```toml
+[["Vivado"]]
+version = "2026.1"
+alias = "v26"       # optional: short name for --version
+path = "C:/Xilinx/2026.1/Vivado/bin"
+
+["Altera Questa Starter"]
+version = "2025.3"
+alias = "questa"     # optional: short name for --version
+path = "C:/altera_pro/26.1/questa_fse/win64"
+```
+
+Once configured, use the alias with:
+
+```bash
+python scripts/run_tests.py --tool vivado --version v26 --std 2008 --mode sim
+```
+
+> **Note:** The `alias` field is optional. If omitted, you must use the full `version` string to select this installation.
+
+---
+
+## Tool Adapter Config
+
+The schema below is for tool *adapter* files (`tools/*.toml`), which tell the runner how to invoke a tool type (commands, flags, paths). This is separate from `installed.toml`.
 
 ```toml
 # tools/vivado.toml

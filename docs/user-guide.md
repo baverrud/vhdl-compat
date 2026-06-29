@@ -190,6 +190,30 @@ Results: 5 pass, 0 partial, 1 fail (6 total)
 Report saved: results/vivado-2024.1/vhdl2008-sim/report.json
 ```
 
+### Using aliases (short names)
+
+You can define an `alias` in `installed.toml` to save typing:
+
+```toml
+[["Vivado"]]
+version = "2026.1"
+alias = "v26"
+path = "C:/Xilinx/2026.1/Vivado/bin"
+```
+
+Then run with the alias instead of the version number:
+
+```bash
+python scripts/run_tests.py --tool vivado --version v26 --std 2008 --mode sim
+```
+
+Aliases from `installed.toml`:
+- `--tool vivado --version v26` → Vivado 2026.1
+- `--tool vivado --version v25` → Vivado 2025.2
+- `--tool vivado --version v23` → Vivado 2023.2
+- `--tool questa --version questa` → Altera Questa Starter 2025.3
+- `--tool modelsim --version modelsim` → Altera ModelSim Starter 2020.1
+
 ### Run with the latest detected version (omit --version)
 
 ```bash
@@ -296,8 +320,8 @@ vhdl-compat --tool vivado --std 2008 --mode sim
 ### "I'm upgrading from Vivado 2023.2 to 2024.1 — did anything break?"
 
 ```bash
-python scripts/run_tests.py --tool vivado --version 2023.2 --std 2008 --mode sim
-python scripts/run_tests.py --tool vivado --version 2026.1 --std 2008 --mode sim
+python scripts/run_tests.py --tool vivado --version v23 --std 2008 --mode sim
+python scripts/run_tests.py --tool vivado --version v26 --std 2008 --mode sim
 python scripts/generate_matrix.py
 ```
 

@@ -388,8 +388,13 @@ def main(argv: Optional[List[str]] = None) -> int:
         runner = GenericRunner(config, version)
 
     # Look up display name from installed.toml if available
+    # Also support matching by alias (short name in installed.toml)
     detected = detect_installed_versions(tools_dir, verbose=False)
     for dt in detected.get(tool_lower, []):
+        if dt.alias and dt.alias.lower() == version.lower():
+            config.display_name = dt.display_name
+            version = dt.version  # resolve alias to actual version
+            break
         if dt.version == version and dt.display_name:
             config.display_name = dt.display_name
             break

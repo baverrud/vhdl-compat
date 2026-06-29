@@ -56,8 +56,9 @@ Every design decision is documented inline or in the plan. Key principles:
 # Discover tests
 python scripts/run_tests.py --list
 
-# Run a specific tool/standard/mode
+# Run a specific tool/standard/mode (use version number or alias)
 python scripts/run_tests.py --tool vivado --version 2024.1 --std 2008 --mode sim
+python scripts/run_tests.py --tool vivado --version v26 --std 2008 --mode sim  # alias form
 
 # Run Python unit tests
 pytest scripts/tests/
