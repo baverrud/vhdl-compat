@@ -267,11 +267,11 @@ def run_tests(
 
             if verbose:
                 status_char = {
-                    TestStatus.PASS: "✓ PASS",
-                    TestStatus.PARTIAL: "⚠ PARTIAL",
-                    TestStatus.FAIL: "✗ FAIL",
-                    TestStatus.UNTESTED: "? UNTESTED",
-                    TestStatus.NOT_APPLICABLE: "- N/A",
+                    TestStatus.PASS: "PASS",
+                    TestStatus.PARTIAL: "PARTIAL",
+                    TestStatus.FAIL: "FAIL",
+                    TestStatus.UNTESTED: "UNTESTED",
+                    TestStatus.NOT_APPLICABLE: "N/A",
                 }.get(test_result.status, "?")
                 print(status_char)
 

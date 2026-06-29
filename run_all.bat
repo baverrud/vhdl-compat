@@ -20,7 +20,7 @@ if defined DT (set TS=!DT:~0,8!_!DT:~8,6!) else (set TS=%date:~10,4%%date:~4,2%%
 if not exist tmp mkdir tmp
 set LOGFILE=tmp\run_all_%TS%.log
 
-.venv\Scripts\python.exe scripts/run_all.py %* 2>&1 | powershell -Command "Tee-Object -FilePath '%LOGFILE%'"
+powershell -Command ".venv\Scripts\python.exe -u scripts/run_all.py %* 2>&1 | Tee-Object -FilePath '%LOGFILE%'"
 echo.
 echo Log: %LOGFILE%
 echo To skip synth: run_all.bat --skip-synth

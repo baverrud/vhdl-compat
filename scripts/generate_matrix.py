@@ -182,13 +182,13 @@ def _get_status_priority(
 def build_status_cell(status: str) -> str:
     """Convert a status string to a compact table cell."""
     mapping = {
-        "pass": "✅",
-        "partial": "❌",
-        "fail": "❌",
-        "untested": "⬜",  # not run yet on this tool
-        "n/a": "➖",       # genuinely not applicable (e.g., synth for sim-only)
+        "pass": "[P]",
+        "partial": "[F]",
+        "fail": "[F]",
+        "untested": "[?]",   # not run yet on this tool
+        "n/a": "[-]",        # genuinely not applicable (e.g., synth for sim-only)
     }
-    return mapping.get(status, "⬜")
+    return mapping.get(status, "[?]")
 
 
 def generate_matrix_markdown(
@@ -203,7 +203,7 @@ def generate_matrix_markdown(
     lines.append(f"**Generated from {len(all_reports)} test runs across "
                  f"{len(set(k.split('/')[0] for k in all_reports))} tools.**")
     lines.append("")
-    lines.append("> Legend: ✅ PASS  ❌ FAIL  ⬜ not run  ➖ N/A (not applicable to this mode)")
+    lines.append("> Legend: [P] PASS  [F] FAIL  [?] not run  [-] N/A (not applicable to this mode)")
     lines.append("")
     lines.append("> sim = simulation  |  synth = synthesis (only features expected to synthesize)")
     lines.append("")
@@ -269,7 +269,7 @@ def generate_matrix_markdown(
         row = f"| {display_feature} | {category} |"
 
         for tool_part, mode, _display in col_entries:
-            cell = " ⬜ |"
+            cell = " [?] |"
             # Find the report matching this tool_part, standard, and mode
             for col_key in columns:
                 if col_key.startswith(tool_part + "/"):
@@ -415,8 +415,8 @@ def generate_vivado_comparison(all_reports: Dict[str, dict]) -> str:
                 current_std = std
                 std_clean = std.replace("VHDL-", "")
                 lines.append(f"| **VHDL-{std_clean}** | | | | |")
-            sim_cell = "✅" if sim_status == "pass" else "❌"
-            synth_cell = "✅" if synth_status == "pass" else "❌"
+            sim_cell = "[P]" if sim_status == "pass" else "[F]"
+            synth_cell = "[P]" if synth_status == "pass" else "[F]"
             if sim_status == "pass":
                 note = "Simulation only"
             else:
@@ -516,7 +516,7 @@ def generate_uvvm_appendix(all_reports: Dict[str, dict]) -> str:
             display_feature = f"[{feature}]({GITHUB_BASE}{test_file})"
         row = f"| {display_feature} | VHDL-{std} |"
         for tool_part, mode, _display in col_entries:
-            cell = " ⬜ |"
+            cell = " [?] |"
             for col_key in columns:
                 if col_key.startswith(tool_part + "/"):
                     data = all_reports.get(col_key)
