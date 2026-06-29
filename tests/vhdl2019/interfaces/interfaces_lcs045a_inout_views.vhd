@@ -158,6 +158,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
+use work.i2c_like_pkg.all;
 
 entity inout_views_tb is
 end entity;

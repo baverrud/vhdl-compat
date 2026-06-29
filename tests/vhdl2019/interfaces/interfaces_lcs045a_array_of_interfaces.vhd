@@ -145,6 +145,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
+use work.chan_pkg.all;
 
 entity array_of_interfaces_tb is
 end entity;

@@ -125,25 +125,15 @@ use work.bus_pkg.all;
 -- ============================================================================
 -- RTL: interface mode views — per-field direction on record ports
 -- VHDL-2019: view keyword defines direction per record field
+-- Uses the existing bus_pkg (defined above) — no separate package needed
 -- ============================================================================
 library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
-
-package view_pkg is
-  type bus_t is record
-    addr : std_logic_vector(7 downto 0);
-    data : std_logic_vector(7 downto 0);
-    wr   : std_logic;
-  end record;
-  view master_view of bus_t is
-    addr, data, wr : out;
-  end view;
-end package;
-use work.view_pkg.all;
+use work.bus_pkg.all;
 
 entity interface_views is
-  port (clk : in std_logic; bus_if : view master_view of bus_t);
+  port (clk : in std_logic; bus_if : view master_view of simple_bus);
 end entity;
 architecture rtl of interface_views is
   signal cnt : unsigned(7 downto 0) := (others => '0');
@@ -159,6 +149,7 @@ library ieee;
 use ieee.std_logic_1164.all;
 use ieee.numeric_std.all;
 use std.env.all;
+use work.bus_pkg.all;
 
 entity interface_views_tb is
 end entity;
