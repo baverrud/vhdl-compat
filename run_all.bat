@@ -46,18 +46,24 @@ echo [1/6] Detecting installed tools...
 if %ERRORLEVEL% neq 0 echo   WARNING: Tool detection had issues ^(see log^)
 echo.
 
-REM --- Questa Simulation ---
-echo [2/6] Questa simulation ^(all standards^)...
+REM --- Questa Simulation (all installed versions) ---
+echo [2/6] Questa simulation ^(all installed versions^)...
 echo ===== Questa sim start ===== >> "%LOGFILE%"
-.venv\Scripts\python.exe scripts/run_tests.py --tool questa --std 2000 --std 2002 --std 2008 --std 2019 --mode sim --verbose 1>>"%LOGFILE%" 2>&1
-if %ERRORLEVEL% neq 0 echo   WARNING: Questa sim had failures ^(see log^)
+for %%v in (2025.3) do (
+    echo   Running Questa %%v sim...
+    .venv\Scripts\python.exe scripts/run_tests.py --tool questa --version %%v --std 2000 --std 2002 --std 2008 --std 2019 --mode sim --verbose 1>>"%LOGFILE%" 2>&1
+    if !ERRORLEVEL! neq 0 echo   WARNING: Questa %%v sim had failures ^(see log^)
+)
 echo.
 
-REM --- ModelSim Simulation ---
-echo [3/6] ModelSim simulation ^(all standards^)...
+REM --- ModelSim Simulation (all installed versions) ---
+echo [3/6] ModelSim simulation ^(all installed versions^)...
 echo ===== ModelSim sim start ===== >> "%LOGFILE%"
-.venv\Scripts\python.exe scripts/run_tests.py --tool modelsim --std 2000 --std 2002 --std 2008 --std 2019 --mode sim --verbose 1>>"%LOGFILE%" 2>&1
-if %ERRORLEVEL% neq 0 echo   WARNING: ModelSim sim had failures ^(see log^)
+for %%v in (2020.1) do (
+    echo   Running ModelSim %%v sim...
+    .venv\Scripts\python.exe scripts/run_tests.py --tool modelsim --version %%v --std 2000 --std 2002 --std 2008 --std 2019 --mode sim --verbose 1>>"%LOGFILE%" 2>&1
+    if !ERRORLEVEL! neq 0 echo   WARNING: ModelSim %%v sim had failures ^(see log^)
+)
 echo.
 
 REM --- Vivado Simulation (all installed versions) ---
