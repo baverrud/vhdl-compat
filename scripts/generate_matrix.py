@@ -34,8 +34,6 @@ def load_all_results(results_dir: Path) -> Dict[str, dict]:
     all_reports: Dict[str, dict] = {}
 
     for json_file in sorted(results_dir.glob("*.json")):
-        if json_file.name == "matrix.json":
-            continue  # skip the combined matrix itself
         try:
             data = json.loads(json_file.read_text(encoding="utf-8"))
 
@@ -311,57 +309,6 @@ def _find_test_file(all_reports: Dict[str, dict], std: str,
     return candidate or None
 
 
-def generate_matrix_json(
-    all_reports: Dict[str, dict],
-    features: List[Tuple[str, str, str, str]],
-) -> dict:
-    """Generate a combined comparison matrix in JSON-compatible dict."""
-    # Build column entries matching the Markdown version
-    columns = sorted(all_reports.keys())
-    col_entries: list[tuple[str, str, str]] = []
-    seen: set[str] = set()
-    for c in columns:
-        tool_part = c.split("/")[0]
-        std_mode = c.split("/")[1]
-        mode = std_mode.split("-")[-1]
-        if mode == "analyze":
-            continue
-        entry_key = f"{tool_part} ({mode})"
-        if entry_key not in seen:
-            seen.add(entry_key)
-            col_entries.append((tool_part, mode, entry_key))
-    col_entries = _reorder_column_entries(col_entries)
-    col_displays = [e[2] for e in col_entries]
-
-    matrix = {
-        "columns": col_displays,
-        "features": [],
-    }
-
-    for std, category, feature, xref in features:
-        row = {
-            "standard": std,
-            "category": category,
-            "feature": feature,
-            "results": {},
-        }
-        for tool_part, mode, col_display in col_entries:
-            result = None
-            for col_key in columns:
-                if col_key.startswith(tool_part + "/"):
-                    data = all_reports.get(col_key)
-                    if data and data.get("standard") == std and data.get("mode") == mode:
-                        result = _find_result(data, feature, category)
-                        break
-            row["results"][col_display] = {
-                "status": result.get("status", "untested") if result else "untested",
-                "comment": result.get("comment", "") if result else "",
-            }
-        matrix["features"].append(row)
-
-    return matrix
-
-
 def main(argv: Optional[List[str]] = None) -> int:
     """CLI entry point for matrix generation."""
     import argparse
@@ -394,13 +341,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     md = generate_matrix_markdown(all_reports, features)
     root_path = results_dir.parent / "MATRIX.md"
     root_path.write_text(md, encoding="utf-8")
-    print(f"Matrix (Markdown) saved: {root_path}")
-
-    # Generate JSON
-    json_data = generate_matrix_json(all_reports, features)
-    json_path = results_dir / "matrix.json"
-    json_path.write_text(json.dumps(json_data, indent=2), encoding="utf-8")
-    print(f"Matrix (JSON) saved: {json_path}")
+    print(f"Matrix saved: {root_path}")
 
     return 0
 
