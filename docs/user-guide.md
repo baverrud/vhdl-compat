@@ -59,14 +59,14 @@ Now install the project:
 pip install -e .
 ```
 
-After installation, two new commands are available:
+After installation, use the `python scripts/` commands to run tests:
 
 ```bash
-vhdl-compat --help
-vhdl-compat-matrix --help
+python scripts/run_tests.py --help
+python scripts/generate_matrix.py --help
 ```
 
-> **Note:** These commands only work while the virtual environment is active. If you close your terminal, run the `activate` command again before using them.
+> **Note:** Always run these from the project root while the virtual environment is active. If you close your terminal, run the `activate` command again first.
 
 ---
 
@@ -126,7 +126,7 @@ path = "C:/questasim64_2024.1/win64"
 ### Step 3: Verify
 
 ```bash
-vhdl-compat --detect
+python scripts/run_tests.py --detect
 ```
 
 You should see your tools listed:
@@ -147,7 +147,7 @@ If you see warnings about paths not found, double-check the paths in `tools/inst
 ## 5. See what tests are available
 
 ```bash
-vhdl-compat --list
+python scripts/run_tests.py --list
 ```
 
 This shows all 16 test files (and growing). Each test checks one specific VHDL feature.
@@ -199,13 +199,13 @@ vhdl-compat --tool vivado --std 2008 --mode sim
 ### Run only a specific category
 
 ```bash
-vhdl-compat --tool vivado --version 2024.1 --std 2008 --mode sim --category processes
+python scripts/run_tests.py --tool vivado --version 2026.1 --std 2008 --mode sim --category processes
 ```
 
 ### Quick compile check (no simulation)
 
 ```bash
-vhdl-compat --tool vivado --version 2024.1 --std 2008 --mode analyze
+python scripts/run_tests.py --tool vivado --version 2026.1 --std 2008 --mode sim
 ```
 
 This is faster — it only checks if the VHDL compiles, without running the simulation. Useful for quick sanity checks.
@@ -213,7 +213,7 @@ This is faster — it only checks if the VHDL compiles, without running the simu
 ### Synthesis test
 
 ```bash
-vhdl-compat --tool vivado --version 2024.1 --std 2008 --mode synth
+python scripts/run_tests.py --tool vivado --version 2026.1 --std 2008 --mode synth
 ```
 
 This runs the VHDL through Vivado synthesis. Only works with tools that support synthesis (Vivado). Questa and ModelSim will report synthesis as N/A.
@@ -221,7 +221,7 @@ This runs the VHDL through Vivado synthesis. Only works with tools that support 
 ### Test multiple standards
 
 ```bash
-vhdl-compat --tool vivado --version 2024.1 --std 2008 --std 2019 --mode sim
+python scripts/run_tests.py --tool vivado --version 2026.1 --std 2008 --std 2019 --mode sim
 ```
 
 ---
@@ -296,9 +296,9 @@ vhdl-compat --tool vivado --std 2008 --mode sim
 ### "I'm upgrading from Vivado 2023.2 to 2024.1 — did anything break?"
 
 ```bash
-vhdl-compat --tool vivado --version 2023.2 --std 2008 --mode sim
-vhdl-compat --tool vivado --version 2024.1 --std 2008 --mode sim
-vhdl-compat-matrix
+python scripts/run_tests.py --tool vivado --version 2023.2 --std 2008 --mode sim
+python scripts/run_tests.py --tool vivado --version 2026.1 --std 2008 --mode sim
+python scripts/generate_matrix.py
 ```
 
 Compare the matrix — any feature that changed from ✅ to ❌ is a regression.
@@ -306,15 +306,15 @@ Compare the matrix — any feature that changed from ✅ to ❌ is a regression.
 ### "I want to check if Questa supports VHDL-2019"
 
 ```bash
-vhdl-compat --tool questa --std 2019 --mode sim
+python scripts/run_tests.py --tool questa --std 2019 --mode sim
 ```
 
 ### "I'm writing a paper comparing tool support"
 
 ```bash
 # Run all tools you have configured
-vhdl-compat --tool vivado --std 2008 --std 2019 --mode sim
-vhdl-compat --tool questa --std 2008 --std 2019 --mode sim
+python scripts/run_tests.py --tool vivado --std 2008 --std 2019 --mode sim
+python scripts/run_tests.py --tool questa --std 2008 --std 2019 --mode sim
 
 # Generate the combined matrix
 vhdl-compat-matrix
@@ -326,7 +326,7 @@ vhdl-compat-matrix
 
 ## Troubleshooting
 
-### "vhdl-compat is not recognized"
+### "python is not recognized"
 
 The virtual environment is not active. Run:
 
