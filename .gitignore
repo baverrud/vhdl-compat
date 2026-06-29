@@ -21,12 +21,16 @@ transcript
 
 # Vivado artifacts
 .Xil/
-vivado_*.log
-vivado_*.jou
+vivado*.log
+vivado*.jou
+vivado_*.backup.*
 *.dcp
 *.xdc
-hs_err_pid*.dmp
+*.pb
+hs_err_pid*
 usage_statistics_webtalk.*
+webtalk_*.log
+webtalk_*.jou
 tmp/
 
 # Vivado artifacts
