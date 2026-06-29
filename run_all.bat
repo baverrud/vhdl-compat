@@ -27,7 +27,7 @@ set LOGFILE=tmp\run_all_%TS%.log
 if not exist tmp mkdir tmp
 
 echo ============================================================================
-echo VHDL Compatibility Test Suite — Full Run
+echo VHDL Compatibility Test Suite - Full Run
 echo Started: %date% %time%
 echo Log:     %LOGFILE%
 echo ============================================================================
@@ -42,26 +42,30 @@ if not exist ".venv\Scripts\python.exe" (
 
 REM --- Detect installed tools ---
 echo [1/6] Detecting installed tools...
-.venv\Scripts\python.exe scripts/run_tests.py --detect >> "%LOGFILE%" 2>&1
-if %ERRORLEVEL% neq 0 echo WARNING: Tool detection had issues (see log)
+.venv\Scripts\python.exe scripts/run_tests.py --detect 1>>"%LOGFILE%" 2>&1
+if %ERRORLEVEL% neq 0 echo   WARNING: Tool detection had issues ^(see log^)
 echo.
 
 REM --- Questa Simulation ---
-echo [2/6] Questa simulation (all standards)...
-.venv\Scripts\python.exe scripts/run_tests.py --tool questa --std 2000 --std 2002 --std 2008 --std 2019 --mode sim >> "%LOGFILE%" 2>&1
-if %ERRORLEVEL% neq 0 echo   WARNING: Questa sim had failures (see log)
+echo [2/6] Questa simulation ^(all standards^)...
+echo ===== Questa sim start ===== >> "%LOGFILE%"
+.venv\Scripts\python.exe scripts/run_tests.py --tool questa --std 2000 --std 2002 --std 2008 --std 2019 --mode sim --verbose 1>>"%LOGFILE%" 2>&1
+if %ERRORLEVEL% neq 0 echo   WARNING: Questa sim had failures ^(see log^)
 echo.
 
 REM --- ModelSim Simulation ---
-echo [3/6] ModelSim simulation (all standards)...
-.venv\Scripts\python.exe scripts/run_tests.py --tool modelsim --std 2000 --std 2002 --std 2008 --std 2019 --mode sim >> "%LOGFILE%" 2>&1
-if %ERRORLEVEL% neq 0 echo   WARNING: ModelSim sim had failures (see log)
+echo [3/6] ModelSim simulation ^(all standards^)...
+echo ===== ModelSim sim start ===== >> "%LOGFILE%"
+.venv\Scripts\python.exe scripts/run_tests.py --tool modelsim --std 2000 --std 2002 --std 2008 --std 2019 --mode sim --verbose 1>>"%LOGFILE%" 2>&1
+if %ERRORLEVEL% neq 0 echo   WARNING: ModelSim sim had failures ^(see log^)
 echo.
 
 REM --- Vivado Simulation ---
-echo [4/6] Vivado simulation (all standards)...
-.venv\Scripts\python.exe scripts/run_tests.py --tool vivado --std 2000 --std 2002 --std 2008 --std 2019 --mode sim >> "%LOGFILE%" 2>&1
-if %ERRORLEVEL% neq 0 echo   WARNING: Vivado sim had failures (see log)
+echo [4/6] Vivado simulation ^(all standards^)...
+echo   This may take 5-10 minutes...
+echo ===== Vivado sim start ===== >> "%LOGFILE%"
+.venv\Scripts\python.exe scripts/run_tests.py --tool vivado --std 2000 --std 2002 --std 2008 --std 2019 --mode sim --verbose 1>>"%LOGFILE%" 2>&1
+if %ERRORLEVEL% neq 0 echo   WARNING: Vivado sim had failures ^(see log^)
 echo.
 
 REM --- Vivado Synthesis (optional) ---
@@ -69,36 +73,47 @@ set SKIP_SYNTH=0
 if "%1"=="--skip-synth" set SKIP_SYNTH=1
 
 if "%SKIP_SYNTH%"=="0" (
-    echo [5/6] Vivado synthesis (VHDL-2008 and VHDL-2019)...
-    echo   NOTE: This takes ~45 minutes. Each test ~37 seconds.
-    .venv\Scripts\python.exe scripts/run_tests.py --tool vivado --std 2008 --std 2019 --mode synth >> "%LOGFILE%" 2>&1
-    if %ERRORLEVEL% neq 0 echo   WARNING: Vivado synth had failures (see log)
+    echo [5/6] Vivado synthesis ^(VHDL-2008 and VHDL-2019^)...
+    echo   NOTE: This takes ~45 minutes ^(each test ~37 seconds^)
+    echo ===== Vivado synth start ===== >> "%LOGFILE%"
+    .venv\Scripts\python.exe scripts/run_tests.py --tool vivado --std 2008 --std 2019 --mode synth --verbose 1>>"%LOGFILE%" 2>&1
+    if %ERRORLEVEL% neq 0 echo   WARNING: Vivado synth had failures ^(see log^)
 ) else (
-    echo [5/6] SKIPPING Vivado synthesis (--skip-synth)
+    echo [5/6] SKIPPING Vivado synthesis ^(--skip-synth^)
 )
 echo.
 
 REM --- Generate Matrix ---
 echo [6/6] Generating MATRIX.md...
-.venv\Scripts\python.exe scripts/generate_matrix.py 2>> "%LOGFILE%"
-if %ERRORLEVEL% neq 0 echo   ERROR: Matrix generation failed!
+echo ===== Matrix generation ===== >> "%LOGFILE%"
+.venv\Scripts\python.exe scripts/generate_matrix.py 2>>"%LOGFILE%"
+if %ERRORLEVEL% neq 0 echo   ERROR: Matrix generation failed^^!
 echo.
 
 REM --- Summary ---
 echo ============================================================================
-echo Complete!
+echo Complete^^!
 echo Log:     %LOGFILE%
 echo Matrix:  MATRIX.md
 echo ============================================================================
 echo.
 
-REM Extract pass/fail summary from log
+REM Extract summary from log
 echo Quick summary:
-findstr /R "^  \[.*\] " "%LOGFILE%" 2>nul
-if %ERRORLEVEL% neq 0 echo   (no test results found in log — check for errors)
-
 echo.
-echo To view full results: type "%LOGFILE%"
+echo Questa sim results:
+findstr /C:"Results:" "%LOGFILE%" | findstr /I "questa" 2>nul
+echo.
+echo ModelSim sim results:
+findstr /C:"Results:" "%LOGFILE%" | findstr /I "modelsim" 2>nul
+echo.
+echo Vivado sim results:
+findstr /C:"Results:" "%LOGFILE%" | findstr /I "vivado.*sim" 2>nul
+echo.
+echo Vivado synth results:
+findstr /C:"Results:" "%LOGFILE%" | findstr /I "vivado.*synth" 2>nul
+echo.
+echo For full details: type "%LOGFILE%"
 echo To skip synth next time: run_all.bat --skip-synth
 
 endlocal
