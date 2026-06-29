@@ -1,6 +1,6 @@
 # VHDL Compatibility Matrix
 
-**Generated from 34 test runs across 6 tools.**
+**Generated from 36 test runs across 6 tools.**
 
 > Legend: ✅ PASS  ❌ FAIL  ➖ N/A (not applicable to this mode)
 
@@ -9,9 +9,9 @@
 | Feature | Standard | Category | Altera<br>ModelSim<br>Starter<br>2020.1<br>(sim) | Altera<br>Questa<br>Starter<br>2025.3<br>(sim) | Vivado<br>2023.2<br>(sim) | Vivado<br>2026.1<br>(sim) | Vivado<br>2023.2<br>(synth) | Vivado<br>2026.1<br>(synth) |
 |---------|----------|----------|---|---|---|---|---|---|
 | **VHDL-2000** | | |||||||
-| [Protected types -- class-like constructs with mutual exclusion](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2000/protected_types/protected_types_counter.vhd) | 2000 | protected_types | ❌ | ❌ | ❌ | ❌ | ❌ | ➖ |
+| [Protected types -- class-like constructs with mutual exclusion](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2000/protected_types/protected_types_counter.vhd) | 2000 | protected_types | ❌ | ❌ | ❌ | ❌ | ➖ | ➖ |
 | **VHDL-2002** | | |||||||
-| [Relaxed buffer port rules -- buffer ports can connect to out ports](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2002/buffer_ports/buffer_ports_relaxed.vhd) | 2002 | buffer_ports | ✅ | ✅ | ❌ | ❌ | ❌ | ➖ |
+| [Relaxed buffer port rules -- buffer ports can connect to out ports](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2002/buffer_ports/buffer_ports_relaxed.vhd) | 2002 | buffer_ports | ✅ | ✅ | ❌ | ❌ | ➖ | ➖ |
 | **VHDL-2008** | | |||||||
 | [Aggregates as assignment targets — using aggregates on the left-hand side of <=](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_assignment_targets.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | [Array slices in aggregates — assign ranges of array elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_slice_aggregates.vhd) | 2008 | aggregates | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |

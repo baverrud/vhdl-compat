@@ -2,8 +2,7 @@
 -- STD: VHDL-2000
 -- FEATURE: Protected types -- class-like constructs with mutual exclusion
 -- CATEGORY: protected_types
--- SYNTH_ENTITY: protected_types
--- TEST_TYPE: both
+-- TEST_TYPE: sim
 -- DESCRIPTION:
 --   VHDL-2000 introduced protected types — the biggest addition to the
 --   language since VHDL-93. A protected type is like a class in OOP: it
