@@ -371,7 +371,7 @@ def main(argv: Optional[List[str]] = None) -> int:
 
     # Setup work directory — uses tmp/{tool}/{version}/ to avoid cluttering system temp
     work_dir = Path(args.work_dir) if args.work_dir else (
-        Path("tmp") / f"{config.name.lower()}-{version}"
+        Path("tmp") / f"{safe_name}-{version}"
     )
     work_dir.mkdir(parents=True, exist_ok=True)
 
@@ -400,6 +400,9 @@ def main(argv: Optional[List[str]] = None) -> int:
             config.display_name = dt.display_name
             break
 
+    # Use display_name for folder naming (distinguishes editions)
+    safe_name = (config.display_name or config.name).lower().replace(" ", "_")
+
     # Run tests for each standard
     for standard in standards:
         std_display = _normalize_standard(standard)
@@ -420,7 +423,7 @@ def main(argv: Optional[List[str]] = None) -> int:
               f"({result.total_count} total)")
 
         # Save report
-        report_subdir = f"{config.name.lower()}-{version}/vhdl{std_display}-{'-'.join(modes)}"
+        report_subdir = f"{safe_name}-{version}/vhdl{std_display}-{'-'.join(modes)}"
         report_path = results_dir / report_subdir / "report.json"
         result.save_json(report_path)
         print(f"Report saved: {report_path}")

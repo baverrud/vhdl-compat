@@ -56,6 +56,14 @@ version = "2023.2"
 path = "C:/Xilinx/Vivado/2023.2/bin"
 ```
 
+**Adding a new version:** Just add another `[[Vivado]]` block. The same
+`vivado_adapter.py` is used for all versions. The adapter reads the config
+to find the executable and uses the version string for result directories.
+
+**Dual use of questa_adapter.py:** Questa and ModelSim share the same CLI
+(vcom/vsim). The same `questa_adapter.py` handles both. Only the path
+and display name differ in installed.toml.
+
 ---
 
 ## Questa Advanced Simulator (Siemens EDA)
