@@ -403,7 +403,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     # Use display_name for folder naming (distinguishes editions)
     safe_name = (config.display_name or config.name).lower().replace(" ", "_")
 
-    # Run tests for each standard
+    # Accumulate results per mode across all standards
+    from collections import defaultdict
+    combined: dict[str, RunResult] = {}
+
     for standard in standards:
         std_display = _normalize_standard(standard)
         print(f"\n{'='*60}")
@@ -422,11 +425,33 @@ def main(argv: Optional[List[str]] = None) -> int:
               f"{result.fail_count} fail "
               f"({result.total_count} total)")
 
-        # Save report — flat filename: tool-version_standard_mode.json
-        report_name = f"{safe_name}-{version}_vhdl{std_display}_{'-'.join(modes)}.json"
+        # Accumulate per mode
+        for mode in modes:
+            key = f"{safe_name}-{version}_{mode}"
+            if key not in combined:
+                combined[key] = RunResult(
+                    tool_name=result.tool_name,
+                    tool_version=result.tool_version,
+                    standard=standard,
+                    mode=mode,
+                    timestamp=result.timestamp,
+                )
+            # Merge results for this standard into the combined result
+            for k, v in result.results.items():
+                if k.endswith(f"@{mode}"):
+                    combined[key].results[k] = v
+
+    # Save one combined report per mode (all standards in one file)
+    for key, run_result in combined.items():
+        # Set standard to "combined" — individual results carry their own standard
+        run_result.standard = "combined"
+        report_name = f"{key}.json"
         report_path = results_dir / report_name
-        result.save_json(report_path)
-        print(f"Report saved: {report_path}")
+        run_result.save_json(report_path)
+        p = run_result.pass_count
+        f = run_result.fail_count
+        t = run_result.total_count
+        print(f"Saved: {report_name} ({p}P/{f}F/{t}T)")
 
     # Auto-generate the combined matrix after all test runs
     try:

@@ -86,8 +86,8 @@ def build_feature_index(all_reports: Dict[str, dict]) -> List[Tuple[str, str, st
     primary_col_prefix = _pick_primary_column(all_reports, col_entries)
 
     for data in all_reports.values():
-        std = data.get("standard", "?")
         for result in data.get("results", {}).values():
+            std = result.get("standard", data.get("standard", "?"))
             key = (std, result.get("category", "?"), result.get("feature", "?"))
             xref = result.get("xref", "")
             # Keep the first non-empty xref found
@@ -164,9 +164,12 @@ def _get_status_priority(
     0=PASS, 1=PARTIAL, 2=FAIL, 3=UNTESTED/N/A.
     """
     for col_key, data in all_reports.items():
-        if col_key.startswith(tool_prefix + "/") and data.get("standard") == std:
+        if col_key.startswith(tool_prefix + "/"):
             result = _find_result(data, feature, category)
             if result:
+                result_std = result.get("standard", data.get("standard", "?"))
+                if result_std != std:
+                    continue
                 status = result.get("status", "untested")
                 priority = {"pass": 0, "partial": 1, "fail": 2}
                 return priority.get(status, 3)
@@ -266,10 +269,12 @@ def generate_matrix_markdown(
             for col_key in columns:
                 if col_key.startswith(tool_part + "/"):
                     data = all_reports.get(col_key)
-                    if data and data.get("standard") == std and data.get("mode") == mode:
+                    if data and data.get("mode") == mode:
                         result = _find_result(data, feature, category)
                         if result:
-                            cell = f" {build_status_cell(result.get('status', 'untested'))} |"
+                            result_std = result.get("standard", data.get("standard", "?"))
+                            if result_std == std:
+                                cell = f" {build_status_cell(result.get('status', 'untested'))} |"
                         break
             row += cell
 
@@ -297,9 +302,10 @@ def _find_test_file(all_reports: Dict[str, dict], std: str,
     """Find the test file path for a given feature by scanning reports."""
     candidate = ""
     for data in all_reports.values():
-        if data.get("standard") != std:
-            continue
         for result in data.get("results", {}).values():
+            result_std = result.get("standard", data.get("standard", "?"))
+            if result_std != std:
+                continue
             if (result.get("feature") == feature
                     and result.get("category") == category):
                 test_file = result.get("test_file", "")
