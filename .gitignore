@@ -44,6 +44,12 @@ tmp/
 xsim.dir/
 .vivado_*
 
+# Test results — track JSON reports, .gitkeep, and matrix.md
+results/*
+!results/*.json
+!results/.gitkeep
+!results/matrix.md
+
 # IDE
 .vscode/
 .idea/
@@ -53,11 +59,6 @@ xsim.dir/
 # OS
 .DS_Store
 Thumbs.db
-
-# Results are generated — keep only .gitkeep and matrix.md
-results/*
-!results/.gitkeep
-!results/matrix.md
 
 # Tool binaries / installs
 tools/bin/

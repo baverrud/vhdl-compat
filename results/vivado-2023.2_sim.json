@@ -3,7 +3,7 @@
   "tool_version": "2023.2",
   "standard": "combined",
   "mode": "sim",
-  "timestamp": "2026-06-29T16:39:40.086420+00:00",
+  "timestamp": "2026-06-29T19:36:49.615700+00:00",
   "summary": {
     "total": 96,
     "pass": 67,
@@ -33,7 +33,7 @@
       "test_file": "vhdl2000/protected_types/protected_types_global_shared.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4744.420528411865
+      "sim_time_ms": 4997.875213623047
     },
     "vhdl2002/buffer_ports/buffer_ports_relaxed.vhd@sim": {
       "status": "pass",
@@ -45,7 +45,7 @@
       "test_file": "vhdl2002/buffer_ports/buffer_ports_relaxed.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4720.48282623291
+      "sim_time_ms": 4991.919755935669
     },
     "vhdl2008/aggregates/aggregates_assignment_targets.vhd@sim": {
       "status": "pass",
@@ -57,7 +57,7 @@
       "test_file": "vhdl2008/aggregates/aggregates_assignment_targets.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4798.272371292114
+      "sim_time_ms": 4909.0893268585205
     },
     "vhdl2008/aggregates/aggregates_named_association.vhd@sim": {
       "status": "pass",
@@ -69,7 +69,7 @@
       "test_file": "vhdl2008/aggregates/aggregates_named_association.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4719.101905822754
+      "sim_time_ms": 4994.08483505249
     },
     "vhdl2008/aggregates/aggregates_open_in_aggregates.vhd@sim": {
       "status": "fail",
@@ -93,7 +93,7 @@
       "test_file": "vhdl2008/aggregates/aggregates_others_record.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4666.436195373535
+      "sim_time_ms": 5092.287302017212
     },
     "vhdl2008/aggregates/aggregates_slice_aggregates.vhd@sim": {
       "status": "pass",
@@ -105,7 +105,7 @@
       "test_file": "vhdl2008/aggregates/aggregates_slice_aggregates.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4629.333257675171
+      "sim_time_ms": 4983.974456787109
     },
     "vhdl2008/expressions/expressions_condition_operator.vhd@sim": {
       "status": "pass",
@@ -117,7 +117,7 @@
       "test_file": "vhdl2008/expressions/expressions_condition_operator.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4793.265581130981
+      "sim_time_ms": 4947.829008102417
     },
     "vhdl2008/expressions/expressions_enhanced_bit_strings.vhd@sim": {
       "status": "pass",
@@ -129,7 +129,7 @@
       "test_file": "vhdl2008/expressions/expressions_enhanced_bit_strings.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4865.428924560547
+      "sim_time_ms": 4874.646425247192
     },
     "vhdl2008/expressions/expressions_matching_operators.vhd@sim": {
       "status": "pass",
@@ -141,7 +141,7 @@
       "test_file": "vhdl2008/expressions/expressions_matching_operators.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4774.1100788116455
+      "sim_time_ms": 4783.188581466675
     },
     "vhdl2008/expressions/expressions_reduction_operators.vhd@sim": {
       "status": "pass",
@@ -153,7 +153,7 @@
       "test_file": "vhdl2008/expressions/expressions_reduction_operators.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4806.39910697937
+      "sim_time_ms": 4860.434532165527
     },
     "vhdl2008/expressions/expressions_shift_rotate.vhd@sim": {
       "status": "pass",
@@ -165,7 +165,7 @@
       "test_file": "vhdl2008/expressions/expressions_shift_rotate.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4861.198425292969
+      "sim_time_ms": 4909.945964813232
     },
     "vhdl2008/generate/generate_case_generate.vhd@sim": {
       "status": "pass",
@@ -177,7 +177,7 @@
       "test_file": "vhdl2008/generate/generate_case_generate.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4749.5856285095215
+      "sim_time_ms": 4874.642610549927
     },
     "vhdl2008/generate/generate_if_elsif_generate.vhd@sim": {
       "status": "pass",
@@ -189,7 +189,7 @@
       "test_file": "vhdl2008/generate/generate_if_elsif_generate.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4805.179119110107
+      "sim_time_ms": 4835.000038146973
     },
     "vhdl2008/generics/generics_default_types.vhd@sim": {
       "status": "fail",
@@ -213,7 +213,7 @@
       "test_file": "vhdl2008/generics/generics_generic_types.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4817.028045654297
+      "sim_time_ms": 4853.795766830444
     },
     "vhdl2008/generics/generics_subprograms.vhd@sim": {
       "status": "pass",
@@ -225,7 +225,7 @@
       "test_file": "vhdl2008/generics/generics_subprograms.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4799.645185470581
+      "sim_time_ms": 4901.611328125
     },
     "vhdl2008/misc/misc_block_comments.vhd@sim": {
       "status": "pass",
@@ -237,7 +237,7 @@
       "test_file": "vhdl2008/misc/misc_block_comments.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4740.890026092529
+      "sim_time_ms": 4846.710443496704
     },
     "vhdl2008/misc/misc_boolean_edge.vhd@sim": {
       "status": "pass",
@@ -249,7 +249,7 @@
       "test_file": "vhdl2008/misc/misc_boolean_edge.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4798.858404159546
+      "sim_time_ms": 4848.278045654297
     },
     "vhdl2008/misc/misc_ip_protect.vhd@sim": {
       "status": "pass",
@@ -261,7 +261,7 @@
       "test_file": "vhdl2008/misc/misc_ip_protect.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4688.4706020355225
+      "sim_time_ms": 4828.587532043457
     },
     "vhdl2008/misc/misc_min_max.vhd@sim": {
       "status": "pass",
@@ -273,7 +273,7 @@
       "test_file": "vhdl2008/misc/misc_min_max.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4768.701553344727
+      "sim_time_ms": 4836.067199707031
     },
     "vhdl2008/misc/misc_to_string.vhd@sim": {
       "status": "pass",
@@ -285,7 +285,7 @@
       "test_file": "vhdl2008/misc/misc_to_string.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4948.042154312134
+      "sim_time_ms": 5026.612997055054
     },
     "vhdl2008/packages/packages_context.vhd@sim": {
       "status": "fail",
@@ -309,7 +309,7 @@
       "test_file": "vhdl2008/packages/packages_fixed_point.vhd",
       "comment": "No PASS: or FAIL: found in simulation output",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5539.754152297974
+      "sim_time_ms": 5590.40641784668
     },
     "vhdl2008/packages/packages_float_point.vhd@sim": {
       "status": "pass",
@@ -321,7 +321,7 @@
       "test_file": "vhdl2008/packages/packages_float_point.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5824.570894241333
+      "sim_time_ms": 5952.036142349243
     },
     "vhdl2008/packages/packages_generic_package.vhd@sim": {
       "status": "pass",
@@ -333,7 +333,7 @@
       "test_file": "vhdl2008/packages/packages_generic_package.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4793.495178222656
+      "sim_time_ms": 4843.146562576294
     },
     "vhdl2008/packages/packages_numeric_std_signed.vhd@sim": {
       "status": "fail",
@@ -357,7 +357,7 @@
       "test_file": "vhdl2008/packages/packages_numeric_std_unsigned.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4850.228548049927
+      "sim_time_ms": 4955.771923065186
     },
     "vhdl2008/ports/ports_enhanced_port_maps.vhd@sim": {
       "status": "pass",
@@ -369,7 +369,7 @@
       "test_file": "vhdl2008/ports/ports_enhanced_port_maps.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4788.724422454834
+      "sim_time_ms": 4877.983808517456
     },
     "vhdl2008/ports/ports_expressions_in_port_maps.vhd@sim": {
       "status": "pass",
@@ -381,7 +381,7 @@
       "test_file": "vhdl2008/ports/ports_expressions_in_port_maps.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4778.063058853149
+      "sim_time_ms": 4849.20072555542
     },
     "vhdl2008/ports/ports_read_output.vhd@sim": {
       "status": "pass",
@@ -393,7 +393,7 @@
       "test_file": "vhdl2008/ports/ports_read_output.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4970.668315887451
+      "sim_time_ms": 4890.160322189331
     },
     "vhdl2008/processes/processes_process_all.vhd@sim": {
       "status": "pass",
@@ -405,7 +405,7 @@
       "test_file": "vhdl2008/processes/processes_process_all.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4768.097639083862
+      "sim_time_ms": 4898.759841918945
     },
     "vhdl2008/processes/processes_seq_assignments.vhd@sim": {
       "status": "pass",
@@ -417,7 +417,7 @@
       "test_file": "vhdl2008/processes/processes_seq_assignments.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 7097.208261489868
+      "sim_time_ms": 4827.756643295288
     },
     "vhdl2008/types/types_driving_attributes.vhd@sim": {
       "status": "fail",
@@ -441,7 +441,7 @@
       "test_file": "vhdl2008/types/types_matching_case.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4853.313446044922
+      "sim_time_ms": 4860.798120498657
     },
     "vhdl2008/types/types_predefined_vectors.vhd@sim": {
       "status": "pass",
@@ -453,7 +453,7 @@
       "test_file": "vhdl2008/types/types_predefined_vectors.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4815.131902694702
+      "sim_time_ms": 4789.803743362427
     },
     "vhdl2008/types/types_unconstrained_elements.vhd@sim": {
       "status": "pass",
@@ -465,7 +465,7 @@
       "test_file": "vhdl2008/types/types_unconstrained_elements.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4824.662208557129
+      "sim_time_ms": 4771.082162857056
     },
     "vhdl2008/uvvm/uvvm_external_names.vhd@sim": {
       "status": "fail",
@@ -489,7 +489,7 @@
       "test_file": "vhdl2008/uvvm/uvvm_protected_access.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4883.962869644165
+      "sim_time_ms": 4800.584077835083
     },
     "vhdl2008/uvvm/uvvm_unconstrained_array.vhd@sim": {
       "status": "pass",
@@ -501,7 +501,7 @@
       "test_file": "vhdl2008/uvvm/uvvm_unconstrained_array.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4936.540842056274
+      "sim_time_ms": 4908.572673797607
     },
     "vhdl2008/verification/verification_external_names.vhd@sim": {
       "status": "fail",
@@ -537,7 +537,7 @@
       "test_file": "vhdl2008/verification/verification_std_env.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4769.790887832642
+      "sim_time_ms": 4748.344659805298
     },
     "vhdl2019/assert_api/assert_api_lcs050_full_api.vhd@sim": {
       "status": "pass",
@@ -549,7 +549,7 @@
       "test_file": "vhdl2019/assert_api/assert_api_lcs050_full_api.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4808.767318725586
+      "sim_time_ms": 4747.088193893433
     },
     "vhdl2019/assert_api/assert_api_lcs081_no_message.vhd@sim": {
       "status": "pass",
@@ -561,7 +561,7 @@
       "test_file": "vhdl2019/assert_api/assert_api_lcs081_no_message.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4796.473979949951
+      "sim_time_ms": 4765.819072723389
     },
     "vhdl2019/attributes/attributes_lcs012_image_composite.vhd@sim": {
       "status": "fail",
@@ -585,7 +585,7 @@
       "test_file": "vhdl2019/attributes/attributes_lcs018_enum_attributes.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5020.406246185303
+      "sim_time_ms": 4834.07998085022
     },
     "vhdl2019/attributes/attributes_lcs041_reflect.vhd@sim": {
       "status": "pass",
@@ -597,7 +597,7 @@
       "test_file": "vhdl2019/attributes/attributes_lcs041_reflect.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5145.14946937561
+      "sim_time_ms": 4848.897457122803
     },
     "vhdl2019/attributes/attributes_lcs106_reflection.vhd@sim": {
       "status": "pass",
@@ -609,7 +609,7 @@
       "test_file": "vhdl2019/attributes/attributes_lcs106_reflection.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4943.331480026245
+      "sim_time_ms": 4774.285554885864
     },
     "vhdl2019/conditional_analysis/conditional_analysis_lcs006f_standard_ids.vhd@sim": {
       "status": "pass",
@@ -621,7 +621,7 @@
       "test_file": "vhdl2019/conditional_analysis/conditional_analysis_lcs006f_standard_ids.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5005.587816238403
+      "sim_time_ms": 4816.805124282837
     },
     "vhdl2019/conditional_analysis/conditional_analysis_lcs061_conditional_compilation.vhd@sim": {
       "status": "pass",
@@ -633,7 +633,7 @@
       "test_file": "vhdl2019/conditional_analysis/conditional_analysis_lcs061_conditional_compilation.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4961.080312728882
+      "sim_time_ms": 4842.90885925293
     },
     "vhdl2019/env/env_enhanced_stop_finish.vhd@sim": {
       "status": "pass",
@@ -645,7 +645,7 @@
       "test_file": "vhdl2019/env/env_enhanced_stop_finish.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4893.242597579956
+      "sim_time_ms": 4795.212507247925
     },
     "vhdl2019/env/env_lcs006e_getenv.vhd@sim": {
       "status": "fail",
@@ -669,7 +669,7 @@
       "test_file": "vhdl2019/env/env_lcs011_datetime.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5000.754594802856
+      "sim_time_ms": 4771.26145362854
     },
     "vhdl2019/env/env_lcs015_get_call_path.vhd@sim": {
       "status": "pass",
@@ -681,7 +681,7 @@
       "test_file": "vhdl2019/env/env_lcs015_get_call_path.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5356.740951538086
+      "sim_time_ms": 4800.637006759644
     },
     "vhdl2019/env/env_lcs015a_file_location.vhd@sim": {
       "status": "fail",
@@ -705,7 +705,7 @@
       "test_file": "vhdl2019/file_io/file_io_lcs006a_extensions.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4864.468336105347
+      "sim_time_ms": 4768.674612045288
     },
     "vhdl2019/file_io/file_io_lcs006c_directory_api.vhd@sim": {
       "status": "fail",
@@ -729,7 +729,7 @@
       "test_file": "vhdl2019/file_io/file_io_lcs103_enhanced.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4949.256658554077
+      "sim_time_ms": 4727.953672409058
     },
     "vhdl2019/generics_2019/generics_2019_lcs049_map_on_call.vhd@sim": {
       "status": "fail",
@@ -753,7 +753,7 @@
       "test_file": "vhdl2019/generics_2019/generics_2019_lcs059_array_type_generics.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5013.439893722534
+      "sim_time_ms": 4894.380569458008
     },
     "vhdl2019/generics_2019/generics_2019_lcs109_subprogram_generics.vhd@sim": {
       "status": "fail",
@@ -777,7 +777,7 @@
       "test_file": "vhdl2019/interfaces/interfaces_lcs045a_array_of_interfaces.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5270.820379257202
+      "sim_time_ms": 4935.183525085449
     },
     "vhdl2019/interfaces/interfaces_lcs045a_inout_views.vhd@sim": {
       "status": "pass",
@@ -789,7 +789,7 @@
       "test_file": "vhdl2019/interfaces/interfaces_lcs045a_inout_views.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 7341.635465621948
+      "sim_time_ms": 4809.189319610596
     },
     "vhdl2019/interfaces/interfaces_lcs045a_mode_view.vhd@sim": {
       "status": "pass",
@@ -801,7 +801,7 @@
       "test_file": "vhdl2019/interfaces/interfaces_lcs045a_mode_view.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5199.532985687256
+      "sim_time_ms": 4903.545618057251
     },
     "vhdl2019/protected_types/protected_types_lcs014_composites.vhd@sim": {
       "status": "pass",
@@ -813,7 +813,7 @@
       "test_file": "vhdl2019/protected_types/protected_types_lcs014_composites.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5146.684885025024
+      "sim_time_ms": 4852.673053741455
     },
     "vhdl2019/protected_types/protected_types_lcs014a_pt_pointers.vhd@sim": {
       "status": "fail",
@@ -837,7 +837,7 @@
       "test_file": "vhdl2019/protected_types/protected_types_lcs030_garbage_collection.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5158.51092338562
+      "sim_time_ms": 4825.771331787109
     },
     "vhdl2019/protected_types/protected_types_lcs032_path_name.vhd@sim": {
       "status": "pass",
@@ -849,7 +849,7 @@
       "test_file": "vhdl2019/protected_types/protected_types_lcs032_path_name.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4974.3335247039795
+      "sim_time_ms": 4842.480182647705
     },
     "vhdl2019/protected_types/protected_types_lcs033_public_private.vhd@sim": {
       "status": "fail",
@@ -885,7 +885,7 @@
       "test_file": "vhdl2019/protected_types/protected_types_lcs047_shared_on_interface.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5064.094305038452
+      "sim_time_ms": 4771.807432174683
     },
     "vhdl2019/protected_types/protected_types_lcs099_subprogram_param.vhd@sim": {
       "status": "pass",
@@ -897,7 +897,7 @@
       "test_file": "vhdl2019/protected_types/protected_types_lcs099_subprogram_param.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5127.920389175415
+      "sim_time_ms": 4802.897214889526
     },
     "vhdl2019/psl/psl_enhanced_directives.vhd@sim": {
       "status": "pass",
@@ -909,7 +909,7 @@
       "test_file": "vhdl2019/psl/psl_enhanced_directives.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4947.189092636108
+      "sim_time_ms": 4792.796850204468
     },
     "vhdl2019/psl/psl_lcs043_attributes.vhd@sim": {
       "status": "pass",
@@ -921,7 +921,7 @@
       "test_file": "vhdl2019/psl/psl_lcs043_attributes.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5023.102283477783
+      "sim_time_ms": 4848.969221115112
     },
     "vhdl2019/sequential/sequential_lcs007_declaration_regions.vhd@sim": {
       "status": "fail",
@@ -957,7 +957,7 @@
       "test_file": "vhdl2019/sequential/sequential_lcs094a_conditional_return.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4983.061075210571
+      "sim_time_ms": 4889.975070953369
     },
     "vhdl2019/sequential/sequential_lcs107_blocks.vhd@sim": {
       "status": "fail",
@@ -993,7 +993,7 @@
       "test_file": "vhdl2019/syntax/syntax_lcs055a_components.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4895.253419876099
+      "sim_time_ms": 4888.216257095337
     },
     "vhdl2019/syntax/syntax_lcs071a_optional_trailing_semicolon.vhd@sim": {
       "status": "pass",
@@ -1005,7 +1005,7 @@
       "test_file": "vhdl2019/syntax/syntax_lcs071a_optional_trailing_semicolon.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4932.547330856323
+      "sim_time_ms": 4899.684429168701
     },
     "vhdl2019/syntax/syntax_lcs086_ordered_interfaces.vhd@sim": {
       "status": "pass",
@@ -1017,7 +1017,7 @@
       "test_file": "vhdl2019/syntax/syntax_lcs086_ordered_interfaces.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5075.906038284302
+      "sim_time_ms": 4859.753847122192
     },
     "vhdl2019/syntax/syntax_lcs099_extended_ranges.vhd@sim": {
       "status": "pass",
@@ -1029,7 +1029,7 @@
       "test_file": "vhdl2019/syntax/syntax_lcs099_extended_ranges.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4894.459962844849
+      "sim_time_ms": 4868.359088897705
     },
     "vhdl2019/syntax/syntax_lcsI03_signatures.vhd@sim": {
       "status": "pass",
@@ -1041,7 +1041,7 @@
       "test_file": "vhdl2019/syntax/syntax_lcsI03_signatures.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4974.457502365112
+      "sim_time_ms": 4892.524480819702
     },
     "vhdl2019/syntax/syntax_lcsI13_unary_precedence.vhd@sim": {
       "status": "fail",
@@ -1113,7 +1113,7 @@
       "test_file": "vhdl2019/types_2019/types_2019_lcs059a_scalar_ordering.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5029.938220977783
+      "sim_time_ms": 4848.917007446289
     },
     "vhdl2019/types_2019/types_2019_lcs075_related_records.vhd@sim": {
       "status": "fail",
@@ -1137,7 +1137,7 @@
       "test_file": "vhdl2019/types_2019/types_2019_lcs082_empty_records.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4879.50325012207
+      "sim_time_ms": 4836.336851119995
     },
     "vhdl2019/vectors/vectors_lcs001_partially_connected.vhd@sim": {
       "status": "pass",
@@ -1149,7 +1149,7 @@
       "test_file": "vhdl2019/vectors/vectors_lcs001_partially_connected.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5491.300582885742
+      "sim_time_ms": 4878.354787826538
     },
     "vhdl2019/vectors/vectors_lcs072b_function_knows_size.vhd@sim": {
       "status": "pass",
@@ -1161,7 +1161,7 @@
       "test_file": "vhdl2019/vectors/vectors_lcs072b_function_knows_size.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5073.737859725952
+      "sim_time_ms": 4890.771150588989
     }
   }
 }
