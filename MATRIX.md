@@ -8,9 +8,6 @@
 
 | Feature | Standard | Category | Altera<br>ModelSim<br>Starter<br>2020.1<br>(sim) | Altera<br>Questa<br>Starter<br>2025.3<br>(sim) | Vivado<br>2023.2<br>(sim) | Vivado<br>2026.1<br>(sim) | Vivado<br>2023.2<br>(synth) | Vivado<br>2026.1<br>(synth) |
 |---------|----------|----------|---|---|---|---|---|---|
-| **VHDL-?** | | |||||||
-| [Relaxed buffer port rules -- buffer ports can connect to out ports](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2002\buffer_ports\buffer_ports_relaxed.vhd) | ? | buffer_ports | ➖ | ➖ | ➖ | ➖ | ➖ | ➖ |
-| [Protected types -- class-like constructs with mutual exclusion](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2000\protected_types\protected_types_counter.vhd) | ? | protected_types | ➖ | ➖ | ➖ | ➖ | ➖ | ➖ |
 | **VHDL-2000** | | |||||||
 | [Protected types -- class-like constructs with mutual exclusion](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2000/protected_types/protected_types_counter.vhd) | 2000 | protected_types | ❌ | ❌ | ❌ | ❌ | ➖ | ➖ |
 | **VHDL-2002** | | |||||||
