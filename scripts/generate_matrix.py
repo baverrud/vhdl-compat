@@ -236,8 +236,8 @@ def generate_matrix_markdown(
 
     # Build the table
     col_displays = [e[2] for e in col_entries]
-    header = "| Feature | Standard | Category | " + " | ".join(col_displays) + " |"
-    separator = "|---------|----------|----------|" + "|".join(["---"] * len(col_displays)) + "|"
+    header = "| Feature | Category | " + " | ".join(col_displays) + " |"
+    separator = "|---------|----------|" + "|".join(["---"] * len(col_displays)) + "|"
 
     lines.append(header)
     lines.append(separator)
@@ -247,7 +247,7 @@ def generate_matrix_markdown(
         # Standard section header
         if std != current_std:
             current_std = std
-            lines.append(f"| **VHDL-{std}** | | |" + "|".join([""] * len(col_displays)) + "|")
+            lines.append(f"| **VHDL-{std}** | |" + "|".join([""] * len(col_displays)) + "|")
 
         # Build display name: prepend LCS xref for VHDL-2019, link to test file
         display_feature = feature
@@ -261,7 +261,7 @@ def generate_matrix_markdown(
             display_feature = f"[{display_feature}]({url})"
 
         # Build row — iterate over (tool_part, mode, display_name) entries
-        row = f"| {display_feature} | {std} | {category} |"
+        row = f"| {display_feature} | {category} |"
 
         for tool_part, mode, _display in col_entries:
             cell = " ➖ |"
