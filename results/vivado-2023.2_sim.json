@@ -3,12 +3,12 @@
   "tool_version": "2023.2",
   "standard": "combined",
   "mode": "sim",
-  "timestamp": "2026-06-29T19:36:49.615700+00:00",
+  "timestamp": "2026-06-30T07:41:37.687834+00:00",
   "summary": {
     "total": 96,
-    "pass": 67,
+    "pass": 34,
     "partial": 0,
-    "fail": 29
+    "fail": 62
   },
   "results": {
     "vhdl2000/protected_types/protected_types_counter.vhd@sim": {
@@ -33,7 +33,7 @@
       "test_file": "vhdl2000/protected_types/protected_types_global_shared.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4997.875213623047
+      "sim_time_ms": 6919.318675994873
     },
     "vhdl2002/buffer_ports/buffer_ports_relaxed.vhd@sim": {
       "status": "pass",
@@ -45,7 +45,7 @@
       "test_file": "vhdl2002/buffer_ports/buffer_ports_relaxed.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4991.919755935669
+      "sim_time_ms": 6894.973516464233
     },
     "vhdl2008/aggregates/aggregates_assignment_targets.vhd@sim": {
       "status": "pass",
@@ -57,7 +57,7 @@
       "test_file": "vhdl2008/aggregates/aggregates_assignment_targets.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4909.0893268585205
+      "sim_time_ms": 6935.721158981323
     },
     "vhdl2008/aggregates/aggregates_named_association.vhd@sim": {
       "status": "pass",
@@ -69,7 +69,7 @@
       "test_file": "vhdl2008/aggregates/aggregates_named_association.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4994.08483505249
+      "sim_time_ms": 7494.555711746216
     },
     "vhdl2008/aggregates/aggregates_open_in_aggregates.vhd@sim": {
       "status": "fail",
@@ -93,7 +93,7 @@
       "test_file": "vhdl2008/aggregates/aggregates_others_record.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5092.287302017212
+      "sim_time_ms": 6897.273302078247
     },
     "vhdl2008/aggregates/aggregates_slice_aggregates.vhd@sim": {
       "status": "pass",
@@ -105,7 +105,7 @@
       "test_file": "vhdl2008/aggregates/aggregates_slice_aggregates.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4983.974456787109
+      "sim_time_ms": 6900.215148925781
     },
     "vhdl2008/expressions/expressions_condition_operator.vhd@sim": {
       "status": "pass",
@@ -117,7 +117,7 @@
       "test_file": "vhdl2008/expressions/expressions_condition_operator.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4947.829008102417
+      "sim_time_ms": 6917.55485534668
     },
     "vhdl2008/expressions/expressions_enhanced_bit_strings.vhd@sim": {
       "status": "pass",
@@ -129,7 +129,7 @@
       "test_file": "vhdl2008/expressions/expressions_enhanced_bit_strings.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4874.646425247192
+      "sim_time_ms": 6925.008535385132
     },
     "vhdl2008/expressions/expressions_matching_operators.vhd@sim": {
       "status": "pass",
@@ -141,7 +141,7 @@
       "test_file": "vhdl2008/expressions/expressions_matching_operators.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4783.188581466675
+      "sim_time_ms": 6918.293476104736
     },
     "vhdl2008/expressions/expressions_reduction_operators.vhd@sim": {
       "status": "pass",
@@ -153,7 +153,7 @@
       "test_file": "vhdl2008/expressions/expressions_reduction_operators.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4860.434532165527
+      "sim_time_ms": 6984.946966171265
     },
     "vhdl2008/expressions/expressions_shift_rotate.vhd@sim": {
       "status": "pass",
@@ -165,7 +165,7 @@
       "test_file": "vhdl2008/expressions/expressions_shift_rotate.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4909.945964813232
+      "sim_time_ms": 6982.125043869019
     },
     "vhdl2008/generate/generate_case_generate.vhd@sim": {
       "status": "pass",
@@ -177,7 +177,7 @@
       "test_file": "vhdl2008/generate/generate_case_generate.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4874.642610549927
+      "sim_time_ms": 7003.627300262451
     },
     "vhdl2008/generate/generate_if_elsif_generate.vhd@sim": {
       "status": "pass",
@@ -189,7 +189,7 @@
       "test_file": "vhdl2008/generate/generate_if_elsif_generate.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4835.000038146973
+      "sim_time_ms": 6957.207918167114
     },
     "vhdl2008/generics/generics_default_types.vhd@sim": {
       "status": "fail",
@@ -213,7 +213,7 @@
       "test_file": "vhdl2008/generics/generics_generic_types.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4853.795766830444
+      "sim_time_ms": 7029.617547988892
     },
     "vhdl2008/generics/generics_subprograms.vhd@sim": {
       "status": "pass",
@@ -225,7 +225,7 @@
       "test_file": "vhdl2008/generics/generics_subprograms.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4901.611328125
+      "sim_time_ms": 6976.284503936768
     },
     "vhdl2008/misc/misc_block_comments.vhd@sim": {
       "status": "pass",
@@ -237,7 +237,7 @@
       "test_file": "vhdl2008/misc/misc_block_comments.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4846.710443496704
+      "sim_time_ms": 6893.099069595337
     },
     "vhdl2008/misc/misc_boolean_edge.vhd@sim": {
       "status": "pass",
@@ -249,7 +249,7 @@
       "test_file": "vhdl2008/misc/misc_boolean_edge.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4848.278045654297
+      "sim_time_ms": 6908.676385879517
     },
     "vhdl2008/misc/misc_ip_protect.vhd@sim": {
       "status": "pass",
@@ -261,7 +261,7 @@
       "test_file": "vhdl2008/misc/misc_ip_protect.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4828.587532043457
+      "sim_time_ms": 7000.185489654541
     },
     "vhdl2008/misc/misc_min_max.vhd@sim": {
       "status": "pass",
@@ -273,7 +273,7 @@
       "test_file": "vhdl2008/misc/misc_min_max.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4836.067199707031
+      "sim_time_ms": 6920.207977294922
     },
     "vhdl2008/misc/misc_to_string.vhd@sim": {
       "status": "pass",
@@ -285,7 +285,7 @@
       "test_file": "vhdl2008/misc/misc_to_string.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5026.612997055054
+      "sim_time_ms": 7101.531982421875
     },
     "vhdl2008/packages/packages_context.vhd@sim": {
       "status": "fail",
@@ -309,7 +309,7 @@
       "test_file": "vhdl2008/packages/packages_fixed_point.vhd",
       "comment": "No PASS: or FAIL: found in simulation output",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5590.40641784668
+      "sim_time_ms": 7722.0399379730225
     },
     "vhdl2008/packages/packages_float_point.vhd@sim": {
       "status": "pass",
@@ -321,7 +321,7 @@
       "test_file": "vhdl2008/packages/packages_float_point.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5952.036142349243
+      "sim_time_ms": 8026.232481002808
     },
     "vhdl2008/packages/packages_generic_package.vhd@sim": {
       "status": "pass",
@@ -333,7 +333,7 @@
       "test_file": "vhdl2008/packages/packages_generic_package.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4843.146562576294
+      "sim_time_ms": 7015.916585922241
     },
     "vhdl2008/packages/packages_numeric_std_signed.vhd@sim": {
       "status": "fail",
@@ -357,7 +357,7 @@
       "test_file": "vhdl2008/packages/packages_numeric_std_unsigned.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4955.771923065186
+      "sim_time_ms": 7007.905960083008
     },
     "vhdl2008/ports/ports_enhanced_port_maps.vhd@sim": {
       "status": "pass",
@@ -369,7 +369,7 @@
       "test_file": "vhdl2008/ports/ports_enhanced_port_maps.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4877.983808517456
+      "sim_time_ms": 6956.796646118164
     },
     "vhdl2008/ports/ports_expressions_in_port_maps.vhd@sim": {
       "status": "pass",
@@ -381,7 +381,7 @@
       "test_file": "vhdl2008/ports/ports_expressions_in_port_maps.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4849.20072555542
+      "sim_time_ms": 6909.834861755371
     },
     "vhdl2008/ports/ports_read_output.vhd@sim": {
       "status": "pass",
@@ -393,7 +393,7 @@
       "test_file": "vhdl2008/ports/ports_read_output.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4890.160322189331
+      "sim_time_ms": 7017.0838832855225
     },
     "vhdl2008/processes/processes_process_all.vhd@sim": {
       "status": "pass",
@@ -405,7 +405,7 @@
       "test_file": "vhdl2008/processes/processes_process_all.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4898.759841918945
+      "sim_time_ms": 7016.937971115112
     },
     "vhdl2008/processes/processes_seq_assignments.vhd@sim": {
       "status": "pass",
@@ -417,7 +417,7 @@
       "test_file": "vhdl2008/processes/processes_seq_assignments.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4827.756643295288
+      "sim_time_ms": 7026.211977005005
     },
     "vhdl2008/types/types_driving_attributes.vhd@sim": {
       "status": "fail",
@@ -441,7 +441,7 @@
       "test_file": "vhdl2008/types/types_matching_case.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4860.798120498657
+      "sim_time_ms": 7025.26068687439
     },
     "vhdl2008/types/types_predefined_vectors.vhd@sim": {
       "status": "pass",
@@ -453,7 +453,7 @@
       "test_file": "vhdl2008/types/types_predefined_vectors.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4789.803743362427
+      "sim_time_ms": 6868.37363243103
     },
     "vhdl2008/types/types_unconstrained_elements.vhd@sim": {
       "status": "pass",
@@ -465,7 +465,7 @@
       "test_file": "vhdl2008/types/types_unconstrained_elements.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4771.082162857056
+      "sim_time_ms": 6891.562461853027
     },
     "vhdl2008/uvvm/uvvm_external_names.vhd@sim": {
       "status": "fail",
@@ -489,7 +489,7 @@
       "test_file": "vhdl2008/uvvm/uvvm_protected_access.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4800.584077835083
+      "sim_time_ms": 6930.008172988892
     },
     "vhdl2008/uvvm/uvvm_unconstrained_array.vhd@sim": {
       "status": "pass",
@@ -501,7 +501,7 @@
       "test_file": "vhdl2008/uvvm/uvvm_unconstrained_array.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4908.572673797607
+      "sim_time_ms": 6954.061985015869
     },
     "vhdl2008/verification/verification_external_names.vhd@sim": {
       "status": "fail",
@@ -537,31 +537,31 @@
       "test_file": "vhdl2008/verification/verification_std_env.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4748.344659805298
+      "sim_time_ms": 6824.520111083984
     },
     "vhdl2019/assert_api/assert_api_lcs050_full_api.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Full assert API \u2014 IsVhdlAssertFailed, GetVhdlAssertCount, SetVhdlAssertFormat",
       "category": "assert_api",
       "test_type": "sim",
       "xref": "LCS2016-050",
       "test_file": "vhdl2019/assert_api/assert_api_lcs050_full_api.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4747.088193893433
+      "sim_time_ms": 0.0
     },
     "vhdl2019/assert_api/assert_api_lcs081_no_message.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Optional report clause in assert \u2014 assert without message string",
       "category": "assert_api",
       "test_type": "sim",
       "xref": "LCS2016-081",
       "test_file": "vhdl2019/assert_api/assert_api_lcs081_no_message.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4765.819072723389
+      "sim_time_ms": 0.0
     },
     "vhdl2019/attributes/attributes_lcs012_image_composite.vhd@sim": {
       "status": "fail",
@@ -571,81 +571,81 @@
       "test_type": "both",
       "xref": "LCS2016-012",
       "test_file": "vhdl2019/attributes/attributes_lcs012_image_composite.vhd",
-      "comment": "Elaboration failed",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
       "sim_time_ms": 0.0
     },
     "vhdl2019/attributes/attributes_lcs018_enum_attributes.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Enhanced enumerated type attributes \u2014 'VAL, 'POS, 'SUCC, 'PRED, 'LEFTOF, 'RIGHTOF",
       "category": "attributes",
       "test_type": "both",
       "xref": "LCS2016-018/018a/018d",
       "test_file": "vhdl2019/attributes/attributes_lcs018_enum_attributes.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4834.07998085022
+      "sim_time_ms": 0.0
     },
     "vhdl2019/attributes/attributes_lcs041_reflect.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Record introspection \u2014 'reflect attribute for runtime type inspection",
       "category": "attributes",
       "test_type": "both",
       "xref": "LCS2016-041",
       "test_file": "vhdl2019/attributes/attributes_lcs041_reflect.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4848.897457122803
+      "sim_time_ms": 0.0
     },
     "vhdl2019/attributes/attributes_lcs106_reflection.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "New reflection attributes \u2014 'designated_type, 'index, 'range",
       "category": "attributes",
       "test_type": "both",
       "xref": "LCS2016-106",
       "test_file": "vhdl2019/attributes/attributes_lcs106_reflection.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4774.285554885864
+      "sim_time_ms": 0.0
     },
     "vhdl2019/conditional_analysis/conditional_analysis_lcs006f_standard_ids.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Standard conditional analysis identifiers \u2014 VHDL_VERSION, TOOL_TYPE, etc.",
       "category": "conditional_analysis",
       "test_type": "both",
       "xref": "LCS2016-006f",
       "test_file": "vhdl2019/conditional_analysis/conditional_analysis_lcs006f_standard_ids.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4816.805124282837
+      "sim_time_ms": 0.0
     },
     "vhdl2019/conditional_analysis/conditional_analysis_lcs061_conditional_compilation.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Conditional analysis -- `if / `else / `end if tool directives",
       "category": "conditional_analysis",
       "test_type": "both",
       "xref": "LCS2016-061",
       "test_file": "vhdl2019/conditional_analysis/conditional_analysis_lcs061_conditional_compilation.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4842.90885925293
+      "sim_time_ms": 0.0
     },
     "vhdl2019/env/env_enhanced_stop_finish.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Enhanced std.env \u2014 stop/finish with integer exit codes",
       "category": "env",
       "test_type": "sim",
       "xref": "",
       "test_file": "vhdl2019/env/env_enhanced_stop_finish.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4795.212507247925
+      "sim_time_ms": 0.0
     },
     "vhdl2019/env/env_lcs006e_getenv.vhd@sim": {
       "status": "fail",
@@ -655,33 +655,33 @@
       "test_type": "sim",
       "xref": "LCS2016-006e",
       "test_file": "vhdl2019/env/env_lcs006e_getenv.vhd",
-      "comment": "Elaboration failed",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
       "sim_time_ms": 0.0
     },
     "vhdl2019/env/env_lcs011_datetime.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Date/time functions \u2014 LOCALTIME, GMTIME, EPOCH for testbench timestamps",
       "category": "env",
       "test_type": "sim",
       "xref": "LCS2016-011",
       "test_file": "vhdl2019/env/env_lcs011_datetime.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4771.26145362854
+      "sim_time_ms": 0.0
     },
     "vhdl2019/env/env_lcs015_get_call_path.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "GET_CALL_PATH \u2014 runtime call stack introspection",
       "category": "env",
       "test_type": "sim",
       "xref": "LCS2016-015",
       "test_file": "vhdl2019/env/env_lcs015_get_call_path.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4800.637006759644
+      "sim_time_ms": 0.0
     },
     "vhdl2019/env/env_lcs015a_file_location.vhd@sim": {
       "status": "fail",
@@ -691,21 +691,21 @@
       "test_type": "sim",
       "xref": "LCS2016-015a",
       "test_file": "vhdl2019/env/env_lcs015a_file_location.vhd",
-      "comment": "Elaboration failed",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
       "sim_time_ms": 0.0
     },
     "vhdl2019/file_io/file_io_lcs006a_extensions.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "File I/O extensions \u2014 FILE_REWIND, FILE_SEEK, FILE_TRUNCATE, FILE_STATE",
       "category": "file_io",
       "test_type": "sim",
       "xref": "LCS2016-006a",
       "test_file": "vhdl2019/file_io/file_io_lcs006a_extensions.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4768.674612045288
+      "sim_time_ms": 0.0
     },
     "vhdl2019/file_io/file_io_lcs006c_directory_api.vhd@sim": {
       "status": "fail",
@@ -720,16 +720,16 @@
       "sim_time_ms": 0.0
     },
     "vhdl2019/file_io/file_io_lcs103_enhanced.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Enhanced FILE_OPEN/FILE_CLOSE with STATUS parameter",
       "category": "file_io",
       "test_type": "sim",
       "xref": "LCS2016-103",
       "test_file": "vhdl2019/file_io/file_io_lcs103_enhanced.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4727.953672409058
+      "sim_time_ms": 0.0
     },
     "vhdl2019/generics_2019/generics_2019_lcs049_map_on_call.vhd@sim": {
       "status": "fail",
@@ -744,16 +744,16 @@
       "sim_time_ms": 0.0
     },
     "vhdl2019/generics_2019/generics_2019_lcs059_array_type_generics.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Array type generics \u2014 generic parameters that are array types",
       "category": "generics_2019",
       "test_type": "both",
       "xref": "LCS2016-059",
       "test_file": "vhdl2019/generics_2019/generics_2019_lcs059_array_type_generics.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4894.380569458008
+      "sim_time_ms": 0.0
     },
     "vhdl2019/generics_2019/generics_2019_lcs109_subprogram_generics.vhd@sim": {
       "status": "fail",
@@ -768,52 +768,52 @@
       "sim_time_ms": 0.0
     },
     "vhdl2019/interfaces/interfaces_lcs045a_array_of_interfaces.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Array of interface records -- multiple channels using a single bundle type",
       "category": "interfaces",
       "test_type": "both",
       "xref": "LCS2016-045a",
       "test_file": "vhdl2019/interfaces/interfaces_lcs045a_array_of_interfaces.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4935.183525085449
+      "sim_time_ms": 0.0
     },
     "vhdl2019/interfaces/interfaces_lcs045a_inout_views.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Inout mode views -- bidirectional interface fields that can't use 'converse",
       "category": "interfaces",
       "test_type": "both",
       "xref": "LCS2016-045a",
       "test_file": "vhdl2019/interfaces/interfaces_lcs045a_inout_views.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4809.189319610596
+      "sim_time_ms": 0.0
     },
     "vhdl2019/interfaces/interfaces_lcs045a_mode_view.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Interface mode views \u2014 per-field direction control on composite types",
       "category": "interfaces",
       "test_type": "both",
       "xref": "LCS2016-045a",
       "test_file": "vhdl2019/interfaces/interfaces_lcs045a_mode_view.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4903.545618057251
+      "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs014_composites.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Composites of protected types \u2014 records and arrays containing PT elements",
       "category": "protected_types",
       "test_type": "both",
       "xref": "LCS2016-014",
       "test_file": "vhdl2019/protected_types/protected_types_lcs014_composites.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4852.673053741455
+      "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs014a_pt_pointers.vhd@sim": {
       "status": "fail",
@@ -828,28 +828,28 @@
       "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs030_garbage_collection.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Garbage collection \u2014 automatic memory management for access types",
       "category": "protected_types",
       "test_type": "both",
       "xref": "LCS2016-030",
       "test_file": "vhdl2019/protected_types/protected_types_lcs030_garbage_collection.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4825.771331787109
+      "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs032_path_name.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "PATH_NAME/INSTANCE_NAME for protected types",
       "category": "protected_types",
       "test_type": "both",
       "xref": "LCS2016-032",
       "test_file": "vhdl2019/protected_types/protected_types_lcs032_path_name.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4842.480182647705
+      "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs033_public_private.vhd@sim": {
       "status": "fail",
@@ -876,52 +876,52 @@
       "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs047_shared_on_interface.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Shared variables on entity interface \u2014 shared variable ports/generics",
       "category": "protected_types",
       "test_type": "both",
       "xref": "LCS2016-047",
       "test_file": "vhdl2019/protected_types/protected_types_lcs047_shared_on_interface.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4771.807432174683
+      "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs099_subprogram_param.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Protected types as subprogram parameters",
       "category": "protected_types",
       "test_type": "both",
       "xref": "LCS2016-099",
       "test_file": "vhdl2019/protected_types/protected_types_lcs099_subprogram_param.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4802.897214889526
+      "sim_time_ms": 0.0
     },
     "vhdl2019/psl/psl_enhanced_directives.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Embedded PSL directives \u2014 property specification language in comments",
       "category": "psl",
       "test_type": "sim",
       "xref": "",
       "test_file": "vhdl2019/psl/psl_enhanced_directives.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4792.796850204468
+      "sim_time_ms": 0.0
     },
     "vhdl2019/psl/psl_lcs043_attributes.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "PSL attributes and functions \u2014 extended PSL built-in capabilities",
       "category": "psl",
       "test_type": "sim",
       "xref": "LCS2016-043",
       "test_file": "vhdl2019/psl/psl_lcs043_attributes.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4848.969221115112
+      "sim_time_ms": 0.0
     },
     "vhdl2019/sequential/sequential_lcs007_declaration_regions.vhd@sim": {
       "status": "fail",
@@ -943,21 +943,21 @@
       "test_type": "both",
       "xref": "LCS2016-036a",
       "test_file": "vhdl2019/sequential/sequential_lcs036a_conditional_expr.vhd",
-      "comment": "Elaboration failed",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
       "sim_time_ms": 0.0
     },
     "vhdl2019/sequential/sequential_lcs094a_conditional_return.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Conditional return statement \u2014 return with when/else conditions",
       "category": "sequential",
       "test_type": "both",
       "xref": "LCS2016-094a",
       "test_file": "vhdl2019/sequential/sequential_lcs094a_conditional_return.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4889.975070953369
+      "sim_time_ms": 0.0
     },
     "vhdl2019/sequential/sequential_lcs107_blocks.vhd@sim": {
       "status": "fail",
@@ -984,64 +984,64 @@
       "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcs055a_components.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Syntax regularization -- component declarations made optional",
       "category": "syntax",
       "test_type": "both",
       "xref": "LCS2016-055a",
       "test_file": "vhdl2019/syntax/syntax_lcs055a_components.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4888.216257095337
+      "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcs071a_optional_trailing_semicolon.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Optional trailing semicolon in interface lists",
       "category": "syntax",
       "test_type": "both",
       "xref": "LCS2016-071a",
       "test_file": "vhdl2019/syntax/syntax_lcs071a_optional_trailing_semicolon.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4899.684429168701
+      "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcs086_ordered_interfaces.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "All interface lists can be ordered \u2014 named association everywhere",
       "category": "syntax",
       "test_type": "both",
       "xref": "LCS2016-086",
       "test_file": "vhdl2019/syntax/syntax_lcs086_ordered_interfaces.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4859.753847122192
+      "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcs099_extended_ranges.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Extended ranges / range expressions \u2014 dynamic range computation",
       "category": "syntax",
       "test_type": "both",
       "xref": "LCS2016-099 (extended ranges \u2014 distinct from LCS2016-099 PT params)",
       "test_file": "vhdl2019/syntax/syntax_lcs099_extended_ranges.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4868.359088897705
+      "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcsI03_signatures.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Signatures in association lists \u2014 explicit subprogram signatures",
       "category": "syntax",
       "test_type": "both",
       "xref": "LCS2016-I03",
       "test_file": "vhdl2019/syntax/syntax_lcsI03_signatures.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4892.524480819702
+      "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcsI13_unary_precedence.vhd@sim": {
       "status": "fail",
@@ -1087,7 +1087,7 @@
       "test_type": "both",
       "xref": "LCS2016-026c",
       "test_file": "vhdl2019/types_2019/types_2019_lcs026c_long_integers.vhd",
-      "comment": "Elaboration failed",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
       "sim_time_ms": 0.0
     },
@@ -1104,16 +1104,16 @@
       "sim_time_ms": 0.0
     },
     "vhdl2019/types_2019/types_2019_lcs059a_scalar_ordering.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Scalar array ordering \u2014 relational operators on any scalar array type",
       "category": "types_2019",
       "test_type": "both",
       "xref": "LCS2016-059a",
       "test_file": "vhdl2019/types_2019/types_2019_lcs059a_scalar_ordering.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4848.917007446289
+      "sim_time_ms": 0.0
     },
     "vhdl2019/types_2019/types_2019_lcs075_related_records.vhd@sim": {
       "status": "fail",
@@ -1128,40 +1128,40 @@
       "sim_time_ms": 0.0
     },
     "vhdl2019/types_2019/types_2019_lcs082_empty_records.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Empty records -- record types with no elements",
       "category": "types_2019",
       "test_type": "both",
       "xref": "LCS2016-082",
       "test_file": "vhdl2019/types_2019/types_2019_lcs082_empty_records.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4836.336851119995
+      "sim_time_ms": 0.0
     },
     "vhdl2019/vectors/vectors_lcs001_partially_connected.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Partially connected vectors \u2014 use `open` to leave port bits unconnected",
       "category": "vectors",
       "test_type": "both",
       "xref": "LCS2016-001",
       "test_file": "vhdl2019/vectors/vectors_lcs001_partially_connected.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4878.354787826538
+      "sim_time_ms": 0.0
     },
     "vhdl2019/vectors/vectors_lcs072b_function_knows_size.vhd@sim": {
-      "status": "pass",
+      "status": "fail",
       "standard": "VHDL-2019",
       "feature": "Function knows vector size \u2014 result type depends on input sizes",
       "category": "vectors",
       "test_type": "both",
       "xref": "LCS2016-072b",
       "test_file": "vhdl2019/vectors/vectors_lcs072b_function_knows_size.vhd",
-      "comment": "",
+      "comment": "Analysis failed",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 4890.771150588989
+      "sim_time_ms": 0.0
     }
   }
 }

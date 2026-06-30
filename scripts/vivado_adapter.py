@@ -253,7 +253,10 @@ class VivadoRunner(ToolRunner):
             from tool_discovery import detect_installed_versions
 
         detected = detect_installed_versions(Path("tools"), verbose=False)
+        # Match by version — without this, all versions return the first installed Vivado
         for dt in detected.get("vivado", []):
+            if dt.version != self.version:
+                continue
             # Check common executable extensions on Windows
             for exe_name_variant in (f"{exe_name}.exe", f"{exe_name}.bat", exe_name):
                 exe_path = dt.exe_dir / exe_name_variant

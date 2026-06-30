@@ -270,6 +270,12 @@ def generate_matrix_markdown(
 
         for tool_part, mode, _display in col_entries:
             cell = " ⬜ |"
+            # Determine if this feature is sim-only (to show N/A for synth columns)
+            feature_test_type = _find_test_type(all_reports, feature, category)
+            if mode == "synth" and feature_test_type == "sim":
+                cell = f" {build_status_cell('n/a')} |"
+                row += cell
+                continue
             # Find the report matching this tool_part, standard, and mode
             for col_key in columns:
                 if col_key.startswith(tool_part + "/"):
@@ -320,6 +326,16 @@ def _find_test_file(all_reports: Dict[str, dict], std: str,
                     return test_file  # Found one with test_file — use it
                 candidate = test_file
     return candidate or None
+
+
+def _find_test_type(all_reports: Dict[str, dict], feature: str, category: str) -> str:
+    """Find the test_type for a feature (sim, synth, or both) by scanning reports."""
+    for data in all_reports.values():
+        for result in data.get("results", {}).values():
+            if (result.get("feature") == feature
+                    and result.get("category") == category):
+                return result.get("test_type", "sim")
+    return "sim"
 
 
 def _find_result_in_report(report_data: dict, feature: str, category: str) -> Optional[dict]:

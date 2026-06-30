@@ -3,12 +3,12 @@
   "tool_version": "2025.2",
   "standard": "combined",
   "mode": "synth",
-  "timestamp": "2026-06-29T18:52:56.018042+00:00",
+  "timestamp": "2026-06-30T07:00:35.679586+00:00",
   "summary": {
     "total": 93,
-    "pass": 64,
+    "pass": 65,
     "partial": 0,
-    "fail": 12
+    "fail": 11
   },
   "results": {
     "vhdl2008/aggregates/aggregates_assignment_targets.vhd@synth": {
@@ -20,7 +20,7 @@
       "xref": "",
       "test_file": "vhdl2008/aggregates/aggregates_assignment_targets.vhd",
       "comment": "",
-      "compile_time_ms": 35914.947271347046,
+      "compile_time_ms": 48963.39750289917,
       "sim_time_ms": 0.0
     },
     "vhdl2008/aggregates/aggregates_named_association.vhd@synth": {
@@ -32,7 +32,7 @@
       "xref": "",
       "test_file": "vhdl2008/aggregates/aggregates_named_association.vhd",
       "comment": "",
-      "compile_time_ms": 37473.64115715027,
+      "compile_time_ms": 33573.49729537964,
       "sim_time_ms": 0.0
     },
     "vhdl2008/aggregates/aggregates_open_in_aggregates.vhd@synth": {
@@ -44,7 +44,7 @@
       "xref": "",
       "test_file": "vhdl2008/aggregates/aggregates_open_in_aggregates.vhd",
       "comment": "ERROR: ERROR: [Common 17-69] Command failed: Vivado Synthesis failed",
-      "compile_time_ms": 22612.394094467163,
+      "compile_time_ms": 20457.155466079712,
       "sim_time_ms": 0.0
     },
     "vhdl2008/aggregates/aggregates_others_record.vhd@synth": {
@@ -56,7 +56,7 @@
       "xref": "",
       "test_file": "vhdl2008/aggregates/aggregates_others_record.vhd",
       "comment": "",
-      "compile_time_ms": 36493.629455566406,
+      "compile_time_ms": 33592.62204170227,
       "sim_time_ms": 0.0
     },
     "vhdl2008/aggregates/aggregates_slice_aggregates.vhd@synth": {
@@ -68,7 +68,7 @@
       "xref": "",
       "test_file": "vhdl2008/aggregates/aggregates_slice_aggregates.vhd",
       "comment": "",
-      "compile_time_ms": 35951.22742652893,
+      "compile_time_ms": 33375.38290023804,
       "sim_time_ms": 0.0
     },
     "vhdl2008/expressions/expressions_condition_operator.vhd@synth": {
@@ -80,7 +80,7 @@
       "xref": "",
       "test_file": "vhdl2008/expressions/expressions_condition_operator.vhd",
       "comment": "",
-      "compile_time_ms": 35813.27795982361,
+      "compile_time_ms": 33408.80107879639,
       "sim_time_ms": 0.0
     },
     "vhdl2008/expressions/expressions_enhanced_bit_strings.vhd@synth": {
@@ -92,7 +92,7 @@
       "xref": "FT09",
       "test_file": "vhdl2008/expressions/expressions_enhanced_bit_strings.vhd",
       "comment": "",
-      "compile_time_ms": 35720.221519470215,
+      "compile_time_ms": 33368.10874938965,
       "sim_time_ms": 0.0
     },
     "vhdl2008/expressions/expressions_matching_operators.vhd@synth": {
@@ -104,7 +104,7 @@
       "xref": "",
       "test_file": "vhdl2008/expressions/expressions_matching_operators.vhd",
       "comment": "",
-      "compile_time_ms": 35443.846464157104,
+      "compile_time_ms": 33459.39588546753,
       "sim_time_ms": 0.0
     },
     "vhdl2008/expressions/expressions_reduction_operators.vhd@synth": {
@@ -116,7 +116,7 @@
       "xref": "",
       "test_file": "vhdl2008/expressions/expressions_reduction_operators.vhd",
       "comment": "",
-      "compile_time_ms": 35140.52772521973,
+      "compile_time_ms": 33617.703914642334,
       "sim_time_ms": 0.0
     },
     "vhdl2008/expressions/expressions_shift_rotate.vhd@synth": {
@@ -128,7 +128,7 @@
       "xref": "",
       "test_file": "vhdl2008/expressions/expressions_shift_rotate.vhd",
       "comment": "",
-      "compile_time_ms": 35175.05741119385,
+      "compile_time_ms": 33372.58052825928,
       "sim_time_ms": 0.0
     },
     "vhdl2008/generate/generate_case_generate.vhd@synth": {
@@ -140,7 +140,7 @@
       "xref": "",
       "test_file": "vhdl2008/generate/generate_case_generate.vhd",
       "comment": "",
-      "compile_time_ms": 35085.471868515015,
+      "compile_time_ms": 33567.548990249634,
       "sim_time_ms": 0.0
     },
     "vhdl2008/generate/generate_if_elsif_generate.vhd@synth": {
@@ -152,7 +152,7 @@
       "xref": "",
       "test_file": "vhdl2008/generate/generate_if_elsif_generate.vhd",
       "comment": "",
-      "compile_time_ms": 35232.9843044281,
+      "compile_time_ms": 33470.41654586792,
       "sim_time_ms": 0.0
     },
     "vhdl2008/generics/generics_default_types.vhd@synth": {
@@ -164,19 +164,19 @@
       "xref": "",
       "test_file": "vhdl2008/generics/generics_default_types.vhd",
       "comment": "ERROR: ERROR: [Common 17-69] Command failed: Vivado Synthesis failed",
-      "compile_time_ms": 21863.888025283813,
+      "compile_time_ms": 20299.893617630005,
       "sim_time_ms": 0.0
     },
     "vhdl2008/generics/generics_generic_types.vhd@synth": {
-      "status": "fail",
+      "status": "pass",
       "standard": "VHDL-2008",
       "feature": "Generic types -- entities/functions parameterizable by type",
       "category": "generics",
       "test_type": "both",
       "xref": "",
       "test_file": "vhdl2008/generics/generics_generic_types.vhd",
-      "comment": "ERROR: ERROR: [Common 17-69] Command failed: Vivado Synthesis failed",
-      "compile_time_ms": 21844.695568084717,
+      "comment": "",
+      "compile_time_ms": 33503.95345687866,
       "sim_time_ms": 0.0
     },
     "vhdl2008/generics/generics_subprograms.vhd@synth": {
@@ -188,7 +188,7 @@
       "xref": "",
       "test_file": "vhdl2008/generics/generics_subprograms.vhd",
       "comment": "",
-      "compile_time_ms": 35498.52466583252,
+      "compile_time_ms": 33622.73335456848,
       "sim_time_ms": 0.0
     },
     "vhdl2008/misc/misc_block_comments.vhd@synth": {
@@ -200,7 +200,7 @@
       "xref": "",
       "test_file": "vhdl2008/misc/misc_block_comments.vhd",
       "comment": "",
-      "compile_time_ms": 35855.3729057312,
+      "compile_time_ms": 33480.40676116943,
       "sim_time_ms": 0.0
     },
     "vhdl2008/misc/misc_boolean_edge.vhd@synth": {
@@ -212,7 +212,7 @@
       "xref": "",
       "test_file": "vhdl2008/misc/misc_boolean_edge.vhd",
       "comment": "ERROR: ERROR: [Common 17-69] Command failed: Vivado Synthesis failed",
-      "compile_time_ms": 22070.247411727905,
+      "compile_time_ms": 20330.51896095276,
       "sim_time_ms": 0.0
     },
     "vhdl2008/misc/misc_ip_protect.vhd@synth": {
@@ -224,7 +224,7 @@
       "xref": "",
       "test_file": "vhdl2008/misc/misc_ip_protect.vhd",
       "comment": "",
-      "compile_time_ms": 35850.62384605408,
+      "compile_time_ms": 33408.69617462158,
       "sim_time_ms": 0.0
     },
     "vhdl2008/misc/misc_min_max.vhd@synth": {
@@ -236,7 +236,7 @@
       "xref": "",
       "test_file": "vhdl2008/misc/misc_min_max.vhd",
       "comment": "",
-      "compile_time_ms": 36193.97783279419,
+      "compile_time_ms": 33413.782358169556,
       "sim_time_ms": 0.0
     },
     "vhdl2008/misc/misc_to_string.vhd@synth": {
@@ -248,7 +248,7 @@
       "xref": "",
       "test_file": "vhdl2008/misc/misc_to_string.vhd",
       "comment": "",
-      "compile_time_ms": 36676.70702934265,
+      "compile_time_ms": 33279.08968925476,
       "sim_time_ms": 0.0
     },
     "vhdl2008/packages/packages_context.vhd@synth": {
@@ -260,7 +260,7 @@
       "xref": "",
       "test_file": "vhdl2008/packages/packages_context.vhd",
       "comment": "",
-      "compile_time_ms": 36681.75506591797,
+      "compile_time_ms": 33364.06207084656,
       "sim_time_ms": 0.0
     },
     "vhdl2008/packages/packages_fixed_point.vhd@synth": {
@@ -272,7 +272,7 @@
       "xref": "",
       "test_file": "vhdl2008/packages/packages_fixed_point.vhd",
       "comment": "",
-      "compile_time_ms": 36426.90587043762,
+      "compile_time_ms": 33745.78094482422,
       "sim_time_ms": 0.0
     },
     "vhdl2008/packages/packages_float_point.vhd@synth": {
@@ -284,7 +284,7 @@
       "xref": "",
       "test_file": "vhdl2008/packages/packages_float_point.vhd",
       "comment": "",
-      "compile_time_ms": 65859.95864868164,
+      "compile_time_ms": 57455.26170730591,
       "sim_time_ms": 0.0
     },
     "vhdl2008/packages/packages_generic_package.vhd@synth": {
@@ -296,7 +296,7 @@
       "xref": "",
       "test_file": "vhdl2008/packages/packages_generic_package.vhd",
       "comment": "",
-      "compile_time_ms": 35431.11753463745,
+      "compile_time_ms": 33840.73305130005,
       "sim_time_ms": 0.0
     },
     "vhdl2008/packages/packages_numeric_std_signed.vhd@synth": {
@@ -308,7 +308,7 @@
       "xref": "",
       "test_file": "vhdl2008/packages/packages_numeric_std_signed.vhd",
       "comment": "ERROR: ERROR: [Common 17-69] Command failed: Vivado Synthesis failed",
-      "compile_time_ms": 21576.89595222473,
+      "compile_time_ms": 20538.13338279724,
       "sim_time_ms": 0.0
     },
     "vhdl2008/packages/packages_numeric_std_unsigned.vhd@synth": {
@@ -320,7 +320,7 @@
       "xref": "",
       "test_file": "vhdl2008/packages/packages_numeric_std_unsigned.vhd",
       "comment": "ERROR: ERROR: [Common 17-69] Command failed: Vivado Synthesis failed",
-      "compile_time_ms": 22187.54529953003,
+      "compile_time_ms": 20353.96695137024,
       "sim_time_ms": 0.0
     },
     "vhdl2008/ports/ports_enhanced_port_maps.vhd@synth": {
@@ -332,7 +332,7 @@
       "xref": "",
       "test_file": "vhdl2008/ports/ports_enhanced_port_maps.vhd",
       "comment": "",
-      "compile_time_ms": 35993.10851097107,
+      "compile_time_ms": 34082.462787628174,
       "sim_time_ms": 0.0
     },
     "vhdl2008/ports/ports_expressions_in_port_maps.vhd@synth": {
@@ -344,7 +344,7 @@
       "xref": "",
       "test_file": "vhdl2008/ports/ports_expressions_in_port_maps.vhd",
       "comment": "",
-      "compile_time_ms": 35677.25133895874,
+      "compile_time_ms": 33933.70532989502,
       "sim_time_ms": 0.0
     },
     "vhdl2008/ports/ports_read_output.vhd@synth": {
@@ -356,7 +356,7 @@
       "xref": "",
       "test_file": "vhdl2008/ports/ports_read_output.vhd",
       "comment": "",
-      "compile_time_ms": 35556.29348754883,
+      "compile_time_ms": 34199.72825050354,
       "sim_time_ms": 0.0
     },
     "vhdl2008/processes/processes_process_all.vhd@synth": {
@@ -368,7 +368,7 @@
       "xref": "FT19",
       "test_file": "vhdl2008/processes/processes_process_all.vhd",
       "comment": "",
-      "compile_time_ms": 35559.05556678772,
+      "compile_time_ms": 33826.41530036926,
       "sim_time_ms": 0.0
     },
     "vhdl2008/processes/processes_seq_assignments.vhd@synth": {
@@ -380,7 +380,7 @@
       "xref": "",
       "test_file": "vhdl2008/processes/processes_seq_assignments.vhd",
       "comment": "",
-      "compile_time_ms": 35364.76516723633,
+      "compile_time_ms": 34023.638010025024,
       "sim_time_ms": 0.0
     },
     "vhdl2008/types/types_driving_attributes.vhd@synth": {
@@ -392,7 +392,7 @@
       "xref": "",
       "test_file": "vhdl2008/types/types_driving_attributes.vhd",
       "comment": "",
-      "compile_time_ms": 36221.91023826599,
+      "compile_time_ms": 33829.957723617554,
       "sim_time_ms": 0.0
     },
     "vhdl2008/types/types_matching_case.vhd@synth": {
@@ -404,7 +404,7 @@
       "xref": "",
       "test_file": "vhdl2008/types/types_matching_case.vhd",
       "comment": "",
-      "compile_time_ms": 37148.526430130005,
+      "compile_time_ms": 36485.15272140503,
       "sim_time_ms": 0.0
     },
     "vhdl2008/types/types_predefined_vectors.vhd@synth": {
@@ -416,7 +416,7 @@
       "xref": "",
       "test_file": "vhdl2008/types/types_predefined_vectors.vhd",
       "comment": "",
-      "compile_time_ms": 36109.7948551178,
+      "compile_time_ms": 33987.84351348877,
       "sim_time_ms": 0.0
     },
     "vhdl2008/types/types_unconstrained_elements.vhd@synth": {
@@ -428,7 +428,7 @@
       "xref": "",
       "test_file": "vhdl2008/types/types_unconstrained_elements.vhd",
       "comment": "",
-      "compile_time_ms": 36782.142162323,
+      "compile_time_ms": 33975.08215904236,
       "sim_time_ms": 0.0
     },
     "vhdl2008/uvvm/uvvm_external_names.vhd@synth": {
@@ -464,7 +464,7 @@
       "xref": "",
       "test_file": "vhdl2008/uvvm/uvvm_unconstrained_array.vhd",
       "comment": "",
-      "compile_time_ms": 37179.33368682861,
+      "compile_time_ms": 33777.9266834259,
       "sim_time_ms": 0.0
     },
     "vhdl2008/verification/verification_external_names.vhd@synth": {
@@ -536,7 +536,7 @@
       "xref": "LCS2016-012",
       "test_file": "vhdl2019/attributes/attributes_lcs012_image_composite.vhd",
       "comment": "",
-      "compile_time_ms": 37399.66583251953,
+      "compile_time_ms": 33889.18209075928,
       "sim_time_ms": 0.0
     },
     "vhdl2019/attributes/attributes_lcs018_enum_attributes.vhd@synth": {
@@ -548,7 +548,7 @@
       "xref": "LCS2016-018/018a/018d",
       "test_file": "vhdl2019/attributes/attributes_lcs018_enum_attributes.vhd",
       "comment": "",
-      "compile_time_ms": 37310.48274040222,
+      "compile_time_ms": 33939.647912979126,
       "sim_time_ms": 0.0
     },
     "vhdl2019/attributes/attributes_lcs041_reflect.vhd@synth": {
@@ -560,7 +560,7 @@
       "xref": "LCS2016-041",
       "test_file": "vhdl2019/attributes/attributes_lcs041_reflect.vhd",
       "comment": "",
-      "compile_time_ms": 37294.31629180908,
+      "compile_time_ms": 33749.38249588013,
       "sim_time_ms": 0.0
     },
     "vhdl2019/attributes/attributes_lcs106_reflection.vhd@synth": {
@@ -572,7 +572,7 @@
       "xref": "LCS2016-106",
       "test_file": "vhdl2019/attributes/attributes_lcs106_reflection.vhd",
       "comment": "",
-      "compile_time_ms": 37151.34119987488,
+      "compile_time_ms": 34290.69709777832,
       "sim_time_ms": 0.0
     },
     "vhdl2019/conditional_analysis/conditional_analysis_lcs006f_standard_ids.vhd@synth": {
@@ -584,7 +584,7 @@
       "xref": "LCS2016-006f",
       "test_file": "vhdl2019/conditional_analysis/conditional_analysis_lcs006f_standard_ids.vhd",
       "comment": "",
-      "compile_time_ms": 37057.61218070984,
+      "compile_time_ms": 33898.47278594971,
       "sim_time_ms": 0.0
     },
     "vhdl2019/conditional_analysis/conditional_analysis_lcs061_conditional_compilation.vhd@synth": {
@@ -596,7 +596,7 @@
       "xref": "LCS2016-061",
       "test_file": "vhdl2019/conditional_analysis/conditional_analysis_lcs061_conditional_compilation.vhd",
       "comment": "",
-      "compile_time_ms": 36831.77852630615,
+      "compile_time_ms": 33750.53358078003,
       "sim_time_ms": 0.0
     },
     "vhdl2019/env/env_enhanced_stop_finish.vhd@synth": {
@@ -704,7 +704,7 @@
       "xref": "LCS2016-049",
       "test_file": "vhdl2019/generics_2019/generics_2019_lcs049_map_on_call.vhd",
       "comment": "",
-      "compile_time_ms": 36560.07623672485,
+      "compile_time_ms": 33999.391317367554,
       "sim_time_ms": 0.0
     },
     "vhdl2019/generics_2019/generics_2019_lcs059_array_type_generics.vhd@synth": {
@@ -716,7 +716,7 @@
       "xref": "LCS2016-059",
       "test_file": "vhdl2019/generics_2019/generics_2019_lcs059_array_type_generics.vhd",
       "comment": "",
-      "compile_time_ms": 39880.664110183716,
+      "compile_time_ms": 33994.20881271362,
       "sim_time_ms": 0.0
     },
     "vhdl2019/generics_2019/generics_2019_lcs109_subprogram_generics.vhd@synth": {
@@ -728,7 +728,7 @@
       "xref": "LCS2016-109",
       "test_file": "vhdl2019/generics_2019/generics_2019_lcs109_subprogram_generics.vhd",
       "comment": "ERROR: ERROR: [Common 17-69] Command failed: Vivado Synthesis failed",
-      "compile_time_ms": 22942.50750541687,
+      "compile_time_ms": 20262.869596481323,
       "sim_time_ms": 0.0
     },
     "vhdl2019/interfaces/interfaces_lcs045a_array_of_interfaces.vhd@synth": {
@@ -740,7 +740,7 @@
       "xref": "LCS2016-045a",
       "test_file": "vhdl2019/interfaces/interfaces_lcs045a_array_of_interfaces.vhd",
       "comment": "",
-      "compile_time_ms": 36885.33139228821,
+      "compile_time_ms": 33620.25284767151,
       "sim_time_ms": 0.0
     },
     "vhdl2019/interfaces/interfaces_lcs045a_inout_views.vhd@synth": {
@@ -752,7 +752,7 @@
       "xref": "LCS2016-045a",
       "test_file": "vhdl2019/interfaces/interfaces_lcs045a_inout_views.vhd",
       "comment": "",
-      "compile_time_ms": 37429.606437683105,
+      "compile_time_ms": 33823.68469238281,
       "sim_time_ms": 0.0
     },
     "vhdl2019/interfaces/interfaces_lcs045a_mode_view.vhd@synth": {
@@ -764,7 +764,7 @@
       "xref": "LCS2016-045a",
       "test_file": "vhdl2019/interfaces/interfaces_lcs045a_mode_view.vhd",
       "comment": "",
-      "compile_time_ms": 36716.996908187866,
+      "compile_time_ms": 33993.88003349304,
       "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs014_composites.vhd@synth": {
@@ -776,7 +776,7 @@
       "xref": "LCS2016-014",
       "test_file": "vhdl2019/protected_types/protected_types_lcs014_composites.vhd",
       "comment": "",
-      "compile_time_ms": 35907.506227493286,
+      "compile_time_ms": 33787.40072250366,
       "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs014a_pt_pointers.vhd@synth": {
@@ -788,7 +788,7 @@
       "xref": "LCS2016-014a",
       "test_file": "vhdl2019/protected_types/protected_types_lcs014a_pt_pointers.vhd",
       "comment": "",
-      "compile_time_ms": 35972.402572631836,
+      "compile_time_ms": 34021.35467529297,
       "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs030_garbage_collection.vhd@synth": {
@@ -800,7 +800,7 @@
       "xref": "LCS2016-030",
       "test_file": "vhdl2019/protected_types/protected_types_lcs030_garbage_collection.vhd",
       "comment": "",
-      "compile_time_ms": 36529.39558029175,
+      "compile_time_ms": 33909.61003303528,
       "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs032_path_name.vhd@synth": {
@@ -812,7 +812,7 @@
       "xref": "LCS2016-032",
       "test_file": "vhdl2019/protected_types/protected_types_lcs032_path_name.vhd",
       "comment": "",
-      "compile_time_ms": 36541.011571884155,
+      "compile_time_ms": 33819.353103637695,
       "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs033_public_private.vhd@synth": {
@@ -824,7 +824,7 @@
       "xref": "LCS2016-033",
       "test_file": "vhdl2019/protected_types/protected_types_lcs033_public_private.vhd",
       "comment": "",
-      "compile_time_ms": 36447.78299331665,
+      "compile_time_ms": 34100.685358047485,
       "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs034_generic_pt.vhd@synth": {
@@ -836,7 +836,7 @@
       "xref": "LCS2016-034",
       "test_file": "vhdl2019/protected_types/protected_types_lcs034_generic_pt.vhd",
       "comment": "",
-      "compile_time_ms": 41971.34613990784,
+      "compile_time_ms": 33705.81293106079,
       "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs047_shared_on_interface.vhd@synth": {
@@ -848,7 +848,7 @@
       "xref": "LCS2016-047",
       "test_file": "vhdl2019/protected_types/protected_types_lcs047_shared_on_interface.vhd",
       "comment": "",
-      "compile_time_ms": 35529.54626083374,
+      "compile_time_ms": 33754.81557846069,
       "sim_time_ms": 0.0
     },
     "vhdl2019/protected_types/protected_types_lcs099_subprogram_param.vhd@synth": {
@@ -860,7 +860,7 @@
       "xref": "LCS2016-099",
       "test_file": "vhdl2019/protected_types/protected_types_lcs099_subprogram_param.vhd",
       "comment": "",
-      "compile_time_ms": 35965.298891067505,
+      "compile_time_ms": 33794.72255706787,
       "sim_time_ms": 0.0
     },
     "vhdl2019/psl/psl_enhanced_directives.vhd@synth": {
@@ -896,7 +896,7 @@
       "xref": "LCS2016-007",
       "test_file": "vhdl2019/sequential/sequential_lcs007_declaration_regions.vhd",
       "comment": "ERROR: ERROR: [Common 17-69] Command failed: Vivado Synthesis failed",
-      "compile_time_ms": 22185.678720474243,
+      "compile_time_ms": 20715.789556503296,
       "sim_time_ms": 0.0
     },
     "vhdl2019/sequential/sequential_lcs036a_conditional_expr.vhd@synth": {
@@ -908,7 +908,7 @@
       "xref": "LCS2016-036a",
       "test_file": "vhdl2019/sequential/sequential_lcs036a_conditional_expr.vhd",
       "comment": "",
-      "compile_time_ms": 35521.0747718811,
+      "compile_time_ms": 34123.671531677246,
       "sim_time_ms": 0.0
     },
     "vhdl2019/sequential/sequential_lcs094a_conditional_return.vhd@synth": {
@@ -920,7 +920,7 @@
       "xref": "LCS2016-094a",
       "test_file": "vhdl2019/sequential/sequential_lcs094a_conditional_return.vhd",
       "comment": "",
-      "compile_time_ms": 35659.88516807556,
+      "compile_time_ms": 33852.89788246155,
       "sim_time_ms": 0.0
     },
     "vhdl2019/sequential/sequential_lcs107_blocks.vhd@synth": {
@@ -932,7 +932,7 @@
       "xref": "LCS2016-107",
       "test_file": "vhdl2019/sequential/sequential_lcs107_blocks.vhd",
       "comment": "ERROR: ERROR: [Common 17-69] Command failed: Vivado Synthesis failed",
-      "compile_time_ms": 21985.26358604431,
+      "compile_time_ms": 20421.881675720215,
       "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcs023_relaxed_library.vhd@synth": {
@@ -944,7 +944,7 @@
       "xref": "LCS2016-023",
       "test_file": "vhdl2019/syntax/syntax_lcs023_relaxed_library.vhd",
       "comment": "",
-      "compile_time_ms": 35575.81400871277,
+      "compile_time_ms": 33409.63363647461,
       "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcs055a_components.vhd@synth": {
@@ -956,7 +956,7 @@
       "xref": "LCS2016-055a",
       "test_file": "vhdl2019/syntax/syntax_lcs055a_components.vhd",
       "comment": "",
-      "compile_time_ms": 36173.14434051514,
+      "compile_time_ms": 33805.86361885071,
       "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcs071a_optional_trailing_semicolon.vhd@synth": {
@@ -968,7 +968,7 @@
       "xref": "LCS2016-071a",
       "test_file": "vhdl2019/syntax/syntax_lcs071a_optional_trailing_semicolon.vhd",
       "comment": "",
-      "compile_time_ms": 36854.46548461914,
+      "compile_time_ms": 33815.52600860596,
       "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcs086_ordered_interfaces.vhd@synth": {
@@ -980,7 +980,7 @@
       "xref": "LCS2016-086",
       "test_file": "vhdl2019/syntax/syntax_lcs086_ordered_interfaces.vhd",
       "comment": "",
-      "compile_time_ms": 36754.10032272339,
+      "compile_time_ms": 33593.47486495972,
       "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcs099_extended_ranges.vhd@synth": {
@@ -992,7 +992,7 @@
       "xref": "LCS2016-099 (extended ranges \u2014 distinct from LCS2016-099 PT params)",
       "test_file": "vhdl2019/syntax/syntax_lcs099_extended_ranges.vhd",
       "comment": "",
-      "compile_time_ms": 36625.52857398987,
+      "compile_time_ms": 33546.10204696655,
       "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcsI03_signatures.vhd@synth": {
@@ -1004,7 +1004,7 @@
       "xref": "LCS2016-I03",
       "test_file": "vhdl2019/syntax/syntax_lcsI03_signatures.vhd",
       "comment": "",
-      "compile_time_ms": 36794.610261917114,
+      "compile_time_ms": 33806.96487426758,
       "sim_time_ms": 0.0
     },
     "vhdl2019/syntax/syntax_lcsI13_unary_precedence.vhd@synth": {
@@ -1016,7 +1016,7 @@
       "xref": "LCS2016-I13",
       "test_file": "vhdl2019/syntax/syntax_lcsI13_unary_precedence.vhd",
       "comment": "",
-      "compile_time_ms": 36489.1836643219,
+      "compile_time_ms": 34079.3399810791,
       "sim_time_ms": 0.0
     },
     "vhdl2019/types_2019/types_2019_lcs016_anonymous_types.vhd@synth": {
@@ -1028,7 +1028,7 @@
       "xref": "LCS2016-016",
       "test_file": "vhdl2019/types_2019/types_2019_lcs016_anonymous_types.vhd",
       "comment": "ERROR: ERROR: [Common 17-69] Command failed: Vivado Synthesis failed",
-      "compile_time_ms": 22131.07991218567,
+      "compile_time_ms": 20593.734979629517,
       "sim_time_ms": 0.0
     },
     "vhdl2019/types_2019/types_2019_lcs019_inferred_constraints.vhd@synth": {
@@ -1040,7 +1040,7 @@
       "xref": "LCS2016-019",
       "test_file": "vhdl2019/types_2019/types_2019_lcs019_inferred_constraints.vhd",
       "comment": "ERROR: ERROR: [Common 17-69] Command failed: Vivado Synthesis failed",
-      "compile_time_ms": 22065.042734146118,
+      "compile_time_ms": 20874.075889587402,
       "sim_time_ms": 0.0
     },
     "vhdl2019/types_2019/types_2019_lcs026c_long_integers.vhd@synth": {
@@ -1052,7 +1052,7 @@
       "xref": "LCS2016-026c",
       "test_file": "vhdl2019/types_2019/types_2019_lcs026c_long_integers.vhd",
       "comment": "",
-      "compile_time_ms": 36364.48907852173,
+      "compile_time_ms": 34027.565240859985,
       "sim_time_ms": 0.0
     },
     "vhdl2019/types_2019/types_2019_lcs028_external_types.vhd@synth": {
@@ -1064,7 +1064,7 @@
       "xref": "LCS2016-028",
       "test_file": "vhdl2019/types_2019/types_2019_lcs028_external_types.vhd",
       "comment": "",
-      "compile_time_ms": 36341.912269592285,
+      "compile_time_ms": 33678.01308631897,
       "sim_time_ms": 0.0
     },
     "vhdl2019/types_2019/types_2019_lcs059a_scalar_ordering.vhd@synth": {
@@ -1076,7 +1076,7 @@
       "xref": "LCS2016-059a",
       "test_file": "vhdl2019/types_2019/types_2019_lcs059a_scalar_ordering.vhd",
       "comment": "",
-      "compile_time_ms": 42149.593353271484,
+      "compile_time_ms": 33741.453886032104,
       "sim_time_ms": 0.0
     },
     "vhdl2019/types_2019/types_2019_lcs075_related_records.vhd@synth": {
@@ -1088,7 +1088,7 @@
       "xref": "LCS2016-075",
       "test_file": "vhdl2019/types_2019/types_2019_lcs075_related_records.vhd",
       "comment": "ERROR: ERROR: [Common 17-69] Command failed: Vivado Synthesis failed",
-      "compile_time_ms": 23848.726511001587,
+      "compile_time_ms": 20716.94326400757,
       "sim_time_ms": 0.0
     },
     "vhdl2019/types_2019/types_2019_lcs082_empty_records.vhd@synth": {
@@ -1100,7 +1100,7 @@
       "xref": "LCS2016-082",
       "test_file": "vhdl2019/types_2019/types_2019_lcs082_empty_records.vhd",
       "comment": "",
-      "compile_time_ms": 36642.149686813354,
+      "compile_time_ms": 33868.56031417847,
       "sim_time_ms": 0.0
     },
     "vhdl2019/vectors/vectors_lcs001_partially_connected.vhd@synth": {
@@ -1112,7 +1112,7 @@
       "xref": "LCS2016-001",
       "test_file": "vhdl2019/vectors/vectors_lcs001_partially_connected.vhd",
       "comment": "",
-      "compile_time_ms": 36587.26239204407,
+      "compile_time_ms": 33812.05439567566,
       "sim_time_ms": 0.0
     },
     "vhdl2019/vectors/vectors_lcs072b_function_knows_size.vhd@synth": {
@@ -1124,7 +1124,7 @@
       "xref": "LCS2016-072b",
       "test_file": "vhdl2019/vectors/vectors_lcs072b_function_knows_size.vhd",
       "comment": "",
-      "compile_time_ms": 36460.893392562866,
+      "compile_time_ms": 34057.302474975586,
       "sim_time_ms": 0.0
     }
   }

@@ -369,9 +369,23 @@ def main(argv: Optional[List[str]] = None) -> int:
     else:
         modes = [args.mode]
 
+    tool_lower = config.name.lower()
+
+    # Look up display name from installed.toml if available
+    # Also support matching by alias (short name in installed.toml)
+    # Resolve alias BEFORE creating the runner so version is correct
+    detected = detect_installed_versions(tools_dir, verbose=False)
+    for dt in detected.get(tool_lower, []):
+        if dt.alias and dt.alias.lower() == version.lower():
+            config.display_name = dt.display_name
+            version = dt.version  # resolve alias to actual version
+            break
+        if dt.version == version and dt.display_name:
+            config.display_name = dt.display_name
+            break
+
     # Create the appropriate runner
     runner = None
-    tool_lower = config.name.lower()
     if tool_lower in ("questa", "modelsim"):
         try:
             from .questa_adapter import QuestaRunner  # works for both Questa and ModelSim
@@ -386,18 +400,6 @@ def main(argv: Optional[List[str]] = None) -> int:
         runner = VivadoRunner(config, version)
     else:
         runner = GenericRunner(config, version)
-
-    # Look up display name from installed.toml if available
-    # Also support matching by alias (short name in installed.toml)
-    detected = detect_installed_versions(tools_dir, verbose=False)
-    for dt in detected.get(tool_lower, []):
-        if dt.alias and dt.alias.lower() == version.lower():
-            config.display_name = dt.display_name
-            version = dt.version  # resolve alias to actual version
-            break
-        if dt.version == version and dt.display_name:
-            config.display_name = dt.display_name
-            break
 
     # Use display_name for folder naming (distinguishes editions)
     safe_name = (config.display_name or config.name).lower().replace(" ", "_")
