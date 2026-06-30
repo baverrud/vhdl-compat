@@ -8,12 +8,13 @@
 ## Data Flow: Test → Result → Matrix
 
 ```mermaid
+%%{init: {'theme': 'neutral'}}%%
 graph LR
-    A[.vhd files<br/>tests/] -->|test_discovery| B[TestInfo dict<br/>96 entries]
-    B -->|run_tests| C[ToolRunner<br/>adapter]
-    D[tools/*.toml<br/>+ installed.toml] -->|tool_discovery| E[ToolConfig<br/>+ paths]
+    A[".vhd files<br/>tests/"] -->|test_discovery| B["TestInfo dict<br/>96 entries"]
+    B -->|run_tests| C["ToolRunner<br/>adapter"]
+    D["tools/*.toml<br/>+ installed.toml"] -->|tool_discovery| E["ToolConfig<br/>+ paths"]
     E -->|run_tests| C
-    C -->|simulate / synthesize| F[JSON result files<br/>results/]
+    C -->|simulate / synthesize| F["JSON result files<br/>results/"]
     F -->|generate_matrix| G[MATRIX.md]
 ```
 
