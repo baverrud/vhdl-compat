@@ -9,6 +9,7 @@ Tests cover **simulation** (compile + run) and **synthesis** (compile to netlist
 <br>
 
 > **New to this project?** Read the **[User Guide](docs/user-guide.md)** — it walks through every step, no prior knowledge assumed.
+> **Contributing?** Start with **[ARCHITECTURE.md](docs/ARCHITECTURE.md)** — design patterns and gotchas.
 
 ## Quick Start
 

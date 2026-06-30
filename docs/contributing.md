@@ -9,6 +9,8 @@
 
 ## Development Setup
 
+> **First time contributor?** Read **[ARCHITECTURE.md](ARCHITECTURE.md)** for design patterns, data flow, and tool quirks.
+
 ```bash
 # Clone the repo
 git clone <repo-url>
