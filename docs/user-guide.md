@@ -150,16 +150,16 @@ If you see warnings about paths not found, double-check the paths in `tools/inst
 python scripts/run_tests.py --list
 ```
 
-This shows all 16 test files (and growing). Each test checks one specific VHDL feature.
+This shows all 96 test files. Each test checks one specific VHDL feature.
 
 ```
-Found 16 test(s):
+Found 96 test(s):
 
 Standard     Category                 Feature                                   Type
 ----------------------------------------------------------------------------------------------
 VHDL-2008    expressions              ?? (condition operator)                   sim
 VHDL-2008    processes                process(all) — automatic sensitivity list  sim
-VHDL-2019    syntax                   Optional trailing semicolon               sim
+VHDL-2019    syntax                   LCS2016-071a: Optional trailing semicolon  sim
 ...
 ```
 
@@ -183,11 +183,11 @@ This runs all VHDL-2008 simulation tests using Vivado 2024.1. You will see outpu
 ============================================================
 Running: Vivado 2024.1 | VHDL-2008 | modes=['sim']
 ============================================================
-  [8/16] vhdl2008/processes/processes_process_all.vhd (sim)... ✓ PASS
-  [9/16] vhdl2008/expressions/expressions_condition_operator.vhd (sim)... ✗ FAIL
+  [8/96] vhdl2008/processes/processes_process_all.vhd (sim)... PASS
+  [9/96] vhdl2008/expressions/expressions_condition_operator.vhd (sim)... FAIL
 
 Results: 5 pass, 0 partial, 1 fail (6 total)
-Report saved: results/vivado-2024.1/vhdl2008-sim/report.json
+Saved: vivado-2024.1_sim.json (5P/1F/6T)
 ```
 
 ### Using aliases (short names)
@@ -263,17 +263,16 @@ Each test has one of four outcomes:
 
 ### Reading the report
 
-Reports are saved in `results/{tool}-{version}/{standard}-{mode}/`:
+Results are saved as flat JSON files in `results/`:
 
 ```
 results/
-└── vivado-2024.1/
-    └── vhdl2008-sim/
-        ├── report.json    # Machine-readable (for scripts)
-        └── report.md      # Human-readable (open in any text editor)
+├── vivado-2024.1_sim.json    # Machine-readable (for scripts)
+├── altera_questa_starter-2025.3_sim.json
+└── ...
 ```
 
-Open `report.md` to see a formatted summary with per-category breakdowns and details on any failing tests.
+Each JSON file contains all features across all standards for one tool/version/mode.
 
 ---
 
@@ -282,7 +281,7 @@ Open `report.md` to see a formatted summary with per-category breakdowns and det
 After running tests with multiple tools or versions, generate a combined comparison:
 
 ```bash
-vhdl-compat-matrix --results-dir results/
+python scripts/generate_matrix.py
 ```
 
 This creates `MATRIX.md` — a table where each row is a VHDL feature and each column is a tool/version. You can open this in any Markdown viewer or on GitHub to see at a glance which tools support which features.
@@ -341,7 +340,7 @@ python scripts/run_tests.py --tool vivado --std 2008 --std 2019 --mode sim
 python scripts/run_tests.py --tool questa --std 2008 --std 2019 --mode sim
 
 # Generate the combined matrix
-vhdl-compat-matrix
+python scripts/generate_matrix.py
 
 # MATRIX.md is your live comparison table
 ```

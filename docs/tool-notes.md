@@ -10,22 +10,22 @@ All commands run from project root:
 
 ```bash
 # Questa simulation
-python scripts/run_tests.py --tool questa --std 2008 --mode sim
+python scripts/run_tests.py --tool questa --version questa --std 2008 --mode sim
 
 # ModelSim simulation
-python scripts/run_tests.py --tool modelsim --std 2008 --mode sim
+python scripts/run_tests.py --tool modelsim --version modelsim --std 2008 --mode sim
 
 # Vivado simulation (xvhdl + xelab + xsim)
-python scripts/run_tests.py --tool vivado --std 2008 --mode sim
+python scripts/run_tests.py --tool vivado --version v26 --std 2008 --mode sim
 
 # Vivado synthesis (vivado -mode batch Tcl)
-python scripts/run_tests.py --tool vivado --std 2008 --mode synth
+python scripts/run_tests.py --tool vivado --version v26 --std 2008 --mode synth
 
-# Run all standards for one tool
-python scripts/run_tests.py --tool questa --std 2008 --std 2019 --mode sim
+# Run sim + synth for all standards (Vivado)
+python scripts/run_tests.py --tool vivado --version v26 --mode both
 
-# Regenerate MATRIX.md from results/
-python scripts/generate_matrix.py
+# Run all tools for all standards
+python scripts/run_all.py
 
 # Discover installed tools
 python scripts/run_tests.py --detect
@@ -92,9 +92,9 @@ and display name differ in installed.toml.
 
 | Standard | Sim | Key limitations |
 |----------|-----|-----------------|
-| VHDL-2000 | 1/1 | — |
+| VHDL-2000 | 1/2 | protected_types_counter uses VHDL-2019 feature |
 | VHDL-2002 | 1/1 | — |
-| VHDL-2008 | 35/38 | open in aggregates, default generic types, numeric_std_signed |
+| VHDL-2008 | 38/41 | open in aggregates, default generic types, numeric_std_signed |
 | VHDL-2019 | 28/52 | Limited 2019 support (many features not yet implemented) |
 
 **Quirk:** Questa does NOT inherit library/use clauses across design units in the same file. Each entity/architecture needs its own `library ieee; use ...` block.
@@ -114,8 +114,8 @@ The ModelSim bundled with Intel Quartus (e.g., "ModelSim 2020.1" = Quartus 21.1)
 
 | Standard | Sim | Key limitations |
 |----------|-----|-----------------|
-| VHDL-2008 | 30/38 | 5 extra failures vs Questa: generic types, generic subprograms, generic packages, enhanced port maps (OPEN), predefined vectors |
-| VHDL-2019 | 0/52 | No VHDL-2019 support (version too old) |
+| VHDL-2008 | 38/41 | 3 extra failures vs Questa: context declarations, fixed-point package, driving attributes |
+| VHDL-2019 | 4/52 | No VHDL-2019 support (version too old; 2019 flag falls back to 2008 parser) |
 
 ---
 
@@ -177,26 +177,26 @@ All bugs in `scripts/vivado_adapter.py`, method `synthesize()`. Fixed in v1.0.
 ### Test Results
 
 #### Vivado 2026.1
-| Standard | Compile (xvhdl) | Synth |
-|----------|-----------------|-------|
-| VHDL-2008 | 34/38 | ~27/35* |
-| VHDL-2019 | 35/52 | 33/40 |
+| Standard | Sim | Synth |
+|----------|-----|-------|
+| VHDL-2008 | 38/41 | 35/39 |
+| VHDL-2019 | 29/52 | 38/43 |
 
-*estimated from sampling
+#### Vivado 2025.2
+| Standard | Sim | Synth |
+|----------|-----|-------|
+| VHDL-2008 | 38/41 | 35/39 |
+| VHDL-2019 | 29/52 | 38/43 |
 
-**xvhdl compile failures (4):** open in aggregates, default generic types, context declarations, numeric_std_signed.
-
-**Synth failures (7 VHDL-2019):** interface_views, subprogram_generics, declaration_regions, sequential_block, anonymous_types, inferred_constraints, closely_related — all cutting-edge 2019 features.
+Identical to 2026.1 — VHDL front-end unchanged in this point release.
 
 #### Vivado 2023.2
-| Standard | Compile (xvhdl) | Synth |
-|----------|-----------------|-------|
-| VHDL-2008 | ~32/38 | ~21/35* |
-| VHDL-2019 | ~25/52 | ~12/40* |
+| Standard | Sim | Synth |
+|----------|-----|-------|
+| VHDL-2008 | 34/41 | 35/39 |
+| VHDL-2019 | 18/52 | 38/43 |
 
-*estimated from sampling
-
-**Notable difference vs 2026.1:** 2023.2 lacks synthesis support for generic types, numeric_std_unsigned, matching case, predefined vectors, unconstrained elements, fixed/floating-point packages.
+**Notable difference vs 2026.1:** 2023.2 simulation lacks support for 11 more VHDL-2019 features (environment variables, file location, composites of PT, etc.).
 
 ---
 

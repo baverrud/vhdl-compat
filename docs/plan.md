@@ -1,6 +1,6 @@
 # Project Plan — VHDL Compatibility Test Suite
 
-> **Status:** In progress | **Last updated:** 2026-06-28
+> **Status:** In progress | **Last updated:** 2026-06-30
 >
 > This document records every architectural decision, design principle, and feature catalog.
 > It is the single source of truth for project scope and direction.
@@ -119,7 +119,7 @@ Sources: Doulos, NVC, VHDLwhiz, nselvara/VHDL-20xx-New-Features, SynthWorks/VHDL
 
 ### 1.4 Test files created ✅
 
-**16 tests total:** 9 forward-compatibility + 7 backwards-compatibility
+**16 forward-compatibility tests initially; expanded to 96 total across all standards.**
 
 **Key design rule:** Every VHDL test file must be self-explanatory. Educational header comments, minimal complete examples, comments explaining the "why", self-checking assertions, and a TAKEAWAY one-liner.
 
@@ -146,12 +146,11 @@ Schema documented in `docs/tool-config.md`.
 - `report_generator.py` — JSON + Markdown report writer ✅
 - `generate_matrix.py` — Cross-tool comparison matrix ✅
 
-### Tool-specific adapters (TO DO)
-- `vivado_adapter.py`
-- `questa_adapter.py`
-- `modelsim_adapter.py`
-- `ghdl_adapter.py`
-- `nvc_adapter.py`
+### Tool-specific adapters ✅
+- `vivado_adapter.py` — xvhdl/xelab/xsim sim + Vivado batch Tcl synth
+- `questa_adapter.py` — vcom/vsim for both Questa and ModelSim
+- `ghdl_adapter.py` — TBD
+- `nvc_adapter.py` — TBD
 
 ### CLI design
 ```

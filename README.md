@@ -71,6 +71,8 @@ results/
 ├── altera_modelsim_starter-2020.1_sim.json # ModelSim sim results (all standards)
 ├── vivado-2023.2_sim.json                  # Vivado 2023.2 sim
 ├── vivado-2023.2_synth.json                # Vivado 2023.2 synth
+├── vivado-2025.2_sim.json                  # Vivado 2025.2 sim
+├── vivado-2025.2_synth.json                # Vivado 2025.2 synth
 ├── vivado-2026.1_sim.json                  # Vivado 2026.1 sim
 ├── vivado-2026.1_synth.json                # Vivado 2026.1 synth
 └── MATRIX.md                               # Combined comparison matrix
