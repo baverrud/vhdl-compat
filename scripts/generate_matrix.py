@@ -390,12 +390,13 @@ def generate_vivado_comparison(all_reports: Dict[str, dict]) -> str:
             continue
 
         # Find features where sim and synth differ
-        diffs: list[tuple[str, str, str, str, str]] = []
+        diffs: list[tuple[str, str, str, str, str, str]] = []
         for result in sim_data.get("results", {}).values():
             feature = result.get("feature", "")
             category = result.get("category", "")
             std = result.get("standard", "").replace("VHDL-", "")
             sim_status = result.get("status", "")
+            xref = result.get("xref", "")
 
             # Skip sim-only features (marked n/a in synth)
             if sim_status == "n/a":
@@ -411,7 +412,7 @@ def generate_vivado_comparison(all_reports: Dict[str, dict]) -> str:
             if sim_status == "untested" or synth_status == "untested":
                 continue
 
-            diffs.append((std, category, feature, sim_status, synth_status))
+            diffs.append((std, category, feature, sim_status, synth_status, xref))
 
         if not diffs:
             lines.append(f"### Vivado {version}")
@@ -426,7 +427,7 @@ def generate_vivado_comparison(all_reports: Dict[str, dict]) -> str:
         lines.append("| Feature | Standard | Sim | Synth | Notes |")
         lines.append("|---------|----------|:---:|:----:|-------|")
         current_std = ""
-        for std, category, feature, sim_status, synth_status in sorted(diffs, key=lambda x: (x[0], x[2])):
+        for std, category, feature, sim_status, synth_status, xref in sorted(diffs, key=lambda x: (x[0], x[2])):
             if std != current_std:
                 current_std = std
                 std_clean = std.replace("VHDL-", "")
@@ -437,10 +438,10 @@ def generate_vivado_comparison(all_reports: Dict[str, dict]) -> str:
                 note = "Simulation only"
             else:
                 note = "Synthesis only"
-            display_feature = feature
+            display_feature = f"{xref}: {feature}" if xref else feature
             test_file = _find_test_file(all_reports, std, feature, category)
             if test_file:
-                display_feature = f"[{feature}]({GITHUB_BASE}{test_file})"
+                display_feature = f"[{display_feature}]({GITHUB_BASE}{test_file})"
             lines.append(f"| {display_feature} | VHDL-{std} | {sim_cell} | {synth_cell} | {note} |")
         lines.append("")
 
@@ -526,10 +527,19 @@ def generate_uvvm_appendix(all_reports: Dict[str, dict]) -> str:
     lines.append(separator)
 
     for feature, category, std, description in uvvm_features:
-        display_feature = feature
+        # Look up xref from result data
+        xref = ""
+        for data in all_reports.values():
+            for r in data.get("results", {}).values():
+                if r.get("feature") == feature and r.get("category") == category:
+                    xref = r.get("xref", "")
+                    break
+            if xref:
+                break
+        display_feature = f"{xref}: {feature}" if xref else feature
         test_file = _find_test_file(all_reports, std, feature, category)
         if test_file:
-            display_feature = f"[{feature}]({GITHUB_BASE}{test_file})"
+            display_feature = f"[{display_feature}]({GITHUB_BASE}{test_file})"
         row = f"| {display_feature} | VHDL-{std} |"
         for tool_part, mode, _display in col_entries:
             cell = " ⬜ |"
@@ -548,12 +558,6 @@ def generate_uvvm_appendix(all_reports: Dict[str, dict]) -> str:
         row += f" {description} |"
         lines.append(row)
 
-    lines.append("")
-    lines.append("> **Source:** uvvm_util (20 files) + uvvm_vvc_framework (8 files)")
-    lines.append("> compiled with xvhdl 2026.1 — all passed. A minimal UVVM testbench")
-    lines.append("> with log(), check_value(), and stop() executed successfully.")
-    lines.append("> The only blocker is `<< signal >>` (external names), which UVVM")
-    lines.append("> core does NOT use — only certain VIP BFMs need it.")
     lines.append("")
     return "\n".join(lines)
 

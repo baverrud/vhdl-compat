@@ -128,16 +128,16 @@ VHDL engines: xvhdl/xsim (Verific parser) vs synth_design.
 | [numeric_std_unsigned — arithmetic on std_logic_vector without casting](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_unsigned.vhd) | VHDL-2008 | ✅ | ❌ | Simulation only |
 | [rising_edge / falling_edge for boolean signals](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_boolean_edge.vhd) | VHDL-2008 | ✅ | ❌ | Simulation only |
 | **VHDL-2019** | | | | |
-| ['IMAGE and TO_STRING for composite types — string representation of records and arrays](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs012_image_composite.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Access external types through library path — cross-library type visibility](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs028_external_types.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Conditional expressions in declarations — if/when in constant/signal defaults](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs036a_conditional_expr.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Long integers — 64-bit integer support](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs026c_long_integers.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Map generics on subprogram call — override generics at call site](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/generics_2019/generics_2019_lcs049_map_on_call.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Pointers to composites of protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs014a_pt_pointers.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Precedence of unary operators — standardized unary operator binding](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcsI13_unary_precedence.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Protected types with generic clause — parameterizable protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs034_generic_pt.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Public variable + PRIVATE keyword in protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs033_public_private.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Relaxed library requirement on configurations](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs023_relaxed_library.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-012: 'IMAGE and TO_STRING for composite types — string representation of records and arrays](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs012_image_composite.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-028: Access external types through library path — cross-library type visibility](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs028_external_types.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-036a: Conditional expressions in declarations — if/when in constant/signal defaults](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs036a_conditional_expr.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-026c: Long integers — 64-bit integer support](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs026c_long_integers.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-049: Map generics on subprogram call — override generics at call site](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/generics_2019/generics_2019_lcs049_map_on_call.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-014a: Pointers to composites of protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs014a_pt_pointers.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-I13: Precedence of unary operators — standardized unary operator binding](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcsI13_unary_precedence.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-034: Protected types with generic clause — parameterizable protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs034_generic_pt.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-033: Public variable + PRIVATE keyword in protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs033_public_private.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-023: Relaxed library requirement on configurations](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs023_relaxed_library.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
 
 ### Vivado 2025.2
 
@@ -150,16 +150,16 @@ VHDL engines: xvhdl/xsim (Verific parser) vs synth_design.
 | [numeric_std_unsigned — arithmetic on std_logic_vector without casting](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_unsigned.vhd) | VHDL-2008 | ✅ | ❌ | Simulation only |
 | [rising_edge / falling_edge for boolean signals](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_boolean_edge.vhd) | VHDL-2008 | ✅ | ❌ | Simulation only |
 | **VHDL-2019** | | | | |
-| ['IMAGE and TO_STRING for composite types — string representation of records and arrays](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs012_image_composite.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Access external types through library path — cross-library type visibility](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs028_external_types.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Conditional expressions in declarations — if/when in constant/signal defaults](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs036a_conditional_expr.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Long integers — 64-bit integer support](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs026c_long_integers.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Map generics on subprogram call — override generics at call site](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/generics_2019/generics_2019_lcs049_map_on_call.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Pointers to composites of protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs014a_pt_pointers.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Precedence of unary operators — standardized unary operator binding](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcsI13_unary_precedence.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Protected types with generic clause — parameterizable protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs034_generic_pt.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Public variable + PRIVATE keyword in protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs033_public_private.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Relaxed library requirement on configurations](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs023_relaxed_library.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-012: 'IMAGE and TO_STRING for composite types — string representation of records and arrays](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs012_image_composite.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-028: Access external types through library path — cross-library type visibility](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs028_external_types.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-036a: Conditional expressions in declarations — if/when in constant/signal defaults](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs036a_conditional_expr.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-026c: Long integers — 64-bit integer support](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs026c_long_integers.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-049: Map generics on subprogram call — override generics at call site](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/generics_2019/generics_2019_lcs049_map_on_call.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-014a: Pointers to composites of protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs014a_pt_pointers.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-I13: Precedence of unary operators — standardized unary operator binding](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcsI13_unary_precedence.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-034: Protected types with generic clause — parameterizable protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs034_generic_pt.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-033: Public variable + PRIVATE keyword in protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs033_public_private.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-023: Relaxed library requirement on configurations](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs023_relaxed_library.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
 
 ### Vivado 2023.2
 
@@ -172,40 +172,40 @@ VHDL engines: xvhdl/xsim (Verific parser) vs synth_design.
 | [numeric_std_unsigned — arithmetic on std_logic_vector without casting](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_unsigned.vhd) | VHDL-2008 | ✅ | ❌ | Simulation only |
 | [rising_edge / falling_edge for boolean signals](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_boolean_edge.vhd) | VHDL-2008 | ✅ | ❌ | Simulation only |
 | **VHDL-2019** | | | | |
-| ['IMAGE and TO_STRING for composite types — string representation of records and arrays](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs012_image_composite.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Access external types through library path — cross-library type visibility](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs028_external_types.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [All interface lists can be ordered — named association everywhere](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs086_ordered_interfaces.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Array of interface records -- multiple channels using a single bundle type](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/interfaces/interfaces_lcs045a_array_of_interfaces.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Array type generics — generic parameters that are array types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/generics_2019/generics_2019_lcs059_array_type_generics.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Composites of protected types — records and arrays containing PT elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs014_composites.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Conditional analysis -- `if / `else / `end if tool directives](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/conditional_analysis/conditional_analysis_lcs061_conditional_compilation.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Conditional expressions in declarations — if/when in constant/signal defaults](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs036a_conditional_expr.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Conditional return statement — return with when/else conditions](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs094a_conditional_return.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Empty records -- record types with no elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs082_empty_records.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Enhanced enumerated type attributes — 'VAL, 'POS, 'SUCC, 'PRED, 'LEFTOF, 'RIGHTOF](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs018_enum_attributes.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Extended ranges / range expressions — dynamic range computation](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs099_extended_ranges.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Function knows vector size — result type depends on input sizes](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/vectors/vectors_lcs072b_function_knows_size.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Garbage collection — automatic memory management for access types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs030_garbage_collection.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Inout mode views -- bidirectional interface fields that can't use 'converse](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/interfaces/interfaces_lcs045a_inout_views.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Interface mode views — per-field direction control on composite types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/interfaces/interfaces_lcs045a_mode_view.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Long integers — 64-bit integer support](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs026c_long_integers.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Map generics on subprogram call — override generics at call site](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/generics_2019/generics_2019_lcs049_map_on_call.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [New reflection attributes — 'designated_type, 'index, 'range](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs106_reflection.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Optional trailing semicolon in interface lists](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs071a_optional_trailing_semicolon.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [PATH_NAME/INSTANCE_NAME for protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs032_path_name.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Partially connected vectors — use `open` to leave port bits unconnected](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/vectors/vectors_lcs001_partially_connected.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Pointers to composites of protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs014a_pt_pointers.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Precedence of unary operators — standardized unary operator binding](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcsI13_unary_precedence.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Protected types as subprogram parameters](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs099_subprogram_param.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Protected types with generic clause — parameterizable protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs034_generic_pt.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Public variable + PRIVATE keyword in protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs033_public_private.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Record introspection — 'reflect attribute for runtime type inspection](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs041_reflect.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Relaxed library requirement on configurations](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs023_relaxed_library.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Scalar array ordering — relational operators on any scalar array type](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs059a_scalar_ordering.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Shared variables on entity interface — shared variable ports/generics](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs047_shared_on_interface.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Signatures in association lists — explicit subprogram signatures](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcsI03_signatures.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Standard conditional analysis identifiers — VHDL_VERSION, TOOL_TYPE, etc.](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/conditional_analysis/conditional_analysis_lcs006f_standard_ids.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
-| [Syntax regularization -- component declarations made optional](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs055a_components.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-012: 'IMAGE and TO_STRING for composite types — string representation of records and arrays](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs012_image_composite.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-028: Access external types through library path — cross-library type visibility](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs028_external_types.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-086: All interface lists can be ordered — named association everywhere](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs086_ordered_interfaces.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-045a: Array of interface records -- multiple channels using a single bundle type](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/interfaces/interfaces_lcs045a_array_of_interfaces.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-059: Array type generics — generic parameters that are array types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/generics_2019/generics_2019_lcs059_array_type_generics.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-014: Composites of protected types — records and arrays containing PT elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs014_composites.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-061: Conditional analysis -- `if / `else / `end if tool directives](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/conditional_analysis/conditional_analysis_lcs061_conditional_compilation.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-036a: Conditional expressions in declarations — if/when in constant/signal defaults](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs036a_conditional_expr.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-094a: Conditional return statement — return with when/else conditions](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/sequential/sequential_lcs094a_conditional_return.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-082: Empty records -- record types with no elements](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs082_empty_records.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-018/018a/018d: Enhanced enumerated type attributes — 'VAL, 'POS, 'SUCC, 'PRED, 'LEFTOF, 'RIGHTOF](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs018_enum_attributes.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-099 (extended ranges — distinct from LCS2016-099 PT params): Extended ranges / range expressions — dynamic range computation](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs099_extended_ranges.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-072b: Function knows vector size — result type depends on input sizes](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/vectors/vectors_lcs072b_function_knows_size.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-030: Garbage collection — automatic memory management for access types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs030_garbage_collection.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-045a: Inout mode views -- bidirectional interface fields that can't use 'converse](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/interfaces/interfaces_lcs045a_inout_views.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-045a: Interface mode views — per-field direction control on composite types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/interfaces/interfaces_lcs045a_mode_view.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-026c: Long integers — 64-bit integer support](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs026c_long_integers.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-049: Map generics on subprogram call — override generics at call site](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/generics_2019/generics_2019_lcs049_map_on_call.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-106: New reflection attributes — 'designated_type, 'index, 'range](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs106_reflection.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-071a: Optional trailing semicolon in interface lists](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs071a_optional_trailing_semicolon.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-032: PATH_NAME/INSTANCE_NAME for protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs032_path_name.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-001: Partially connected vectors — use `open` to leave port bits unconnected](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/vectors/vectors_lcs001_partially_connected.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-014a: Pointers to composites of protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs014a_pt_pointers.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-I13: Precedence of unary operators — standardized unary operator binding](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcsI13_unary_precedence.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-099: Protected types as subprogram parameters](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs099_subprogram_param.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-034: Protected types with generic clause — parameterizable protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs034_generic_pt.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-033: Public variable + PRIVATE keyword in protected types](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs033_public_private.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-041: Record introspection — 'reflect attribute for runtime type inspection](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/attributes/attributes_lcs041_reflect.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-023: Relaxed library requirement on configurations](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs023_relaxed_library.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-059a: Scalar array ordering — relational operators on any scalar array type](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/types_2019/types_2019_lcs059a_scalar_ordering.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-047: Shared variables on entity interface — shared variable ports/generics](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/protected_types/protected_types_lcs047_shared_on_interface.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-I03: Signatures in association lists — explicit subprogram signatures](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcsI03_signatures.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-006f: Standard conditional analysis identifiers — VHDL_VERSION, TOOL_TYPE, etc.](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/conditional_analysis/conditional_analysis_lcs006f_standard_ids.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
+| [LCS2016-055a: Syntax regularization -- component declarations made optional](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/syntax/syntax_lcs055a_components.vhd) | VHDL-2019 | ❌ | ✅ | Synthesis only |
 
 ---
 ## UVVM Compatibility
@@ -230,9 +230,3 @@ that affects VVC setup scripts but not VHDL compliance.
 | [Unconstrained arrays of unconstrained vectors — UVVM data type pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_unconstrained_array.vhd) | VHDL-2008 | ✅ | ✅ | ✅ | ✅ | ✅ | Working — type slv_array is array(<>) of std_logic_vector |
 | [Protected types with internal access types — UVVM dynamic data pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_protected_access.vhd) | VHDL-2008 | ✅ | ✅ | ✅ | ✅ | ✅ | Working — allocate/deallocate in PTs (UVVM command queue) |
 | [External names targeting arrays and records — UVVM signal spying pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_external_names.vhd) | VHDL-2008 | ✅ | ✅ | ❌ | ❌ | ❌ | BLOCKER — << signal >> not on xsim (VIP BFMs only, not core) |
-
-> **Source:** uvvm_util (20 files) + uvvm_vvc_framework (8 files)
-> compiled with xvhdl 2026.1 — all passed. A minimal UVVM testbench
-> with log(), check_value(), and stop() executed successfully.
-> The only blocker is `<< signal >>` (external names), which UVVM
-> core does NOT use — only certain VIP BFMs need it.
