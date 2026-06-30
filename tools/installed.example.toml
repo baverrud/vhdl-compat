@@ -11,26 +11,30 @@
 # ---------------------------------------------------------------------------
 # Vivado (AMD/Xilinx) — simulation + synthesis
 # ---------------------------------------------------------------------------
-# [vivado."2024.1"]
+# ["Vivado"]
+# version = "2024.1"
+# alias = "v24"       # optional: short name for --version
 # path = "C:/Xilinx/Vivado/2024.1/bin"
-# alias = "v24"       # optional short name for --version
 #
-# [vivado."2023.2"]
+# ["Vivado"]
+# version = "2023.2"
 # path = "C:/Xilinx/Vivado/2023.2/bin"
 
 # ---------------------------------------------------------------------------
 # Questa Advanced Simulator (Siemens EDA)
 # ---------------------------------------------------------------------------
-# [questa."2024.1"]
-# path = "C:/questasim64_2024.1/win64"
-# alias = "questa"
+# ["Altera Questa Starter"]
+# version = "2025.3"
+# alias = "questa"     # optional: short name for --version
+# path = "C:/questa_fse/win64"
 
 # ---------------------------------------------------------------------------
 # ModelSim DE/PE (Siemens EDA)
 # ---------------------------------------------------------------------------
-# [modelsim."2024.1"]
-# path = "C:/modeltech64_2024.1/win64"
-# alias = "modelsim"
+# ["Altera ModelSim Starter"]
+# version = "2020.1"
+# alias = "modelsim"    # optional: short name for --version
+# path = "C:/modelsim_ase/win32aloem"
 
 # ---------------------------------------------------------------------------
 # GHDL — open-source VHDL simulator

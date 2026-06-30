@@ -49,15 +49,19 @@ def run_tool(tool: str, version: str, standards: list[str], modes: list[str]) ->
 def main():
     skip_synth = "--skip-synth" in sys.argv
     tool_filter = None
+    version_filter = None
     for i, a in enumerate(sys.argv):
         if a == "--tool" and i + 1 < len(sys.argv):
             tool_filter = sys.argv[i + 1]
+        if a == "--version" and i + 1 < len(sys.argv):
+            version_filter = sys.argv[i + 1]
 
     print("=" * 60)
     print(f"VHDL Compatibility Test Suite — Full Run")
     print(f"Started: {datetime.now(timezone.utc).isoformat()}")
     print(f"Skip synth: {skip_synth}")
     print(f"Tool filter: {tool_filter or 'all'}")
+    print(f"Version filter: {version_filter or 'all'}")
     print("=" * 60)
     print()
 
@@ -82,14 +86,18 @@ def main():
 
         for dt in sorted(versions, key=lambda d: d.version, reverse=True):
             version = dt.version
+            # Respect alias and version filter
+            if version_filter:
+                if version_filter != version and version_filter.lower() != dt.alias.lower():
+                    continue
             print(f"\n--- {dt.display_name or canonical_key} {version} ---")
 
-            # Sim: all standards
-            run_tool(cli_name, version, ["2000", "2002", "2008", "2019"], ["sim"])
-
-            # Synth: only Vivado, standards with synth support
             if cli_name == "vivado" and not skip_synth:
-                run_tool(cli_name, version, ["2008", "2019"], ["synth"])
+                # Vivado: run sim+synth in one invocation (faster than two runs)
+                run_tool(cli_name, version, ["2000", "2002", "2008", "2019"], ["sim", "synth"])
+            else:
+                # Sim-only tools or when synth is skipped
+                run_tool(cli_name, version, ["2000", "2002", "2008", "2019"], ["sim"])
 
     # Generate matrix
     print(f"\n--- Generating MATRIX.md ---")

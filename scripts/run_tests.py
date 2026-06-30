@@ -63,6 +63,10 @@ def build_parser() -> argparse.ArgumentParser:
         "--category", type=str, action="append",
         help="Only run tests in this category. Repeatable."
     )
+    parser.add_argument(
+        "--file", type=str,
+        help="Run a single test file (relative path from tests/, e.g. vhdl2008/aggregates/aggregates_open.vhd)"
+    )
 
     # Discovery
     parser.add_argument(
@@ -358,6 +362,19 @@ def main(argv: Optional[List[str]] = None) -> int:
     if not all_tests:
         print("No tests found. Create .vhd files in tests/ with metadata headers.")
         return 1
+
+    # Filter to single file if --file is specified
+    if args.file:
+        target = args.file.replace("\\", "/")
+        all_tests = [t for t in all_tests if t.relative_path.replace("\\", "/") == target]
+        if not all_tests:
+            print(f"Test not found: {args.file}")
+            print(f"Use --list to see available tests.")
+            return 1
+        # Auto-detect standards/modes from the selected test
+        if not args.standards:
+            test_std = _normalize_standard(all_tests[0].standard)
+            args.standards = [test_std]
 
     # Determine standards to test
     standards = args.standards or ["2008", "2019"]

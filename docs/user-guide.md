@@ -226,6 +226,14 @@ vhdl-compat --tool vivado --std 2008 --mode sim
 python scripts/run_tests.py --tool vivado --version 2026.1 --std 2008 --mode sim --category processes
 ```
 
+### Debug a single test file
+
+```bash
+python scripts/run_tests.py --tool vivado --version v26 --file vhdl2008/aggregates/aggregates_open.vhd
+```
+
+This runs just one `.vhd` file — useful for debugging failures. The standard and mode are auto-detected from the test file's metadata header.
+
 ### Quick compile check (no simulation)
 
 ```bash

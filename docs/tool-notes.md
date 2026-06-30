@@ -24,8 +24,14 @@ python scripts/run_tests.py --tool vivado --version v26 --std 2008 --mode synth
 # Run sim + synth for all standards (Vivado)
 python scripts/run_tests.py --tool vivado --version v26 --mode both
 
+# Debug a single file
+python scripts/run_tests.py --tool vivado --version v26 --file vhdl2008/aggregates/aggregates_open.vhd
+
 # Run all tools for all standards
 python scripts/run_all.py
+
+# Run just one Vivado version
+python scripts/run_all.py --tool vivado --version v25
 
 # Discover installed tools
 python scripts/run_tests.py --detect

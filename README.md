@@ -22,16 +22,22 @@ python scripts/run_tests.py --list
 # Run all VHDL-2008 simulation tests with Vivado 2026.1
 python scripts/run_tests.py --tool vivado --version v26 --std 2008 --mode sim
 
-# Or use the full version number
-python scripts/run_tests.py --tool vivado --version 2026.1 --std 2008 --mode sim
+# Debug a single test file
+python scripts/run_tests.py --tool vivado --version v26 --file vhdl2008/aggregates/aggregates_open.vhd
 
 # Run all tools (from installed.toml) for all standards
 python scripts/run_all.py
 
+# Run one specific Vivado version
+python scripts/run_all.py --tool vivado --version v25
+
 # Generate the combined comparison matrix from all results
 python scripts/generate_matrix.py
 
-# Or use the batch wrapper:
+# Run unit tests
+python -m pytest scripts/tests/ -v
+
+# Or use the batch wrapper (runs all tools + generates matrix):
 run_all.bat
 ```
 

@@ -141,6 +141,8 @@ class QuestaRunner(ToolRunner):
         # Only search for the tool this runner was configured for
         tool_key = self.config.name.lower()
         for dt in detected.get(tool_key, []):
+            if dt.version != self.version:
+                continue
             vcom = dt.exe_dir / ("vcom.exe" if os.name == "nt" else "vcom")
             if vcom.exists():
                 return vcom
