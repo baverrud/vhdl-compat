@@ -218,14 +218,65 @@ Get-Content tmp/xsim_uvvm_uart.log -Encoding Unicode | Select-String 'ERROR|TB_E
 
 (Plain `Get-Content` / grep tools misread it as bytes with embedded nulls.)
 
-## Next steps (future task)
+## Can UVVM be modified to support xsim?
 
-- **Layer 1:** check whether any `xelab`/`xsim` time-resolution option makes
-  `std.env.resolution_limit` return a positive value; otherwise shim the VVC deferral
-  (e.g. `wait for 1 ps`) in an xsim-specific UVVM build. Defensively initialising
-  `entry_num_in_vvc_activity_register` alone is **not** enough — the real index still
-  arrives late, so the deferral is the core issue.
-- **Layer 2:** no clean workaround from outside UVVM; needs xsim to apply composite
-  `inout` port defaults to unassigned driver elements.
-- Use the two regression tests above to detect whether a future xsim release closes
-  either gap.
+Yes in principle, but it is an **iterative, failure-by-failure campaign**, not a single
+patch: one layer is easy, one is hard, and there may be further layers past 105 ns (we
+only ever reached the *first* SBI transaction).
+
+### Change surface
+
+The layer-1 idiom is **duplicated, not centralized**: `p_unwanted_activity` with
+`wait for std.env.resolution_limit;` lives in **~14 VVC files** (one per VIP — SBI, UART,
+AXI, AXI-Lite, I2C, SPI, GPIO, Avalon-MM/ST, GMII, RGMII, Wishbone, APB, AXI-Stream).
+They are clones of one generator template, so a fix is mechanical but repeated.
+
+### Layer 1 — `resolution_limit` deferral: tractable
+
+The wait only needs to defer the read until the VVC's registration index has propagated.
+Replace the `resolution_limit` dependency with a wait on the *actual condition*:
+
+```vhdl
+-- instead of: wait for std.env.resolution_limit;
+if entry_num_in_vvc_activity_register = integer'left then
+  wait until entry_num_in_vvc_activity_register /= integer'left;
+end if;
+```
+
+This is correct on **every** simulator and drops the dependency on xsim's broken
+`resolution_limit` entirely. A cruder alternative is `wait for 1 ps` (given the typical
+1 ps resolution), but the condition-wait is semantically robust. ~14 localized, low-risk
+edits. Patching layer 1 is already proven to let real transactions run to 105 ns.
+
+### Layer 2 — composite `inout` port default: hard
+
+This is an xsim **elaboration bug** (an unassigned element of a composite `inout` driver
+does not inherit the port's `'Z'` default), not an idiom that can simply be rewritten.
+UVVM-side mitigations, in order of viability:
+
+1. **Explicitly drive the "from-DUT" members to `'Z'`** from the VVC executor process that
+   owns the driver (the one passing the whole record to `sbi_write`/`sbi_read`). If xsim
+   then holds `'Z'` instead of a forcing value, `Z + 1 = '1'` is restored. Most patch-like
+   option, but must be prototyped — it may just move the conflict.
+2. **Restructure BFM signatures** so read-only signals (`ready`, `rdata`, …) are passed as
+   `in`, not as part of the `inout` record. Removes the spurious driver at the source, but
+   is a large cross-VIP API change that diverges hard from upstream — not a minimal patch.
+
+Feasibility here is genuinely uncertain until tested.
+
+### Recommended path
+
+- **Keep all patches in an isolated, xsim-only UVVM build** — never modify the pristine
+  tree; upstream will not accept xsim workarounds while xsim lacks the features.
+- **File the two defects with AMD/Xilinx** — the durable fix belongs in xsim, not UVVM.
+  The UVVM maintainers explicitly will not support xsim until those VHDL-2008 features
+  land.
+- **Drive the campaign with the UART demo + the two regression tests above** as the
+  pass/fail oracle, iterating one failure at a time.
+
+### Also worth checking
+
+- Whether any `xelab`/`xsim` time-resolution option makes `std.env.resolution_limit`
+  return a positive value (would fix layer 1 with no source change at all).
+- Defensively initialising `entry_num_in_vvc_activity_register` alone is **not** enough —
+  the real index still arrives late, so the deferral, not the default, is the core issue.
