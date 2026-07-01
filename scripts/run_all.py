@@ -26,11 +26,13 @@ from scripts.run_tests import main as run_tests_main
 
 def run_tool(tool: str, version: str, standards: list[str], modes: list[str]) -> bool:
     """Run tests for one tool/version. Returns True on success."""
+    # run_tests.py accepts a single --mode: sim, synth, or both.
+    mode = "both" if {"sim", "synth"} <= set(modes) else modes[0]
     argv = [
         "--tool", tool,
         "--version", version,
         *[s for std in standards for s in ("--std", std)],
-        "--mode", "+".join(modes),
+        "--mode", mode,
         "--verbose",
     ]
     print(f"  {tool} {version} {','.join(standards)} {'+'.join(modes)}...", end=" ", flush=True)
