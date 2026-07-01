@@ -73,82 +73,131 @@ UVVM: Simulator has been paused as requested after 1 TB_ERROR
   priv_last_registered_vvc_idx)` then aborts. See the full analysis below.
 - UVVM then pauses the sim (default behaviour after a serious alert), so no test runs.
 
-## Root-cause analysis (confirmed)
+## Root cause: two layered VHDL-2008 gaps in xsim
 
-### The signal that is read stale
+Fixing the first failure only exposes the second — UVVM + xsim is a multi-issue campaign,
+not a one-line fix. Both failures are the same class of problem, **xsim's incomplete
+VHDL-2008 semantics**, and neither involves UVVM's global shared variables (ruled out
+below).
 
-Every VVC declares, with **no initialiser**:
+| Layer | Symptom on xsim 2026.1 | VHDL-2008 feature xsim gets wrong |
+|-------|------------------------|-----------------------------------|
+| 1 | `TB_ERROR` at 0 ps (TB never starts) | `std.env.resolution_limit` returns a non-positive value |
+| 2 | `FAILURE` at 105 ns (`ready = 'X'`) | default value of the driver for an unassigned element of a composite `inout` port |
 
-```vhdl
-signal entry_num_in_vvc_activity_register : integer;   -- defaults to integer'left
-```
+### Layer 1 — `std.env.resolution_limit` is non-positive
 
-It is assigned once, in the VVC's `p_cmd_interpreter` process init, from a function
-with a side effect that also registers the VVC in the shared activity register:
-
-```vhdl
-entry_num_in_vvc_activity_register <= shared_vvc_activity_register.priv_register_vvc(...);
-```
-(e.g. [UVVM/bitvis_vip_sbi/src/sbi_vvc.vhd](../UVVM/bitvis_vip_sbi/src/sbi_vvc.vhd#L138))
-
-Because `<=` is a signal assignment, the signal only holds its real index after the
-time-0 delta cycles settle.
-
-### The process that reads it too early
-
-Each VVC also has a `p_unwanted_activity` process that reads that signal and feeds it to
-`priv_get_vvc_activity`:
+Every VVC has a `p_unwanted_activity` process that must wait for the VVC to finish
+registering before it reads the registration index:
 
 ```vhdl
+signal entry_num_in_vvc_activity_register : integer;   -- no initialiser → integer'left
+
 p_unwanted_activity : process is
 begin
-  -- Add a delay to allow the VVC to be registered in the activity register
-  wait for std.env.resolution_limit;              -- <-- the load-bearing line
+  wait for std.env.resolution_limit;   -- defer one resolution step, past all time-0 deltas
   loop
     if shared_vvc_activity_register.priv_get_vvc_activity(entry_num_in_vvc_activity_register) = ACTIVE then
     ...
 ```
 (SBI [sbi_vvc.vhd:475](../UVVM/bitvis_vip_sbi/src/sbi_vvc.vhd#L475), UART-RX
-[uart_rx_vvc.vhd:399](../UVVM/bitvis_vip_uart/src/uart_rx_vvc.vhd#L399); both VVCs are
-in the demo.)
+[uart_rx_vvc.vhd:399](../UVVM/bitvis_vip_uart/src/uart_rx_vvc.vhd#L399))
 
-The single `wait for std.env.resolution_limit` is UVVM's mechanism to advance simulation
-time by exactly one resolution step, flushing **all** time-0 delta cycles so that the
-`entry_num_in_vvc_activity_register <= ...` assignment (which happens some deltas into
-time 0, after `initialize_interpreter`) has propagated before it is read.
+`entry_num_in_vvc_activity_register` is set by a **signal** assignment during interpreter
+init ([sbi_vvc.vhd:138](../UVVM/bitvis_vip_sbi/src/sbi_vvc.vhd#L138)), so it only holds
+the real index after the time-0 delta cycles settle. The single
+`wait for std.env.resolution_limit` is UVVM's mechanism to advance one resolution step
+and flush those deltas.
 
-### Why it breaks on xsim: `std.env.resolution_limit` is broken
-
-Under xsim 2026.1, `std.env.resolution_limit` does **not** return the true resolution.
-A minimal standalone probe ([tmp/res_limit_probe.vhd](../tmp/res_limit_probe.vhd))
-reports:
+On xsim `std.env.resolution_limit` returns a **non-positive** value (the regression test
+below measures `0 ps`; an earlier in-context probe saw `-12 ps`), so the wait does not
+defer the read. `p_unwanted_activity` resumes inside the time-0 delta soup and reads
+`entry_num_in_vvc_activity_register` at its default `integer'left`, which is passed to
+`priv_get_vvc_activity` and trips its range check:
 
 ```
-Time resolution is 1 ps
-resolution_limit = -12 ps                       <-- wrong; should be +1 ps
-ERROR: Negative time value -12 in wait statement
+UVVM: ***  TB_ERROR #1  ***
+  check_value_in_range(int, 0, 1) => Failed. Value was -2147483648.
+UVVM: Simulator has been paused as requested after 1 TB_ERROR
 ```
 
-So `wait for std.env.resolution_limit` does not perform the intended one-step time
-advance. `p_unwanted_activity` therefore resumes while still inside the time-0 delta
-soup, **before** the VVC's registration signal assignment has propagated, and reads
-`entry_num_in_vvc_activity_register` at its default `integer'left`. That stale value is
-passed to `priv_get_vvc_activity`, tripping the range check → `TB_ERROR` at 0 ps.
-(The range `0..1` in the message just reflects that only 2 VVCs had finished registering
-at that instant; the `TB seq.` scope is hard-coded inside the check and does **not**
-identify the real caller.)
+ModelSim passes because there `std.env.resolution_limit` correctly returns `1 ps`, so the
+wait advances real time and all time-0 deltas settle first.
 
-The same construct works on ModelSim because there `std.env.resolution_limit` correctly
-returns `1 ps`, so the wait advances real time and all time-0 deltas settle first.
+### Layer 2 — composite `inout` port default not applied to the driver
 
-### Summary
+Patching every `std.env.resolution_limit` → `(1 ps)` in the compiled UVVM sources
+(throwaway experiment; all edits reverted with `git -C UVVM checkout -- .`) clears
+layer 1 and lets real SBI transactions run — until a different failure at 105 ns from the
+SBI BFM ([sbi_bfm_pkg.vhd:363](../UVVM/bitvis_vip_sbi/src/sbi_bfm_pkg.vhd#L363)):
 
-| Layer | ModelSim | xsim 2026.1 |
-|-------|----------|-------------|
-| `std.env.resolution_limit` | `1 ps` (correct) | garbage / non-positive (probe: `-12 ps`) |
-| `wait for std.env.resolution_limit` | advances 1 time step, flushes time-0 deltas | fails to defer the read |
-| `entry_num_in_vvc_activity_register` when read | registered index | still `integer'left` |
-| Result | passes | `TB_ERROR`, sim paused |
+```
+FAILURE #1  @ 105000 ps  SBI_VVC,1
+check_value(bool, true) => Failed.
+'Verifying that ready signal is set to either '1' or '0' when in use'
+```
+
+An in-situ monitor (added to the harness, reverted afterwards) captured `ready = 'X'`,
+not `'U'` — the std_logic resolution of **two conflicting strong drivers**.
+
+The mechanism: the SBI VVC passes its **whole** interface record to the BFM as an
+`inout` subprogram parameter ([sbi_vvc.vhd:319](../UVVM/bitvis_vip_sbi/src/sbi_vvc.vhd#L319),
+[:350](../UVVM/bitvis_vip_sbi/src/sbi_vvc.vhd#L350)):
+
+```vhdl
+sbi_write(addr_value => ..., sbi_if => sbi_vvc_master_if, ...);
+sbi_read (addr_value => ..., sbi_if => sbi_vvc_master_if, ...);
+```
+
+Per the LRM this gives the VVC process a driver for **every** element of the record —
+including `ready` — even though the BFM only ever **reads** `ready`. That never-assigned
+driver must keep the port's declared default, `init_sbi_if_signals(...)`, which sets
+`ready := 'Z'` ([sbi_bfm_pkg.vhd:313](../UVVM/bitvis_vip_sbi/src/sbi_bfm_pkg.vhd#L313)).
+On a compliant simulator that element sits at `'Z'` and is dominated by the harness
+`ready <= '1'` (`Z + 1 = '1'`) — which is why ModelSim passes. xsim instead gives the
+unassigned composite-port driver element a **forcing** value, so it collides with the
+harness `'1'` and `ready` resolves to `'X'`, failing UVVM's `ready = '1' or '0'` sanity
+check.
+
+The trigger requires the *combination* of a composite `inout` port with a non-`'U'`
+default **and** that port being passed whole to an `inout` subprogram parameter (creating
+a driver for elements that are never assigned). Isolated probes with a plain scalar port
+default, or a record port defaulted via a function call, both worked on xsim
+(`Z + 1 = 1`); only the full pattern reproduces the bug.
+
+### Ruled out — global shared variables
+
+UVVM routes commands, config and VVC activity through package-level protected-type
+`shared variable`s. A known historical xsim limitation gives each process its **own copy**
+of such a variable instead of one global object, which would break UVVM everywhere.
+Tested directly: a global protected counter incremented by three separate entity
+instances and read by a fourth process returned `3` — **xsim 2026.1 keeps a single global
+instance**. The per-context-copy bug is absent, so shared variables are not the cause of
+either failure.
+
+### Regression tests
+
+Both failures are covered by self-checking tests in the `uvvm` category. Each **passes on
+ModelSim** (compliant) and **fails on xsim 2026.1**, isolating one layer with no UVVM
+dependency:
+
+| Test | Property checked | ModelSim | xsim 2026.1 |
+|------|------------------|----------|-------------|
+| [tests/vhdl2008/uvvm/uvvm_resolution_limit.vhd](../tests/vhdl2008/uvvm/uvvm_resolution_limit.vhd) | `std.env.resolution_limit > 0 fs` | `1 ps` → PASS | `0 ps` → FAIL |
+| [tests/vhdl2008/uvvm/uvvm_inout_default_driver.vhd](../tests/vhdl2008/uvvm/uvvm_inout_default_driver.vhd) | composite `inout` port default `'Z'` reaches the driver (`Z + 1 = '1'`) | `ready = '1'` → PASS | `ready = 'X'` → FAIL |
+
+`uvvm_inout_default_driver.vhd` reproduces the SBI pattern minimally: a record with an
+unconstrained element, an `inout` port defaulted via an init function, a BFM passed the
+whole record as `inout` that only reads `ready`, and a harness driving `ready <= '1'`.
+
+### Confirmed by the UVVM maintainers
+
+The UVVM team states that xsim is **not** a supported simulator because it "is still
+missing some important VHDL-2008 features"
+([forum.uvvm.org/t/uvvm-in-vivado-xsim/365](https://forum.uvvm.org/t/uvvm-in-vivado-xsim/365),
+EspenTa, Apr 2023). Officially supported / known-working simulators are ModelSim, Questa,
+Active-HDL, Riviera-PRO and GHDL. The two failures above are concrete instances of that
+gap.
 
 ## Benign compile warnings (expected, not the problem)
 
@@ -169,19 +218,14 @@ Get-Content tmp/xsim_uvvm_uart.log -Encoding Unicode | Select-String 'ERROR|TB_E
 
 (Plain `Get-Content` / grep tools misread it as bytes with embedded nulls.)
 
-## Next steps (future task — not done here)
+## Next steps (future task)
 
-The fix must address xsim's broken `std.env.resolution_limit`. Options to evaluate:
-
-- Confirm whether a specific `xelab`/`xsim` time-resolution flag (e.g. `-timescale` /
-  `--sv_root`, or `xsim` resolution options) makes `std.env.resolution_limit` return a
-  sane positive value.
-- If xsim cannot be coerced, patch/shim the VVC pattern for xsim so the deferral uses a
-  concrete positive delay (e.g. `wait for 1 ps` or a delta-robust wait) instead of
-  `std.env.resolution_limit`. This is a UVVM-source change and should be isolated to an
-  xsim-specific build.
-- Also initialise `entry_num_in_vvc_activity_register` defensively is **not** enough on
-  its own (the real index still arrives late); the timing/deferral is the core issue.
-
-Reproduction probes are checked in: [tmp/res_limit_probe.vhd](../tmp/res_limit_probe.vhd)
-and [tmp/res_limit_probe2.vhd](../tmp/res_limit_probe2.vhd).
+- **Layer 1:** check whether any `xelab`/`xsim` time-resolution option makes
+  `std.env.resolution_limit` return a positive value; otherwise shim the VVC deferral
+  (e.g. `wait for 1 ps`) in an xsim-specific UVVM build. Defensively initialising
+  `entry_num_in_vvc_activity_register` alone is **not** enough — the real index still
+  arrives late, so the deferral is the core issue.
+- **Layer 2:** no clean workaround from outside UVVM; needs xsim to apply composite
+  `inout` port defaults to unassigned driver elements.
+- Use the two regression tests above to detect whether a future xsim release closes
+  either gap.
