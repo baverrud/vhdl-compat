@@ -46,15 +46,18 @@
 | [Matching case statement (case?) — don't-care aware pattern matching](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_matching_case.vhd) | types | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | [Predefined array types — boolean_vector, integer_vector, real_vector, time_vector](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_predefined_vectors.vhd) | types | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
 | [Unconstrained element types — records with unconstrained array fields](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/types/types_unconstrained_elements.vhd) | types | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
-| [External names targeting arrays and records — UVVM signal spying pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_external_names.vhd) | uvvm | ✅ | ✅ | ❌ | ❌ | ❌ | ➖ | ➖ | ➖ |
+| [FT (unconstrained record elements + port default): Default value of a composite inout port driver — UVVM BFM/VVC interface pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_inout_default_driver.vhd) | uvvm | ✅ | ✅ | ❌ | ❌ | ❌ | ➖ | ➖ | ➖ |
+| [External names targeting arrays and records — UVVM VVC-testbench aliasing pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_external_names.vhd) | uvvm | ✅ | ✅ | ❌ | ❌ | ❌ | ➖ | ➖ | ➖ |
 | [Protected types with internal access types — UVVM dynamic data pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_protected_access.vhd) | uvvm | ✅ | ✅ | ✅ | ✅ | ✅ | ➖ | ➖ | ➖ |
 | [Unconstrained arrays of unconstrained vectors — UVVM data type pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_unconstrained_array.vhd) | uvvm | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ | ✅ |
+| [FT (std.env): std.env.resolution_limit returns a positive delay — UVVM delta-settle idiom](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_resolution_limit.vhd) | uvvm | ✅ | ✅ | ✅ | ❌ | ❌ | ➖ | ➖ | ➖ |
 | [FT07: External (hierarchical) names -- access signals across hierarchy](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_external_names.vhd) | verification | ✅ | ✅ | ❌ | ❌ | ❌ | ➖ | ➖ | ➖ |
 | [Force / Release — override signal values for verification](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_force_release.vhd) | verification | ✅ | ✅ | ❌ | ❌ | ❌ | ➖ | ➖ | ➖ |
 | [std.env.stop / std.env.finish — standard simulation control](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/verification/verification_std_env.vhd) | verification | ✅ | ✅ | ✅ | ✅ | ✅ | ➖ | ➖ | ➖ |
 | [open in aggregates — leave aggregate elements unconnected](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/aggregates/aggregates_open_in_aggregates.vhd) | aggregates | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | [Default values for generic types — generic type with optional default](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/generics/generics_default_types.vhd) | generics | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
 | [numeric_std_signed — signed arithmetic on std_logic_vector without casting](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/packages/packages_numeric_std_signed.vhd) | packages | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ | ❌ |
+| [External names targeting arrays and records — UVVM signal spying pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_external_names.vhd) | uvvm | ⬜ | ⬜ | ⬜ | ⬜ | ⬜ | ➖ | ➖ | ➖ |
 | **VHDL-2019** | |||||||||
 | [LCS2016-050: Full assert API — IsVhdlAssertFailed, GetVhdlAssertCount, SetVhdlAssertFormat](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/assert_api/assert_api_lcs050_full_api.vhd) | assert_api | ❌ | ✅ | ❌ | ✅ | ✅ | ➖ | ➖ | ➖ |
 | [LCS2016-081: Optional report clause in assert — assert without message string](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2019/assert_api/assert_api_lcs081_no_message.vhd) | assert_api | ❌ | ✅ | ❌ | ✅ | ✅ | ➖ | ➖ | ➖ |
@@ -213,14 +216,18 @@ VHDL engines: xvhdl/xsim (Verific parser) vs synth_design.
 UVVM (Universal VHDL Verification Methodology) is the leading
 open-source VHDL verification framework. As of 2026-06-29,
 **uvvm_util (20 files) and uvvm_vvc_framework (8 files) compile
-and run on xsim 2026.1**. A minimal UVVM testbench with logging,
-alerts, and check_value executes successfully.
+and run on xsim 2026.1** after patching `std.env.resolution_limit` →
+`(1 ps)`. Three confirmed VHDL-2008 gaps block unpatched UVVM on xsim:
 
-The only confirmed VHDL language blocker for xsim is **external
-names** (`<< signal >>`), which are required by some VIPs but
-NOT by the UVVM core libraries. Multi-library compilation
-(same file into different libraries) is a Vivado tool limitation
-that affects VVC setup scripts but not VHDL compliance.
+1. `std.env.resolution_limit` returns a non-positive value — breaks
+   VVC `p_unwanted_activity` delta-deferral (TB_ERROR at 0 ps).
+2. Composite `inout` port default not applied to unassigned driver
+   elements — causes `ready='X'` conflict in SBI BFM (FAILURE at 105 ns).
+3. External names (`<< signal >>`) — used by VIP-level testbench
+   aliases, not by UVVM core libraries.
+
+See [docs/xsim-uvvm.md](../blob/main/docs/xsim-uvvm.md) for the full
+analysis and regression tests.
 
 | Feature | Standard | Altera<br>ModelSim<br>Starter<br>2020.1<br>(sim) | Altera<br>Questa<br>Starter<br>2025.3<br>(sim) | Vivado<br>2023.2<br>(sim) | Vivado<br>2025.2<br>(sim) | Vivado<br>2026.1<br>(sim) | Description |
 |---------|----------|---|---|---|---|---|-----------|
@@ -229,4 +236,6 @@ that affects VVC setup scripts but not VHDL compliance.
 | [to_string / to_bstring / to_hstring / to_ostring — formatted string conversion](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/misc/misc_to_string.vhd) | VHDL-2008 | ✅ | ✅ | ✅ | ✅ | ✅ | Working — UVVM uses string formatting for log messages |
 | [Unconstrained arrays of unconstrained vectors — UVVM data type pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_unconstrained_array.vhd) | VHDL-2008 | ✅ | ✅ | ✅ | ✅ | ✅ | Working — type slv_array is array(<>) of std_logic_vector |
 | [Protected types with internal access types — UVVM dynamic data pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_protected_access.vhd) | VHDL-2008 | ✅ | ✅ | ✅ | ✅ | ✅ | Working — allocate/deallocate in PTs (UVVM command queue) |
-| [External names targeting arrays and records — UVVM signal spying pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_external_names.vhd) | VHDL-2008 | ✅ | ✅ | ❌ | ❌ | ❌ | BLOCKER — << signal >> not on xsim (VIP BFMs only, not core) |
+| [FT (std.env): std.env.resolution_limit returns a positive delay — UVVM delta-settle idiom](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_resolution_limit.vhd) | VHDL-2008 | ✅ | ✅ | ✅ | ❌ | ❌ | BLOCKER — resolution_limit non-positive on xsim (UVVM p_unwanted_activity) |
+| [FT (unconstrained record elements + port default): Default value of a composite inout port driver — UVVM BFM/VVC interface pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_inout_default_driver.vhd) | VHDL-2008 | ✅ | ✅ | ❌ | ❌ | ❌ | BLOCKER — inout composite port default Z not applied on xsim (driver conflict) |
+| [External names targeting arrays and records — UVVM VVC-testbench aliasing pattern](https://github.com/baverrud/vhdl-compat/blob/main/tests/vhdl2008/uvvm/uvvm_external_names.vhd) | VHDL-2008 | ✅ | ✅ | ❌ | ❌ | ❌ | BLOCKER — << signal >> not on xsim (VVC testbench aliases, not core) |

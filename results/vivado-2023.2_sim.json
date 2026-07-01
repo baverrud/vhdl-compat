@@ -3,12 +3,12 @@
   "tool_version": "2023.2",
   "standard": "combined",
   "mode": "sim",
-  "timestamp": "2026-06-30T07:41:37.687834+00:00",
+  "timestamp": "2026-07-01T16:59:33.643907+00:00",
   "summary": {
-    "total": 96,
-    "pass": 34,
+    "total": 98,
+    "pass": 35,
     "partial": 0,
-    "fail": 62
+    "fail": 63
   },
   "results": {
     "vhdl2000/protected_types/protected_types_counter.vhd@sim": {
@@ -470,7 +470,7 @@
     "vhdl2008/uvvm/uvvm_external_names.vhd@sim": {
       "status": "fail",
       "standard": "VHDL-2008",
-      "feature": "External names targeting arrays and records \u2014 UVVM signal spying pattern",
+      "feature": "External names targeting arrays and records \u2014 UVVM VVC-testbench aliasing pattern",
       "category": "uvvm",
       "test_type": "sim",
       "xref": "",
@@ -478,6 +478,18 @@
       "comment": "Elaboration failed",
       "compile_time_ms": 0.0,
       "sim_time_ms": 0.0
+    },
+    "vhdl2008/uvvm/uvvm_inout_default_driver.vhd@sim": {
+      "status": "fail",
+      "standard": "VHDL-2008",
+      "feature": "Default value of a composite inout port driver \u2014 UVVM BFM/VVC interface pattern",
+      "category": "uvvm",
+      "test_type": "sim",
+      "xref": "FT (unconstrained record elements + port default)",
+      "test_file": "vhdl2008/uvvm/uvvm_inout_default_driver.vhd",
+      "comment": "Error: FAIL: composite inout port default not applied - ready=''X'' (expected '1'). Driver conflicts with harness '1'.",
+      "compile_time_ms": 0.0,
+      "sim_time_ms": 6975.199222564697
     },
     "vhdl2008/uvvm/uvvm_protected_access.vhd@sim": {
       "status": "pass",
@@ -489,7 +501,19 @@
       "test_file": "vhdl2008/uvvm/uvvm_protected_access.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 6930.008172988892
+      "sim_time_ms": 6922.584533691406
+    },
+    "vhdl2008/uvvm/uvvm_resolution_limit.vhd@sim": {
+      "status": "pass",
+      "standard": "VHDL-2008",
+      "feature": "std.env.resolution_limit returns a positive delay \u2014 UVVM delta-settle idiom",
+      "category": "uvvm",
+      "test_type": "sim",
+      "xref": "FT (std.env)",
+      "test_file": "vhdl2008/uvvm/uvvm_resolution_limit.vhd",
+      "comment": "",
+      "compile_time_ms": 0.0,
+      "sim_time_ms": 6884.209394454956
     },
     "vhdl2008/uvvm/uvvm_unconstrained_array.vhd@sim": {
       "status": "pass",
@@ -501,7 +525,7 @@
       "test_file": "vhdl2008/uvvm/uvvm_unconstrained_array.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 6954.061985015869
+      "sim_time_ms": 7120.129108428955
     },
     "vhdl2008/verification/verification_external_names.vhd@sim": {
       "status": "fail",

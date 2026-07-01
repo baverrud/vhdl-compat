@@ -97,8 +97,51 @@ class RunResult:
             }
         }
 
+    @classmethod
+    def load_json(cls, path: Path) -> Optional["RunResult"]:
+        """Load results from a JSON file. Returns None if file does not exist."""
+        if not path.exists():
+            return None
+        data = json.loads(path.read_text(encoding="utf-8"))
+        rr = cls(
+            tool_name=data.get("tool_name", ""),
+            tool_version=data.get("tool_version", ""),
+            standard=data.get("standard", ""),
+            mode=data.get("mode", ""),
+            timestamp=data.get("timestamp", ""),
+        )
+        for key, rd in data.get("results", {}).items():
+            tr = TestResult(
+                test_file=rd.get("test_file", ""),
+                feature=rd.get("feature", ""),
+                standard=rd.get("standard", ""),
+                category=rd.get("category", ""),
+                test_type=rd.get("test_type", ""),
+                mode=rd.get("mode", rr.mode),
+                xref=rd.get("xref", ""),
+                status=TestStatus(rd.get("status", "untested")),
+                comment=rd.get("comment", ""),
+                errors_raw=rd.get("errors_raw", ""),
+                compile_time_ms=rd.get("compile_time_ms", 0.0),
+                sim_time_ms=rd.get("sim_time_ms", 0.0),
+            )
+            rr.results[key] = tr
+        return rr
+
     def save_json(self, path: Path) -> None:
-        """Write results to a JSON file."""
+        """Merge new results with any existing file, then save.
+
+        Existing results for tests NOT in this run are preserved unchanged.
+        The standard is set to "combined" (individual results carry their own
+        standard) and the timestamp is updated to now.
+        """
         path.parent.mkdir(parents=True, exist_ok=True)
+        # Load existing results if any
+        existing = RunResult.load_json(path)
+        if existing:
+            # Keep existing results for tests we didn't run; our results take priority
+            for key, r in existing.results.items():
+                if key not in self.results:
+                    self.results[key] = r
         data = self.to_dict()
         path.write_text(json.dumps(data, indent=2), encoding="utf-8")

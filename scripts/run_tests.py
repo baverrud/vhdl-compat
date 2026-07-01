@@ -366,15 +366,24 @@ def main(argv: Optional[List[str]] = None) -> int:
     # Filter to single file if --file is specified
     if args.file:
         target = args.file.replace("\\", "/")
-        all_tests = [t for t in all_tests if t.relative_path.replace("\\", "/") == target]
+        all_tests = {k: v for k, v in all_tests.items() if v.relative_path.replace("\\", "/") == target}
         if not all_tests:
             print(f"Test not found: {args.file}")
             print(f"Use --list to see available tests.")
             return 1
         # Auto-detect standards/modes from the selected test
         if not args.standards:
-            test_std = _normalize_standard(all_tests[0].standard)
+            test_std = _normalize_standard(next(iter(all_tests.values())).standard)
             args.standards = [test_std]
+
+    # Filter by category if --category is specified
+    if args.category:
+        categories = set(c.lower() for c in args.category)
+        all_tests = {k: v for k, v in all_tests.items() if v.category.lower() in categories}
+        if not all_tests:
+            print(f"No tests matching categories: {args.category}")
+            print(f"Use --list to see available tests.")
+            return 1
 
     # Determine standards to test
     standards = args.standards or ["2008", "2019"]

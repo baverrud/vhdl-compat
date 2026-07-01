@@ -3,12 +3,12 @@
   "tool_version": "2025.2",
   "standard": "combined",
   "mode": "sim",
-  "timestamp": "2026-06-30T06:53:35.745643+00:00",
+  "timestamp": "2026-07-01T16:59:04.859229+00:00",
   "summary": {
-    "total": 96,
+    "total": 98,
     "pass": 67,
     "partial": 0,
-    "fail": 29
+    "fail": 31
   },
   "results": {
     "vhdl2000/protected_types/protected_types_counter.vhd@sim": {
@@ -470,7 +470,7 @@
     "vhdl2008/uvvm/uvvm_external_names.vhd@sim": {
       "status": "fail",
       "standard": "VHDL-2008",
-      "feature": "External names targeting arrays and records \u2014 UVVM signal spying pattern",
+      "feature": "External names targeting arrays and records \u2014 UVVM VVC-testbench aliasing pattern",
       "category": "uvvm",
       "test_type": "sim",
       "xref": "",
@@ -478,6 +478,18 @@
       "comment": "Elaboration failed",
       "compile_time_ms": 0.0,
       "sim_time_ms": 0.0
+    },
+    "vhdl2008/uvvm/uvvm_inout_default_driver.vhd@sim": {
+      "status": "fail",
+      "standard": "VHDL-2008",
+      "feature": "Default value of a composite inout port driver \u2014 UVVM BFM/VVC interface pattern",
+      "category": "uvvm",
+      "test_type": "sim",
+      "xref": "FT (unconstrained record elements + port default)",
+      "test_file": "vhdl2008/uvvm/uvvm_inout_default_driver.vhd",
+      "comment": "Error: FAIL: composite inout port default not applied - ready=''X'' (expected '1'). Driver conflicts with harness '1'.",
+      "compile_time_ms": 0.0,
+      "sim_time_ms": 5356.860399246216
     },
     "vhdl2008/uvvm/uvvm_protected_access.vhd@sim": {
       "status": "pass",
@@ -489,7 +501,19 @@
       "test_file": "vhdl2008/uvvm/uvvm_protected_access.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5491.665840148926
+      "sim_time_ms": 5446.434020996094
+    },
+    "vhdl2008/uvvm/uvvm_resolution_limit.vhd@sim": {
+      "status": "fail",
+      "standard": "VHDL-2008",
+      "feature": "std.env.resolution_limit returns a positive delay \u2014 UVVM delta-settle idiom",
+      "category": "uvvm",
+      "test_type": "sim",
+      "xref": "FT (std.env)",
+      "test_file": "vhdl2008/uvvm/uvvm_resolution_limit.vhd",
+      "comment": "Error: FAIL: resolution_limit must be > 0 but was 0 ps - 'wait for std.env.resolution_limit' (UVVM p_unwanted_activity) breaks",
+      "compile_time_ms": 0.0,
+      "sim_time_ms": 5312.223434448242
     },
     "vhdl2008/uvvm/uvvm_unconstrained_array.vhd@sim": {
       "status": "pass",
@@ -501,7 +525,7 @@
       "test_file": "vhdl2008/uvvm/uvvm_unconstrained_array.vhd",
       "comment": "",
       "compile_time_ms": 0.0,
-      "sim_time_ms": 5560.8038902282715
+      "sim_time_ms": 5403.470754623413
     },
     "vhdl2008/verification/verification_external_names.vhd@sim": {
       "status": "fail",

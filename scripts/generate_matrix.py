@@ -463,14 +463,18 @@ def generate_uvvm_appendix(all_reports: Dict[str, dict]) -> str:
     lines.append("UVVM (Universal VHDL Verification Methodology) is the leading")
     lines.append("open-source VHDL verification framework. As of 2026-06-29,")
     lines.append("**uvvm_util (20 files) and uvvm_vvc_framework (8 files) compile")
-    lines.append("and run on xsim 2026.1**. A minimal UVVM testbench with logging,")
-    lines.append("alerts, and check_value executes successfully.")
+    lines.append("and run on xsim 2026.1** after patching `std.env.resolution_limit` →")
+    lines.append("`(1 ps)`. Three confirmed VHDL-2008 gaps block unpatched UVVM on xsim:")
     lines.append("")
-    lines.append("The only confirmed VHDL language blocker for xsim is **external")
-    lines.append("names** (`<< signal >>`), which are required by some VIPs but")
-    lines.append("NOT by the UVVM core libraries. Multi-library compilation")
-    lines.append("(same file into different libraries) is a Vivado tool limitation")
-    lines.append("that affects VVC setup scripts but not VHDL compliance.")
+    lines.append("1. `std.env.resolution_limit` returns a non-positive value — breaks")
+    lines.append("   VVC `p_unwanted_activity` delta-deferral (TB_ERROR at 0 ps).")
+    lines.append("2. Composite `inout` port default not applied to unassigned driver")
+    lines.append("   elements — causes `ready='X'` conflict in SBI BFM (FAILURE at 105 ns).")
+    lines.append("3. External names (`<< signal >>`) — used by VIP-level testbench")
+    lines.append("   aliases, not by UVVM core libraries.")
+    lines.append("")
+    lines.append("See [docs/xsim-uvvm.md](../blob/main/docs/xsim-uvvm.md) for the full")
+    lines.append("analysis and regression tests.")
     lines.append("")
 
     # Determine column order matching the main matrix
@@ -514,9 +518,15 @@ def generate_uvvm_appendix(all_reports: Dict[str, dict]) -> str:
         ("Protected types with internal access types — UVVM dynamic data pattern",
          "uvvm", "2008",
          "Working — allocate/deallocate in PTs (UVVM command queue)"),
-        ("External names targeting arrays and records — UVVM signal spying pattern",
+        ("std.env.resolution_limit returns a positive delay — UVVM delta-settle idiom",
          "uvvm", "2008",
-         "BLOCKER — << signal >> not on xsim (VIP BFMs only, not core)"),
+         "BLOCKER — resolution_limit non-positive on xsim (UVVM p_unwanted_activity)"),
+        ("Default value of a composite inout port driver — UVVM BFM/VVC interface pattern",
+         "uvvm", "2008",
+         "BLOCKER — inout composite port default Z not applied on xsim (driver conflict)"),
+        ("External names targeting arrays and records — UVVM VVC-testbench aliasing pattern",
+         "uvvm", "2008",
+         "BLOCKER — << signal >> not on xsim (VVC testbench aliases, not core)"),
     ]
 
     # Build header row matching main matrix columns
