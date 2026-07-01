@@ -1,18 +1,23 @@
 -- ============================================================================
 -- STD: VHDL-2008
--- FEATURE: External names targeting arrays and records — UVVM signal spying pattern
+-- FEATURE: External names targeting arrays and records — UVVM VVC-testbench aliasing pattern
 -- CATEGORY: uvvm
 -- SYNTH_ENTITY: uvvm_external_names
 -- TEST_TYPE: sim
 -- DESCRIPTION:
---   UVVM's Bus Functional Models (BFMs) use VHDL-2008 external names
---   (hierarchical signal access) to spy on DUT internal signals without
---   modifying the DUT. This is critical for non-intrusive verification.
+--   UVVM's VVC-level testbenches (bitvis_vip_*/tb/maintenance_tb/*_vvc_tb.vhd)
+--   use VHDL-2008 external names to alias internal signals of the test harness
+--   so the test sequencer can reference them without adding ports, e.g.:
+--     alias dut_txd is << signal i_test_harness.dut_txd : std_logic_vector >>;
+--   NOTE: this is a testbench-layer construct — UVVM's BFM/VVC *source* does
+--   not use external names at all.
 --
---   UVVM needs to access not just simple scalar signals but also:
---     - Array elements:   << signal .tb.dut.reg_file(3) : slv >>
---     - Record fields:    << signal .tb.dut.status.ready : std_logic >>
---     - Nested hierarchy: << signal .tb.dut.core.cache.line : slv >>
+--   Real UVVM usage is the aliased form above, and the aliased target is often
+--   a composite signal (records such as t_sbi_if, or vectors). This test
+--   mirrors that by aliasing:
+--     - a record field:  << signal uut.status.ready : std_logic >>
+--     - a whole array:   << signal uut.reg_file : reg_array >>
+--     - a whole record:  << signal uut.status : status_t >>
 --
 --   Vivado xsim is known to have limited external name support — it may
 --   handle simple scalar paths but fail on arrays, records, or nested
@@ -123,7 +128,7 @@ begin
   begin
     report "==============================================" severity note;
     report "TEST: External names on arrays and records" severity note;
-    report "STD:  VHDL-2008 (UVVM signal spying pattern)" severity note;
+    report "STD:  VHDL-2008 (UVVM VVC-testbench aliasing pattern)" severity note;
     report "==============================================" severity note;
 
     -- Reset
@@ -182,7 +187,8 @@ begin
 
 end architecture;
 
--- TAKEAWAY: VHDL-2008 external names (<< signal .path >>) allow non-intrusive
--- access to DUT internals. UVVM uses this for BFM signal spying. Vivado xsim
+-- TAKEAWAY: VHDL-2008 external names (alias x is << signal .path : type >>)
+-- allow non-intrusive access to harness/DUT internals. UVVM uses this in its
+-- VVC-level maintenance testbenches (not in BFM/VVC source). Vivado xsim
 -- historically struggles with external names targeting anything beyond simple
 -- scalar signals — arrays, records, and nested paths often fail.
